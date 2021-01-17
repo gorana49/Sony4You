@@ -1,0 +1,54 @@
+version: '3.3'
+
+services:
+    load-balancer:
+        build: 
+            context: ./load-balancer
+            dockerfile: Dockerfile
+        ports: 
+            - 80:80
+        depends_on:
+        - front
+        restart: always
+    front:
+        image: angulardocker
+        build:
+            context: ./front
+            dockerfile: Dockerfile
+        depends_on:
+            - back
+        volumes:
+            - "./redis-vol:/data:rw"
+    redis:
+        image: redis:latest
+        command: bash -c "redis-server --appendonly yes"
+        volumes:
+            - "./redis-vol:/data:rw"
+    neo4j:
+        image: neo4j:3.5
+        restart: unless-stopped
+    # ports:
+    #   - 7474:7474
+    #   - 7687:7687
+        volumes:
+           - ./conf:/conf
+           - ./data:/data
+           - ./import:/import
+           - ./logs:/logs
+           - ./plugins:/plugins
+        environment: 
+      # Raise memory limits
+            - NEO4J_dbms_memory_pagecache_size=1G
+            - NEO4J_dbms.memory.heap.initial_size=1G
+            - NEO4J_dbms_memory_heap_max__size=1G
+    back:
+        image: aspdocker
+        build:
+            context: ./back
+            dockerfile: Dockerfile
+        depends_on:
+          - redis
+        volumes:
+          - "./redis-vol:/data:rw"
+volumes:
+    redis-vol:
