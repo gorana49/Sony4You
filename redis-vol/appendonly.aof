@@ -1,0 +1,40 @@
+*2
+$6
+SELECT
+$1
+0
+*3
+$6
+SCRIPT
+$4
+LOAD
+$247
+
+                redis.call('HMSET', KEYS[1], 'absexp', ARGV[1], 'sldexp', ARGV[2], 'data', ARGV[4])
+                if ARGV[3] ~= '-1' then
+                  redis.call('EXPIRE', KEYS[1], ARGV[3])
+                end
+                return 1
+*1
+$5
+MULTI
+*8
+$5
+HMSET
+$7
+TheTime
+$6
+absexp
+$2
+-1
+$6
+sldexp
+$2
+-1
+$4
+data
+$19
+01/17/2021 18:40:44
+*1
+$4
+EXEC
