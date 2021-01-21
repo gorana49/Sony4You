@@ -6,7 +6,7 @@ services:
             context: ./load-balancer
             dockerfile: Dockerfile
         ports: 
-            - 80:80
+            - 8000:80
         depends_on:
         - front
         restart: always
