@@ -14,12 +14,14 @@ namespace back.Controllers
     public class ReneterController : ControllerBase
     {
         private readonly ILogger<ReneterController> _logger;
+		private readonly IDistributedCache _distributedCache;
 		private readonly IDriver _driverNeo4J;
  
-        public ReneterController(ILogger<ReneterController> logger)
+        public ReneterController(ILogger<ReneterController> logger,IDistributedCache distributedCache, IDriver driverNeo4J)
         {
             _logger = logger;
-			
+            _distributedCache= distributedCache;
+			_driverNeo4J = driverNeo4J;
         }
 
 		[HttpGet]

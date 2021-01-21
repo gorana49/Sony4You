@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Neo4j.Driver;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
+using back.Repos;
+using back.IRepos;
 namespace back
 {
     public class Startup
@@ -35,6 +37,8 @@ namespace back
 
             services.AddStackExchangeRedisCache(options => options.Configuration = this.Configuration.GetConnectionString("redisServerUrl"));
             services.AddSingleton(GraphDatabase.Driver(this.Configuration.GetConnectionString("neo4JServerUrl"), AuthTokens.Basic("neo4J", "neo4J")));
+            services.AddScoped<INeo4jRepo, Neo4jRepo>();
+            services.AddScoped<IRedisRepo, RedisRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
