@@ -1,24 +1,24 @@
 version: '3.3'
 
 services:
-    # load-balancer:
-    #     build: 
-    #         context: ./load-balancer
-    #         dockerfile: Dockerfile
-    #     ports: 
-    #         - 8000:80
-    #     depends_on:
-    #     - front
-    #     restart: always
-    # front:
-    #     image: angulardocker
-    #     build:
-    #         context: ./front
-    #         dockerfile: Dockerfile
-    #     depends_on:
-    #         - back
-    #     volumes:
-    #         - "./redis-vol:/data:rw"
+    load-balancer:
+        build: 
+            context: ./load-balancer
+            dockerfile: Dockerfile
+        ports: 
+            - 8000:80
+        depends_on:
+        - front
+        restart: always
+    front:
+        image: angulardocker
+        build:
+            context: ./front
+            dockerfile: Dockerfile
+        depends_on:
+            - back
+        volumes:
+            - "./redis-vol:/data:rw"
     redis:
         image: redis:latest
         command: bash -c "redis-server --appendonly yes"
