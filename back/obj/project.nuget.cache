@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zRbvGuspNOv+uoNPhilWWyn0/J2E1x/lM8r5vQ55tRik3Sur7KyC9e8gpmnqeBuRyosOIdqzyAVAQWNx3ZjARQ==",
+  "dgSpecHash": "gChHWFcu3vudVshG0WrlcO2DU408KvzUEo4hsOT3glV1MaKw9f6DTYcTNwOQY9cZDQ7feJ/QhOg6U7/PAo6M6Q==",
   "success": true,
-  "projectFilePath": "/home/gorana/Documents/jdpFinal/back/back.csproj",
+  "projectFilePath": "/home/gorana/Documents/Sony/back/back.csproj",
   "expectedPackageFiles": [
     "/home/gorana/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/5.0.1/microsoft.aspnetcore.authentication.jwtbearer.5.0.1.nupkg.sha512",
     "/home/gorana/.nuget/packages/microsoft.aspnetcore.authentication.openidconnect/5.0.1/microsoft.aspnetcore.authentication.openidconnect.5.0.1.nupkg.sha512",

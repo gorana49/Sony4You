@@ -1,18 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "/home/gorana/Documents/jdpFinal/back/back.csproj": {}
+    "/home/gorana/Documents/Sony/back/back.csproj": {}
   },
   "projects": {
-    "/home/gorana/Documents/jdpFinal/back/back.csproj": {
+    "/home/gorana/Documents/Sony/back/back.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/gorana/Documents/jdpFinal/back/back.csproj",
+        "projectUniqueName": "/home/gorana/Documents/Sony/back/back.csproj",
         "projectName": "back",
-        "projectPath": "/home/gorana/Documents/jdpFinal/back/back.csproj",
+        "projectPath": "/home/gorana/Documents/Sony/back/back.csproj",
         "packagesPath": "/home/gorana/.nuget/packages/",
-        "outputPath": "/home/gorana/Documents/jdpFinal/back/obj/",
+        "outputPath": "/home/gorana/Documents/Sony/back/obj/",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
         "configFilePaths": [
           "/home/gorana/.nuget/NuGet/NuGet.Config"
         ],
