@@ -15,5 +15,21 @@ namespace back.Repos
         {
            _distributedCache= distributedCache;
         }
+
+        public async Task<string> GetTime()
+		{
+			var cacheKey = "TheTime";
+			var existingTime = _distributedCache.GetString(cacheKey);
+			if (!string.IsNullOrEmpty(existingTime))
+			{
+				return "Fetched from cache : " + existingTime;
+			}
+			else
+			{
+				existingTime = DateTime.UtcNow.ToString();
+				_distributedCache.SetString(cacheKey, existingTime);
+				return "Added to cache : " + existingTime;
+			}
+		}
     }
 }
