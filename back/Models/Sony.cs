@@ -1,16 +1,13 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace back.Models
 {
-    public class Sony{
+    public class Sony
+    {
         public int Id { get; set; }
         public string SerialNumber { get; set; }
-        public string Model { get; set; }
-        public int Available { get; set; }
-        public double Price { get; set; }
-        public int ProductionYear { get; set; }
-        
+        public string Type { get; set; }
+        public decimal Price { get; set; }
     }
 }
