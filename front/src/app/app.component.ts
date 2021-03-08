@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import * as ReconnectingWebSocket from 'reconnecting-websocket';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
