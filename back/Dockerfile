@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS base
+FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS base
 WORKDIR /app
 COPY back.csproj .
 RUN ["dotnet", "restore"]

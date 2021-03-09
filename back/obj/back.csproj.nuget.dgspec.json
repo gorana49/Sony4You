@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/gorana/Documents/Sony/back/back.csproj": {}
+    "/home/gorana/Documents/Sony4You/Sony4You/back/back.csproj": {}
   },
   "projects": {
-    "/home/gorana/Documents/Sony/back/back.csproj": {
+    "/home/gorana/Documents/Sony4You/Sony4You/back/back.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/gorana/Documents/Sony/back/back.csproj",
+        "projectUniqueName": "/home/gorana/Documents/Sony4You/Sony4You/back/back.csproj",
         "projectName": "back",
-        "projectPath": "/home/gorana/Documents/Sony/back/back.csproj",
+        "projectPath": "/home/gorana/Documents/Sony4You/Sony4You/back/back.csproj",
         "packagesPath": "/home/gorana/.nuget/packages/",
-        "outputPath": "/home/gorana/Documents/Sony/back/obj/",
+        "outputPath": "/home/gorana/Documents/Sony4You/Sony4You/back/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"
@@ -41,20 +41,6 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
-            "Microsoft.AspNetCore.Authentication.JwtBearer": {
-              "target": "Package",
-              "version": "[5.0.1, )",
-              "noWarn": [
-                "NU1605"
-              ]
-            },
-            "Microsoft.AspNetCore.Authentication.OpenIdConnect": {
-              "target": "Package",
-              "version": "[5.0.1, )",
-              "noWarn": [
-                "NU1605"
-              ]
-            },
             "Microsoft.Extensions.Caching.StackExchangeRedis": {
               "target": "Package",
               "version": "[5.0.1, )"
