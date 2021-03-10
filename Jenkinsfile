@@ -4,8 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-		echo "$JENKINS_URL"
-                echo 'Building..'
+		 docker-compose build
             }
         }
         stage('Test') {
