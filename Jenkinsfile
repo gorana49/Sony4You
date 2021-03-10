@@ -1,29 +1,12 @@
-pipeline {
-  agent none
+    pipeline {
 
-  stages {
-    stage("Test back end") {
-      agent {
-        dockerfile {
-          filename "back/Dockerfile"
+    agent any
+
+    stages {
+      stage(‘Build’) {
+        steps {
+          sh '/usr/local/bin/docker-compose up --build'
         }
       }
-
-      steps {
-        echo "docker ne radi"
-      }
     }
-
-    stage("Test front end") {
-      agent {
-        dockerfile {
-          filename "front/Dockerfile"
-        }
-      }
-
-      steps {
-         echo 'Frontend is running'
-      }
-    }
-  }
 }
