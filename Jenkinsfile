@@ -1,21 +1,29 @@
 pipeline {
-    agent any
+  agent none
 
-    stages {
-        stage('Build') {
-            steps {
-		  sh "docker-compose build"
-            }
+  stages {
+    stage("Test back end") {
+      agent {
+        dockerfile {
+          filename "back/Dockerfile"
         }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
+      }
+
+      steps {
+        sh "docker build ."
+      }
     }
+
+    stage("Test front end") {
+      agent {
+        dockerfile {
+          filename "front/Dockerfile"
+        }
+      }
+
+      steps {
+         sh "docker build ."
+      }
+    }
+  }
 }
