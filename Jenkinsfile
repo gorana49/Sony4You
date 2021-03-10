@@ -10,8 +10,7 @@ pipeline {
       }
 
       steps {
-        sh "docker-machine rm default"
-        sh "docker ps"
+        echo "docker ne radi"
       }
     }
 
