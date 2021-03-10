@@ -10,7 +10,7 @@ pipeline {
       }
 
       steps {
-        sh "docker build ."
+        sh "docker ps"
       }
     }
 
@@ -22,7 +22,7 @@ pipeline {
       }
 
       steps {
-         sh "docker build ."
+         echo 'Frontend is running'
       }
     }
   }
