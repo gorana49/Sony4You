@@ -1,13 +1,13 @@
 node {    
       def app   
-      def back  
       stage('Clone repository') {               
              
             checkout scm    
       }           
-      stage('Build back') {         
-            back = app.back;
-            back = docker.build("latest1")    
+      stage('Build back') {      
+            sh "cd back"
+            sh "du"   
+            app = docker.build("latest1")    
        }           
       stage('Test image') {                       
             app.inside {             
