@@ -5,9 +5,8 @@ node {
             checkout scm    
       }           
       stage('Build back') {      
-            sh "cd back"
             sh "du"   
-            app = docker.build("latest1")    
+            app = docker.build("my-image", "-f ${Dockerfile} ./back")
        }           
       stage('Test image') {                       
             app.inside {             
