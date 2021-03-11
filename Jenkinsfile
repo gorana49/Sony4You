@@ -5,7 +5,6 @@ node {
             checkout scm    
       }           
       stage('Build back') {       
-            sh "systemctl restart docker"
             app = docker.build("my-image -f ./back")
        }           
       stage('Test image') {                       
@@ -14,7 +13,7 @@ node {
             }    
       }
       stage('Push image') {
-              docker.withRegistry('http://localhost:5000', 'git') 
+              docker.withRegistry('http://localhost:5000') 
               {                   app.push("${env.BUILD_NUMBER}")            
        app.push("latest")        
               }    
