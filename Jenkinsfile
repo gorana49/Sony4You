@@ -6,6 +6,7 @@ node {
       }           
       stage('Build back') {      
             sh "du"   
+            sh "sudo systemctl restart docker"
             app = docker.build("my-image -f ./back")
        }           
       stage('Test image') {                       
