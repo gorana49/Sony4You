@@ -4,9 +4,8 @@ node {
              
             checkout scm    
       }           
-      stage('Build back') {      
-            sh "du"   
-            sh "sudo systemctl restart docker"
+      stage('Build back') {       
+            sh "systemctl restart docker"
             app = docker.build("my-image -f ./back")
        }           
       stage('Test image') {                       
