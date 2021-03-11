@@ -5,8 +5,8 @@ node {
             checkout scm    
       }           
       stage('Build back') {         
-       
-            app = docker.build("./back")    
+            sh "du"
+            app = docker.build("Sony4You/back")    
        }           
       stage('Test image') {                       
             app.inside {             
