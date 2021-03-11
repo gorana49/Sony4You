@@ -6,7 +6,7 @@ node {
       }           
       stage('Build back') {      
             sh "du"   
-            app = docker.build("my-image", "-f ${Dockerfile} ./back")
+            app = docker.build("my-image", "-f ./back")
        }           
       stage('Test image') {                       
             app.inside {             
