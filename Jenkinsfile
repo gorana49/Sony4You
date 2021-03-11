@@ -6,7 +6,7 @@ node {
       }           
       stage('Build back') {         
             sh "du"
-            app = docker.build("Sony4You/back")    
+            app = docker.build("latest1")    
        }           
       stage('Test image') {                       
             app.inside {             
