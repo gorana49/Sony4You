@@ -6,7 +6,7 @@ node {
       }   
       stage('Building Docker Image') {
 
-      sh "docker-compose build"
+      'sh docker-compose build'
 //    # Creating and running the first one
 //    dir ('/path/to/your/directory2') {
 //       sh 'docker build --<docker-options> -t $DOCKER_IMAGE_NAME_2 .'
