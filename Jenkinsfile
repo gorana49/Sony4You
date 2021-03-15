@@ -7,18 +7,8 @@ node {
       stage('Build & Push') {
       //'sh docker-compose build'
       //"sh docker build -t localhost:5000/back:latest -f ./back"
-      // sh "docker build -t back:${BUILD_NUMBER} ./back"
-      // sh "docker build -t front:${BUILD_NUMBER} ./front"
-      docker.withRegistry('http://localhost:5000') {
-                  dir(./back){
-                  def customBack = docker.build("localhost:5000/back:${BUILD_NUMBER}")
-                   customBack.push();
-                  }
-                   def customFront = docker.build("docker build -t front:${BUILD_NUMBER} ./front");
-                  
-                   customFront.push();
-                }
-      }        
+       sh "docker build -t back:${BUILD_NUMBER} ./back"
+       sh "docker build -t front:${BUILD_NUMBER} ./front"
       stage('Test') {       
             "sh docker run back:${BUILD_NUMBER}"
             "sh docker run front:${BUILD_NUMBER}"
@@ -28,6 +18,18 @@ node {
             echo 'Done'
       }
 }
+
+
+// docker.withRegistry('http://localhost:5000') {
+//                   dir(./back){
+//                   def customBack = docker.build("localhost:5000/back:${BUILD_NUMBER}")
+//                    customBack.push();
+//                   }
+//                    def customFront = docker.build("docker build -t front:${BUILD_NUMBER} ./front");
+                  
+//                    customFront.push();
+//                 }
+//       }        
 // pipeline {
 //         agent any
 //         stages {
