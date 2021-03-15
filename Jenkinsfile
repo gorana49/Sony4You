@@ -8,7 +8,8 @@ node {
 
       //'sh docker-compose build'
 
-      "sh docker build -t localhost:5000/back${BUILD_NUMBER} -f ./back"
+      "sh docker build --name=back -f ./back"
+      "sh docker tag back localhost:5000/back:${BUILD_NUMBER}"
       "sh docker push localhost:5000/back${BUILD_NUMBER}"
       // def customBack = docker.build("back:${BUILD_NUMBER} -f ./back");
       // def customFront = docker.build("front:${BUILD_NUMBER} -f ./front");
