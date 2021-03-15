@@ -3,19 +3,43 @@ node {
       stage('Clone repository') {               
              
             checkout scm    
-      }           
-      stage('Build back') {       
-            app = docker.build("my-image -f ./back")
-       }           
-      stage('Test image') {                       
-            app.inside {             
-             sh 'echo "Tests passed"'        
-            }    
+      }   
+      stage('Building Docker Image') {
+      dir ('./back') {
+      sh "docker build -t myImage:${BUILD_VERSION} ."
+      echo 'Build back succ'
       }
-      stage('Push image') {
-              docker.withRegistry('http://localhost:5000') 
-              {                   app.push("${env.BUILD_NUMBER}")            
-       app.push("latest")        
-              }    
-           }
-        }
+//    # Creating and running the first one
+//    dir ('/path/to/your/directory2') {
+//       sh 'docker build --<docker-options> -t $DOCKER_IMAGE_NAME_2 .'
+//       sh 'docker run $DOCKER_IMAGE_NAME_2'
+//    }
+      }        
+      stage('Test') {       
+            // app = docker.build("my-image -f ./back")
+            echo 'Done'
+       }           
+      stage('Deploy') {                       
+            echo 'Done'
+      }
+}
+// pipeline {
+//         agent any
+//         stages {
+//             stage('Build & Push images') {
+//                 steps {
+//                   echo 'Starting to build images.'
+//                   docker.withRegistry('http://localhost:5000') {
+//                   def customImage = docker.build("repository/back:${BUILD_VERSION} -f ./back")
+//                   customImage.push "${env.BUILD_VERSION}"
+//                   }
+//                      dir ('./back') {
+//                         sh 'docker build --name = back -t latest .'
+//                         // sh 'docker run $DOCKER_IMAGE_NAME_2'
+//                         }
+
+//                     }
+//                 }
+//             }
+//         }
+//     }
