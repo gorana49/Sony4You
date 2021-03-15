@@ -6,7 +6,9 @@ node {
       }   
       stage('Building Docker Image') {
 
-      'sh docker-compose build'
+      //'sh docker-compose build'
+      def customBack = docker.build("back:${BUILD_NUMBER} -f ./back");
+      def customFront = docker.build("front:${BUILD_NUMBER} -f ./front");
 //    # Creating and running the first one
 //    dir ('/path/to/your/directory2') {
 //       sh 'docker build --<docker-options> -t $DOCKER_IMAGE_NAME_2 .'
