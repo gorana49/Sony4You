@@ -5,21 +5,14 @@ node {
             checkout scm    
       }   
       stage('Building Docker Image') {
-
       //'sh docker-compose build'
-
-      "sh docker build -t localhost:5000/back:latest -f ./back"
-      "sh docker push localhost:5000/back:latest"
-      // def customBack = docker.build("back:${BUILD_NUMBER} -f ./back");
-      // def customFront = docker.build("front:${BUILD_NUMBER} -f ./front");
-//    # Creating and running the first one
-//    dir ('/path/to/your/directory2') {
-//       sh 'docker build --<docker-options> -t $DOCKER_IMAGE_NAME_2 .'
-//       sh 'docker run $DOCKER_IMAGE_NAME_2'
-//    }
+      //"sh docker build -t localhost:5000/back:latest -f ./back"
+      "sh docker build -t back:${BUILD_NUMBER} -f ./back"
+      "sh docker build -t front:${BUILD_NUMBER} -f ./front"
       }        
       stage('Test') {       
-            // app = docker.build("my-image -f ./back")
+            "sh docker run back:${BUILD_NUMBER}"
+            "sh docker run front:${BUILD_NUMBER}"
             echo 'Done'
        }           
       stage('Deploy') {                       
@@ -46,3 +39,10 @@ node {
 //             }
 //         }
 //     }
+     // "sh docker push localhost:5000/back:latest"
+      // def customBack = docker.build("back:${BUILD_NUMBER} -f ./back");
+      // def customFront = docker.build("front:${BUILD_NUMBER} -f ./front");
+//    # Creating and running the first one
+//    dir ('/path/to/your/directory2') {
+//       sh 'docker build --<docker-options> -t $DOCKER_IMAGE_NAME_2 .'
+//       sh 'docker run $DOCKER_IMAGE_NAME_2'
