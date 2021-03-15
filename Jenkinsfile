@@ -10,9 +10,12 @@ node {
       // sh "docker build -t back:${BUILD_NUMBER} ./back"
       // sh "docker build -t front:${BUILD_NUMBER} ./front"
       docker.withRegistry('http://localhost:5000') {
-                   def customBack = docker.build("localhost:5000/back:${BUILD_NUMBER} ./back")
-                   def customFront = docker.build("docker build -t front:${BUILD_NUMBER} ./front");
+                  dir(./back){
+                  def customBack = docker.build("localhost:5000/back:${BUILD_NUMBER}")
                    customBack.push();
+                  }
+                   def customFront = docker.build("docker build -t front:${BUILD_NUMBER} ./front");
+                  
                    customFront.push();
                 }
       }        
