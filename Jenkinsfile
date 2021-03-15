@@ -7,8 +7,8 @@ node {
       stage('Building Docker Image') {
       //'sh docker-compose build'
       //"sh docker build -t localhost:5000/back:latest -f ./back"
-      "sh docker build -t back:${BUILD_NUMBER} -f ./back"
-      "sh docker build -t front:${BUILD_NUMBER} -f ./front"
+      sh "docker build -t back:${BUILD_NUMBER} -f ./back"
+      sh "docker build -t front:${BUILD_NUMBER} -f ./front"
       }        
       stage('Test') {       
             "sh docker run back:${BUILD_NUMBER}"
