@@ -6,6 +6,7 @@ node {
       stage('Build & Push') {
             sh "docker build -t back:${BUILD_NUMBER} ./back"
             sh "docker build -t front:${BUIL_NUMBER} ./front"
+      }
       stage('Test') {       
             "sh docker run back:${BUILD_NUMBER}"
             "sh docker run front:${BUILD_NUMBER}"
