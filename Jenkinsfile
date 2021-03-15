@@ -5,10 +5,8 @@ node {
             checkout scm    
       }   
       stage('Building Docker Image') {
-      dir ('./back') {
-      sh "docker build -t myImage:${BUILD_VERSION} ."
-      echo 'Build back succ'
-      }
+
+      sh "docker-compose build"
 //    # Creating and running the first one
 //    dir ('/path/to/your/directory2') {
 //       sh 'docker build --<docker-options> -t $DOCKER_IMAGE_NAME_2 .'
