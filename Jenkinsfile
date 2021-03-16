@@ -9,7 +9,7 @@ node {
            // sh "docker build -t front:${BUIL_NUMBER} ./front"
       }
       stage('Test') {       
-            sh "docker run back:${BUILD_NUMBER}"
+            sh "docker run 172.18.0.4:5000/back:${BUILD_NUMBER}"
            // sh "docker run front:${BUILD_NUMBER}"
             echo 'Done'
        }           
