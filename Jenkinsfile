@@ -4,12 +4,12 @@ node {
             checkout scm    
       }   
       stage('Build & Push') {
-            sh "docker build -t 172.18.0.4:5000/back:${BUILD_NUMBER} ./back"
+            sh "docker build -t back:${BUILD_NUMBER} ./back"
            // sh "docker push localhost:5000/back:${BUILD_NUMBER}"
            // sh "docker build -t front:${BUIL_NUMBER} ./front"
       }
       stage('Test') {       
-            sh "docker run 172.18.0.4:5000/back:${BUILD_NUMBER}"
+            sh "docker run back:${BUILD_NUMBER}"
            // sh "docker run front:${BUILD_NUMBER}"
             echo 'Done'
        }           
