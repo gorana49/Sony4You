@@ -13,7 +13,7 @@ node {
        }           
       stage('Deploy') {     
           //  sh "docker kill localhost:5000/back:${BUILD_NUMBER-1}"
-            sh "docker run back:${BUILD_NUMBER}"       
+            sh "docker run localhost:5000/back:${BUILD_NUMBER}"       
             echo 'Done'
       }
 }
