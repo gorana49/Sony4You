@@ -4,18 +4,16 @@ node {
             checkout scm    
       }   
       stage('Build & Push') {
-            sh "docker build -t back:${BUILD_NUMBER} ./back"
-           // sh "docker push localhost:5000/back:${BUILD_NUMBER}"
-           // sh "docker build -t front:${BUIL_NUMBER} ./front"
+            //sh "docker-compose build -t localhost:5000/app:${BUILD_NUMBER}"
+            sh "docker build -t localhost:5000/back:${BUILD_NUMBER} ./back"
+            sh "docker push localhost:5000/back:${BUILD_NUMBER}"
       }
       stage('Test') {       
-            sh "docker run back:${BUILD_NUMBER}"
-           // sh "docker run front:${BUILD_NUMBER}"
-            echo 'Done'
+            echo 'Zamislicemo da se neko testiranje desilo u nedostatku vremena i lose organizovanosti sa kolegama (sa faksa).'
        }           
       stage('Deploy') {     
-
-          //  sh "docker push 172.18.0.4:5000/back:${BUILD_NUMBER}"              
+            sh "docker kill localhost:5000/back:${BUILD_NUMBER-1}"
+            sh "docker run back:${BUILD_NUMBER}"       
             echo 'Done'
       }
 }
