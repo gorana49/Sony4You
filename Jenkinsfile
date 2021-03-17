@@ -12,7 +12,7 @@ node {
             echo 'Zamislicemo da se neko testiranje desilo u nedostatku vremena i lose organizovanosti sa kolegama (sa faksa).'
        }           
       stage('Deploy') {     
-          //  sh "docker kill localhost:5000/back:${BUILD_NUMBER-1}"
+            sh "docker kill localhost:5000/back:${BUILD_NUMBER-1}"
             sh "docker run localhost:5000/back:${BUILD_NUMBER}"       
             echo 'Done'
       }
