@@ -4,14 +4,16 @@ node {
             checkout scm    
       }   
       stage('Build & Push') {
-            sh "docker-compose build" //-t localhost:5000/app:${BUILD_NUMBER}"
+            sh "docker-compose build" 
             sh "docker-compose push"
             //sh "docker build -t localhost:5000/back:${BUILD_NUMBER} ./back"
       }
       stage('Test') {       
             echo 'Zamislicemo da se neko testiranje desilo u nedostatku vremena i lose organizovanosti.'
        }           
-      stage('Deploy') {     
+      stage('Deploy') {   
+            sh "docker run redis:latest"
+            sh "docker run neo4j:3.5"  
             sh "docker-compose up"       
             echo 'Done'
       }

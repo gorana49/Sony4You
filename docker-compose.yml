@@ -20,25 +20,25 @@ services:
             - back
         volumes:
             - "./redis-vol:/data:rw"
-    redis:
-        image: localhost:5000/redis:latest
-        command: bash -c "redis-server --appendonly yes"
-        volumes:
-            - "./redis-vol:/data:rw"
-    neo4j:
-        image: localhost:5000/neo4j:3.5
-        restart: unless-stopped
-        ports:
-          - 7474:7474
-          - 7687:7687
-        volumes:
-           - ./conf:/conf
-           - ./data:/data
-           - ./plugins:/plugins
-        environment: 
-            - NEO4J_dbms_memory_pagecache_size=1G
-            - NEO4J_dbms.memory.heap.initial_size=1G
-            - NEO4J_dbms_memory_heap_max__size=1G
+    # redis:
+    #     image: redis:latest
+    #     command: bash -c "redis-server --appendonly yes"
+    #     volumes:
+    #         - "./redis-vol:/data:rw"
+    # neo4j:
+    #     image: localhost:5000/neo4j:3.5
+    #     restart: unless-stopped
+    #     ports:
+    #       - 7474:7474
+    #       - 7687:7687
+    #     volumes:
+    #        - ./conf:/conf
+    #        - ./data:/data
+    #        - ./plugins:/plugins
+    #     environment: 
+    #         - NEO4J_dbms_memory_pagecache_size=1G
+    #         - NEO4J_dbms.memory.heap.initial_size=1G
+    #         - NEO4J_dbms_memory_heap_max__size=1G
     back:
         image: localhost:5000/aspdocker
         build:
