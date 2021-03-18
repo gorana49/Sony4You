@@ -4,7 +4,7 @@ node {
             checkout scm    
       }   
       stage('Build & Push') {
-            sh "docker-compose build -t localhost:5000/app:${BUILD_NUMBER}"
+            sh "docker-compose build" //-t localhost:5000/app:${BUILD_NUMBER}"
             //sh "docker build -t localhost:5000/back:${BUILD_NUMBER} ./back"
             sh "docker-compose push localhost:5000/back:${BUILD_NUMBER}"
       }
