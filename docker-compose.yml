@@ -21,12 +21,12 @@ services:
         volumes:
             - "./redis-vol:/data:rw"
     redis:
-        image: redis:latest
+        image: localhost:5000/redis:latest
         command: bash -c "redis-server --appendonly yes"
         volumes:
             - "./redis-vol:/data:rw"
     neo4j:
-        image: neo4j:3.5
+        image: localhost:5000/neo4j:3.5
         restart: unless-stopped
         ports:
           - 7474:7474

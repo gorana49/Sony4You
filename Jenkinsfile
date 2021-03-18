@@ -9,7 +9,7 @@ node {
             //sh "docker build -t localhost:5000/back:${BUILD_NUMBER} ./back"
       }
       stage('Test') {       
-            echo 'Zamislicemo da se neko testiranje desilo u nedostatku vremena i lose organizovanosti sa kolegama (sa faksa).'
+            echo 'Zamislicemo da se neko testiranje desilo u nedostatku vremena i lose organizovanosti.'
        }           
       stage('Deploy') {     
             sh "docker-compose up"       
