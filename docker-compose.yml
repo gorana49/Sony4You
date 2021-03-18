@@ -44,8 +44,8 @@ services:
         build:
             context: ./back
             dockerfile: Dockerfile
-        depends_on:
-          - redis
+        # depends_on:
+        #   - redis
         volumes:
           - "./redis-vol:/data:rw"
 volumes:
