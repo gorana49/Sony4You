@@ -5,16 +5,17 @@ services:
         build: 
             context: ./load-balancer
             dockerfile: Dockerfile
+        image: localhost:5000/load-balancer
         ports: 
             - 8000:80
         depends_on:
         - front
         restart: always
     front:
-        image: angulardocker
         build:
             context: ./front
             dockerfile: Dockerfile
+        image: localhost:5000/front
         depends_on:
             - back
         volumes:
@@ -39,7 +40,7 @@ services:
             - NEO4J_dbms.memory.heap.initial_size=1G
             - NEO4J_dbms_memory_heap_max__size=1G
     back:
-        image: aspdocker
+        image: localhost:5000/aspdocker
         build:
             context: ./back
             dockerfile: Dockerfile
