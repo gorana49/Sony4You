@@ -4,18 +4,15 @@ node {
             checkout scm    
       }   
       stage('Build & Push') {
-            //sh "docker-compose build -t localhost:5000/app:${BUILD_NUMBER}"
-            sh "docker build -t localhost:5000/back:${BUILD_NUMBER} ./back"
-            sh "docker push localhost:5000/back:${BUILD_NUMBER}"
+            sh "docker-compose build -t localhost:5000/app:${BUILD_NUMBER}"
+            //sh "docker build -t localhost:5000/back:${BUILD_NUMBER} ./back"
+            sh "docker-compose push localhost:5000/back:${BUILD_NUMBER}"
       }
       stage('Test') {       
             echo 'Zamislicemo da se neko testiranje desilo u nedostatku vremena i lose organizovanosti sa kolegama (sa faksa).'
        }           
       stage('Deploy') {     
-            sh "count = 0"
-            sh "count=`expr ${BUILD_NUMBER} - 1"
-            sh "docker kill localhost:5000/back:${count}"
-            sh "docker run localhost:5000/back:${BUILD_NUMBER}"       
+            sh "docker-compose run localhost:5000/back:${BUILD_NUMBER}"       
             echo 'Done'
       }
 }
@@ -61,3 +58,25 @@ node {
 //    dir ('/path/to/your/directory2') {
 //       sh 'docker build --<docker-options> -t $DOCKER_IMAGE_NAME_2 .'
 //       sh 'docker run $DOCKER_IMAGE_NAME_2'
+
+// pipeline{
+//       agent {
+//       dockerfile {
+//         filename 'Dockerfile'
+//         dir './back'
+//         registryUrl 'https://localhost:5000/'
+//         registryCredentialsId 'JenkinsCred'} 
+//       }
+//       stages {
+//             stage ('Build & Push') {
+//                  steps {
+//                        echo "Starting to build images."
+//                  } 
+//             }
+//             stage ('Test'){
+//                   steps {
+//                        echo "Testing"
+//                  } 
+//             }
+//       }
+// }
