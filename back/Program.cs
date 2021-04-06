@@ -21,6 +21,8 @@ namespace back
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    //webBuilder.UseKestrel();
+                    //webBuilder.UseSetting("https_port", "5001");
                 });
     }
 }

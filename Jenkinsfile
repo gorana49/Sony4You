@@ -12,9 +12,7 @@ node {
             echo 'Zamislicemo da se neko testiranje desilo u nedostatku vremena i lose organizovanosti.'
        }           
       stage('Deploy') {   
-            sh "docker run redis:latest"
-            sh "docker run neo4j:3.5"  
-            sh "docker-compose up"       
+            sh  "docker-compose up"       
             echo 'Done'
       }
 }
@@ -39,3 +37,5 @@ node {
 //             }
 //       }
 // }
+            // sh "docker run redis:latest -d" 
+            // sh  "docker run neo4j:3.5 -d" 

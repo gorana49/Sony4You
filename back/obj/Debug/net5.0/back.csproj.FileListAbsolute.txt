@@ -36,3 +36,7 @@
 /home/gorana/Documents/Sony4You/Sony4You/back/obj/Debug/net5.0/ref/back.dll
 /home/gorana/Documents/Sony4You/Sony4You/back/obj/Debug/net5.0/back.pdb
 /home/gorana/Documents/Sony4You/Sony4You/back/obj/Debug/net5.0/back.genruntimeconfig.cache
+/home/gorana/Documents/Sony4You/Sony4You/back/bin/Debug/net5.0/Microsoft.AspNetCore.JsonPatch.dll
+/home/gorana/Documents/Sony4You/Sony4You/back/bin/Debug/net5.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+/home/gorana/Documents/Sony4You/Sony4You/back/bin/Debug/net5.0/Newtonsoft.Json.dll
+/home/gorana/Documents/Sony4You/Sony4You/back/bin/Debug/net5.0/Newtonsoft.Json.Bson.dll

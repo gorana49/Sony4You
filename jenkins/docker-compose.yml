@@ -9,9 +9,9 @@ services:
         restart: unless-stopped
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock:rw"
-            - "/var/jenkins_home:/var/jenkins_home:rw"
+            - "jenkinsData:/var/jenkins_home"
         ports:
             - "${HOST_WWW}:8080"
             - "${HOST_OTHER}:50000"
 volumes:
-  jenkins_data:
+    jenkinsData:

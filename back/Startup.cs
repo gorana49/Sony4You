@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Text.Json;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -29,12 +31,19 @@ namespace back
         {
 
             services.AddControllers();
+            // services.AddMvc().AddNewtonsoftJson(o => 
+            // {
+            //     o.JsonSerializerSetting.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            // });   
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "back", Version = "v1" });
             });
+
             services.AddStackExchangeRedisCache(options => options.Configuration = this.Configuration.GetConnectionString("redisServerUrl"));
-            services.AddSingleton(GraphDatabase.Driver(this.Configuration.GetConnectionString("neo4JServerUrl"), AuthTokens.Basic("neo4J", "neo4J")));
+            services.AddSingleton(GraphDatabase.Driver("bolt://localhost:7687", AuthTokens.Basic("neo4j", "adminadmin")));
+            //services.AddSingleton(GraphDatabase.Driver(this.Configuration.GetConnectionString("neo4JServerUrl"), AuthTokens.Basic("neo4j", "adminadmin")));
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -46,6 +55,7 @@ namespace back
             }
 
             app.UseHttpsRedirection();
+            
 
             app.UseRouting();
 
