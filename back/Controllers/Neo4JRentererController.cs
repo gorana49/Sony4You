@@ -9,7 +9,7 @@ using back.Models;
 namespace back.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class Neo4JRentererController : ControllerBase
     {
         private readonly ILogger<Neo4JRentererController> _logger;
