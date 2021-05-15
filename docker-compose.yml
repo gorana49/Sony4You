@@ -30,6 +30,7 @@ services:
     restart: unless-stopped
     ports:
       - 7474:7474
+      - 7473:7473
       - 7687:7687
     volumes:
       - data:/data
@@ -46,7 +47,8 @@ services:
       context: ./back
       dockerfile: Dockerfile
     ports:
-       - 8008:80
+       - 8000:80
+       - 5001:443
     depends_on:
         - neo4j
     volumes:

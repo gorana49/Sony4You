@@ -43,6 +43,10 @@ namespace back
 
             services.AddStackExchangeRedisCache(options => options.Configuration = this.Configuration.GetConnectionString("redisServerUrl"));
             services.AddSingleton(GraphDatabase.Driver("bolt://localhost:7687", AuthTokens.Basic("neo4j", "adminadmin")));
+            services.AddHttpsRedirection(options =>
+            {
+                options.HttpsPort = 443;
+            });
             //services.AddSingleton(GraphDatabase.Driver(this.Configuration.GetConnectionString("neo4JServerUrl"), AuthTokens.Basic("neo4j", "adminadmin")));
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

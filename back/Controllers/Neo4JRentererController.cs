@@ -9,7 +9,8 @@ using back.Models;
 namespace back.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+
+    [Route("/")]
     public class Neo4JRentererController : ControllerBase
     {
         private readonly ILogger<Neo4JRentererController> _logger;
@@ -21,23 +22,24 @@ namespace back.Controllers
             _driver = driver;
         }
     [HttpPost]
-    [Route("createNode")]
-    public async Task<IActionResult> createNode([FromBody] Renterer renterer)
+    [Route("/createNode")]
+    public async Task<IActionResult> createNode()//([FromBody] Renterer renterer)
     {
         var session = this._driver.AsyncSession();
-        try{
-        var statementText = new StringBuilder();
-        statementText.Append("CREATE (person:Renterer {Name:"+ renterer.Name+ ", Address:"+ renterer.Address +"}");
-        var statementParameters = new Dictionary<string, object>
-        {
-            {"Name", renterer.Name},
-            {"Address", renterer.Address }
-        };
-        var result = await session.WriteTransactionAsync(tx => tx.RunAsync(statementText.ToString(),  statementParameters));
-        }
-        finally{
-            await session.CloseAsync();
-        }
+        // try{
+        // var statementText = new StringBuilder();
+        // statementText.Append("CREATE (person:Renterer {Name:"+ renterer.Name+ ", Address:"+ renterer.Address +"}");
+        // var statementParameters = new Dictionary<string, object>
+        // {
+        //     {"Name", renterer.Name},
+        //     {"Address", renterer.Address }
+        // };
+        await session.WriteTransactionAsync(tx => tx.RunAsync("CREATE (a:Renterer)"));
+       // var result = await session.WriteTransactionAsync(tx => tx.RunAsync(statementText.ToString(),  statementParameters));
+        // }
+        // finally{
+        //     await session.CloseAsync();
+        // }
         return StatusCode(201, "Node has been created in the database");
     }
     }

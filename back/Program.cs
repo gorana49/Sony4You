@@ -20,9 +20,13 @@ namespace back
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
-                    //webBuilder.UseKestrel();
-                    //webBuilder.UseSetting("https_port", "5001");
+                    webBuilder.UseStartup<Startup>().UseKestrel().UseUrls("https://localhost:443");
+                //     webBuilder.UseStartup<Startup>()
+    
+                //     .UseKestrel()
+                //     .UseUrls("https://localhost:443") //"http://localhost:5001")
+                //     .Build()
+                // .Run();
                 });
     }
 }

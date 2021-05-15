@@ -4637,28 +4637,26 @@
     ]
   },
   "packageFolders": {
-    "/home/gorana/.nuget/packages/": {},
-    "/usr/share/dotnet/sdk/NuGetFallbackFolder": {}
+    "C:\\Users\\mihaj\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/gorana/Documents/Sony4You/Sony4You/back/back.csproj",
+      "projectUniqueName": "C:\\Users\\mihaj\\Desktop\\Sony4You\\Sony4You\\back\\back.csproj",
       "projectName": "back",
-      "projectPath": "/home/gorana/Documents/Sony4You/Sony4You/back/back.csproj",
-      "packagesPath": "/home/gorana/.nuget/packages/",
-      "outputPath": "/home/gorana/Documents/Sony4You/Sony4You/back/obj/",
+      "projectPath": "C:\\Users\\mihaj\\Desktop\\Sony4You\\Sony4You\\back\\back.csproj",
+      "packagesPath": "C:\\Users\\mihaj\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\mihaj\\Desktop\\Sony4You\\Sony4You\\back\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "/usr/share/dotnet/sdk/NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "/home/gorana/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\mihaj\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -4712,7 +4710,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.201/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
