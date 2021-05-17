@@ -1,8 +1,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS base
 WORKDIR /app
+# RUN dotnet dev-certs https
+# RUN dotnet dev-certs https --trust
 COPY back.csproj .
 RUN ["dotnet", "restore"]
-RUN dotnet dev-certs https
 COPY . ./
 RUN dotnet build "back.csproj" -c Release -o /app/build
 RUN dotnet publish "back.csproj" -c Release -o /app/publish

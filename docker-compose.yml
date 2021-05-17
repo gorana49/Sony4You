@@ -34,6 +34,7 @@ services:
       - 7687:7687
     volumes:
       - data:/data
+      - logs:/logs
     environment: 
    #   Raise memory limits
       - NEO4J_AUTH=neo4j/adminadmin
@@ -41,22 +42,30 @@ services:
       - NEO4J_dbms.memory.heap.initial_size=1G
       - NEO4J_dbms_memory_heap_max__size=1G
       - NEO4J_dbms.allow_upgrade=true
-  back:
-    image: aspdocker
-    build:
-      context: ./back
-      dockerfile: Dockerfile
-    ports:
-       - 8000:80
-       - 5001:443
-    depends_on:
-        - neo4j
-    volumes:
-        - "data:/data:rw"
-        # - "./redis-vol:/data:rw"
+      - NEO4J_dbms_connector_https_advertised__address= localhost:7473
+      - NEO4J_dbms_connector_http_advertised__address= localhost:7474
+      - NEO4J_dbms_connector_bolt_advertised__address= localhost:7687
+  # back:
+  #   image: aspdocker
+  #   build:
+  #     context: ./back
+  #     dockerfile: Dockerfile
+  #   ports:
+  #      - 5000:80
+  #      - 5001:443
+  #   depends_on:
+  #       - neo4j
+  #   environment: 
+  #     - Kestrel\_\_Certificates\_\_Default\_\_Password=Password
+  #     - ASPNETCORE_URLS=https://+;http://+
+  #     - Kestrel\_\_Certificates\_\_Default\_\_Path=/app/Infrastructure/Certificate/certificate.pfx
+  #   volumes:
+  #       - "data:/data:rw"
+  #       - D:\temp\:/app/Infrastructure/Certificate
+  #       # - "./redis-vol:/data:rw"
 volumes:
     # plugins:
     data:
     # conf:
     # import:
-    # logs:
+    logs:

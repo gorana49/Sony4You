@@ -20,7 +20,7 @@ namespace back
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>().UseKestrel().UseUrls("https://localhost:443");
+                    webBuilder.UseStartup<Startup>(); //.UseKestrel().UseUrls("https://localhost:443");
                 //     webBuilder.UseStartup<Startup>()
     
                 //     .UseKestrel()
