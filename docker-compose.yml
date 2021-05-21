@@ -20,11 +20,11 @@ services:
 #             - back
 #         volumes:
 #             - "./redis-vol:/data:rw"
-  # redis:
-  #       image: redis:latest
-  #       command: bash -c "redis-server --appendonly yes"
-  #       volumes:
-  #           - "./redis-vol:/data:rw"
+  redis:
+        image: redis:latest
+        command: bash -c "redis-server --appendonly yes"
+        volumes:
+            - "./redis-vol:/data:rw"
   neo4j:
     image: neo4j:3.5
     restart: unless-stopped
@@ -65,7 +65,7 @@ services:
   #       # - "./redis-vol:/data:rw"
 volumes:
     # plugins:
-    data:
-    # conf:
-    # import:
-    logs:
+    # data:
+    # # conf:
+    # # import:
+    # logs:
