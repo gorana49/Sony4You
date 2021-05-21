@@ -65,7 +65,7 @@ services:
   #       # - "./redis-vol:/data:rw"
 volumes:
     # plugins:
-    # data:
+     data:
     # # conf:
     # # import:
-    # logs:
+     logs:
