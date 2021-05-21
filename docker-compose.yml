@@ -24,7 +24,7 @@ services:
         image: redis:latest
         command: bash -c "redis-server --appendonly yes"
         volumes:
-            - "./redis-vol:/data:rw"
+            - redis-vol:/redis-vol
   neo4j:
     image: neo4j:3.5
     restart: unless-stopped
@@ -64,8 +64,9 @@ services:
   #       - D:\temp\:/app/Infrastructure/Certificate
   #       # - "./redis-vol:/data:rw"
 volumes:
+     redis-vol:
     # plugins:
-    # data:
+     data:
     # # conf:
     # # import:
-    # logs:
+     logs:
