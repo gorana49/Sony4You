@@ -14,6 +14,7 @@ namespace back
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
         }
 
         public IConfiguration Configuration { get; }
@@ -29,9 +30,7 @@ namespace back
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "back", Version = "v1" });
             });
             services.AddStackExchangeRedisCache(options => options.Configuration = this.Configuration.GetConnectionString("redisServerUrl"));
-            var neo4jclient = new GraphClient(new System.Uri("bolt://localhost:7687"), "neo4j", "adminadmin");
-            neo4jclient.ConnectAsync();
-            services.AddSingleton<IGraphClient>(neo4jclient);
+            services.AddSingleton<IGraphClient>();
             services.AddSingleton<IRedisService, RedisService>();
         }
 
