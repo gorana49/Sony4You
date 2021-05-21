@@ -40,3 +40,4 @@ E:\Sony4You\Sony4You\back\back\obj\Debug\net5.0\back.dll
 E:\Sony4You\Sony4You\back\back\obj\Debug\net5.0\ref\back.dll
 E:\Sony4You\Sony4You\back\back\obj\Debug\net5.0\back.pdb
 E:\Sony4You\Sony4You\back\back\obj\Debug\net5.0\back.genruntimeconfig.cache
+E:\Sony4You\Sony4You\back\back\bin\Debug\net5.0\Neo4jClient.dll

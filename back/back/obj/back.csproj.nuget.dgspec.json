@@ -55,9 +55,9 @@
               "target": "Package",
               "version": "[1.10.9, )"
             },
-            "Neo4j.Driver": {
+            "Neo4jClient": {
               "target": "Package",
-              "version": "[4.2.0, )"
+              "version": "[4.1.6, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

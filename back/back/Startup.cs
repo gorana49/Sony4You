@@ -4,8 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Neo4j.Driver;
-
+using Neo4jClient;
 namespace back
 {
     public class Startup
@@ -27,7 +26,10 @@ namespace back
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "back", Version = "v1" });
             });
             services.AddStackExchangeRedisCache(options => options.Configuration = this.Configuration.GetConnectionString("redisServerUrl"));
-            services.AddSingleton(GraphDatabase.Driver("bolt://localhost:7687", AuthTokens.Basic("neo4j", "adminadmin")));
+            var neo4jclient = new GraphClient(new System.Uri("bolt://localhost:7687"), "neo4j", "adminadmin");
+            neo4jclient.ConnectAsync();
+            services.AddSingleton<IGraphClient>(neo4jclient);
+            //services.AddSingleton(GraphDatabase.Driver("bolt://localhost:7687", AuthTokens.Basic("neo4j", "adminadmin")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
