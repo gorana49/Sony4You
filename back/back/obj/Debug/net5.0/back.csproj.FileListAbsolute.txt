@@ -40,6 +40,9 @@ E:\Sony4You\Sony4You\back\back\obj\Debug\net5.0\back.dll
 E:\Sony4You\Sony4You\back\back\obj\Debug\net5.0\ref\back.dll
 E:\Sony4You\Sony4You\back\back\obj\Debug\net5.0\back.pdb
 E:\Sony4You\Sony4You\back\back\obj\Debug\net5.0\back.genruntimeconfig.cache
+<<<<<<< HEAD
+E:\Sony4You\Sony4You\back\back\bin\Debug\net5.0\Neo4jClient.dll
+=======
 C:\Users\mihaj\Desktop\Sony4You\Sony4You\back\back\bin\Debug\net5.0\appsettings.Development.json
 C:\Users\mihaj\Desktop\Sony4You\Sony4You\back\back\bin\Debug\net5.0\appsettings.json
 C:\Users\mihaj\Desktop\Sony4You\Sony4You\back\back\bin\Debug\net5.0\back.exe
@@ -82,3 +85,4 @@ C:\Users\mihaj\Desktop\Sony4You\Sony4You\back\back\obj\Debug\net5.0\back.dll
 C:\Users\mihaj\Desktop\Sony4You\Sony4You\back\back\obj\Debug\net5.0\ref\back.dll
 C:\Users\mihaj\Desktop\Sony4You\Sony4You\back\back\obj\Debug\net5.0\back.pdb
 C:\Users\mihaj\Desktop\Sony4You\Sony4You\back\back\obj\Debug\net5.0\back.genruntimeconfig.cache
+>>>>>>> 3cf367ded8d3613485912aa0cc49935c77e61a3e
