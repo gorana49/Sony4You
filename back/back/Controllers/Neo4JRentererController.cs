@@ -25,9 +25,11 @@ namespace back.Controllers
             await _client.Cypher.Create("(renterer:Renterer {renterer})").WithParams(new { renterer }).ExecuteWithoutResultsAsync();
             return StatusCode(201, "Node has been created in the database");
         }
-        //[HttpGet]
-        //public async Task<IActionResult> getAllNodes()
-        //{
+        [HttpGet]
+        public async Task<IActionResult> getAllNodes()
+        {
+            return StatusCode(201, "Get radi!");
+        }
 
         //    //var people = new List<Renterer>();
         //    ////try
