@@ -9,27 +9,27 @@ namespace back.Controllers
     [Route("api/[controller]/[action]")]
     public class Neo4JRentererController : ControllerBase
     {
-        private readonly ILogger<Neo4JRentererController> _logger;
-        //   private readonly IDriver _driver;
-        private readonly IGraphClient _client;
-        public Neo4JRentererController(ILogger<Neo4JRentererController> logger, IGraphClient client)
-        {
-            _logger = logger;
-            _client = client;
-            // _driver = driver;
+        //private readonly ILogger<Neo4JRentererController> _logger;
+        ////   private readonly IDriver _driver;
+        //private readonly IGraphClient _client;
+        //public Neo4JRentererController(ILogger<Neo4JRentererController> logger, IGraphClient client)
+        //{
+        //    _logger = logger;
+        //    _client = client;
+        //    // _driver = driver;
 
-        }
-        [HttpPost]
-        public async Task<IActionResult> CreateRenterer([FromBody] Renterer renterer)
-        {
-            await _client.Cypher.Create("(renterer:Renterer {renterer})").WithParams(new { renterer }).ExecuteWithoutResultsAsync();
-            return StatusCode(201, "Node has been created in the database");
-        }
-        [HttpGet]
-        public async Task<IActionResult> getAllNodes()
-        {
-            return StatusCode(201, "Get radi!");
-        }
+        //}
+        //[HttpPost]
+        //public async Task<IActionResult> CreateRenterer([FromBody] Renterer renterer)
+        //{
+        //    await _client.Cypher.Create("(renterer:Renterer {renterer})").WithParams(new { renterer }).ExecuteWithoutResultsAsync();
+        //    return StatusCode(201, "Node has been created in the database");
+        //}
+        //[HttpGet]
+        //public async Task<IActionResult> getAllNodes()
+        //{
+        //    return StatusCode(201, "Get radi!");
+        //}
 
         //    //var people = new List<Renterer>();
         //    ////try

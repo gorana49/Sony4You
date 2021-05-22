@@ -23,16 +23,16 @@ namespace back
         {
             services.AddControllers();
             services.AddSingleton<IConnectionMultiplexer>(x =>
-            ConnectionMultiplexer.Connect(Configuration.GetValue<string>("ConnectionStrings:redisServerUrl")));
+                ConnectionMultiplexer.Connect(Configuration.GetValue<string>("ConnectionStrings:redisServerUrl")));
+            services.AddSingleton<IRedisService, RedisService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "back", Version = "v1" });
             });
-            services.AddStackExchangeRedisCache(options => options.Configuration = this.Configuration.GetConnectionString("redisServerUrl"));
-            services.AddSingleton<IGraphClient>();
+            //services.AddStackExchangeRedisCache(options => options.Configuration = this.Configuration.GetConnectionString("redisServerUrl"));
+            //services.AddSingleton<IGraphClient>();
             var graphClient = new BoltGraphClient("bolt://localhost:7687", "neo4j", "adminadmin");
             graphClient.ConnectAsync();
-            services.AddSingleton<IRedisService, RedisService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
