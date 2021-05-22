@@ -18,15 +18,15 @@ namespace back
             _redisService = redisService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetCacheValue([FromBody] string key)
+        [HttpPost]
+        public async Task<IActionResult> GetCacheValue([FromBody] CacheItemDTO cacheItem)
         {
-            var value = await _redisService.GetCacheValueAsync(key);
+            var value = await _redisService.GetCacheValueAsync(cacheItem.Key);
             return string.IsNullOrEmpty(value) ? (IActionResult)NotFound() : Ok(value);
         }
 
         [HttpPost]
-        public async Task<IActionResult> SetCacheValue([FromBody]CacheItemDTO cacheItem)
+        public async Task<IActionResult> SetCacheValue([FromBody] CacheItemDTO cacheItem)
         {
             await _redisService.SetCacheValueAsync(cacheItem.Key, cacheItem.Value);
             return Ok();

@@ -9,10 +9,10 @@ namespace back
     public class RedisService : IRedisService
     {
         private readonly IConnectionMultiplexer _connectionMultiplexer;
-      
-        public RedisService(IConnectionMultiplexer connectionMultiplexer)
+
+        public RedisService(IRedisConnectionBuilder connectionBuilder)
         {
-            _connectionMultiplexer = connectionMultiplexer;
+            _connectionMultiplexer = connectionBuilder.Connection;
         }
 
         public async Task<string> GetCacheValueAsync(string key)
