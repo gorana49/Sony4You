@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using back.IRepository;
+using back.IService;
+using back.Repository;
+using back.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Neo4jClient;
-using StackExchange.Redis;
 
 namespace back
 {
@@ -28,10 +31,18 @@ namespace back
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "back", Version = "v1" });
             });
-            //services.AddStackExchangeRedisCache(options => options.Configuration = this.Configuration.GetConnectionString("redisServerUrl"));
-            //services.AddSingleton<IGraphClient>();
+
             var graphClient = new BoltGraphClient("bolt://localhost:7687", "neo4j", "adminadmin");
             graphClient.ConnectAsync();
+            services.AddSingleton<IBoltGraphClient>(graphClient);
+            services.AddScoped(typeof(IRentererRepository), typeof(RentererRepository));
+            services.AddScoped(typeof(IRentererService), typeof(RentererService));
+            services.AddScoped(typeof(IRenteeService), typeof(RenteeService));
+            services.AddScoped(typeof(IRenteeRepository), typeof(RenteeRepository));
+            services.AddScoped(typeof(IContestRepository), typeof(ContestRepository));
+            services.AddScoped(typeof(ISonyRepository), typeof(SonyRepository));
+            services.AddScoped(typeof(IGameRepository), typeof(GameRepository));
+            services.AddScoped(typeof(ICommentRepository), typeof(CommentRepository));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

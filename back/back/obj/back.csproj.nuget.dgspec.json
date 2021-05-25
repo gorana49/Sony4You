@@ -1,32 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mihaj\\Desktop\\Sony4You\\Sony4You\\back\\back\\back.csproj": {}
+    "C:\\Users\\Andjela\\Sony4You\\Sony4You\\back\\back\\back.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mihaj\\Desktop\\Sony4You\\Sony4You\\back\\back\\back.csproj": {
+    "C:\\Users\\Andjela\\Sony4You\\Sony4You\\back\\back\\back.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mihaj\\Desktop\\Sony4You\\Sony4You\\back\\back\\back.csproj",
+        "projectUniqueName": "C:\\Users\\Andjela\\Sony4You\\Sony4You\\back\\back\\back.csproj",
         "projectName": "back",
-        "projectPath": "C:\\Users\\mihaj\\Desktop\\Sony4You\\Sony4You\\back\\back\\back.csproj",
-        "packagesPath": "C:\\Users\\mihaj\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mihaj\\Desktop\\Sony4You\\Sony4You\\back\\back\\obj\\",
+        "projectPath": "C:\\Users\\Andjela\\Sony4You\\Sony4You\\back\\back\\back.csproj",
+        "packagesPath": "C:\\Users\\Andjela\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Andjela\\Sony4You\\Sony4You\\back\\back\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\mihaj\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Andjela\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net5.0"
+          "net50"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
+          "net50": {
             "projectReferences": {}
           }
         },
@@ -37,8 +36,7 @@
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "net50": {
           "dependencies": {
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
@@ -61,25 +59,12 @@
               "version": "[5.6.3, )"
             }
           },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win7-x86": {
+          "#import": []
         }
       }
     }
