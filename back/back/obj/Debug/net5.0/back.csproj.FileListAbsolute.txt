@@ -87,3 +87,4 @@ C:\Users\mihaj\Desktop\Sony4You\Sony4You\back\back\obj\Debug\net5.0\back.pdb
 C:\Users\mihaj\Desktop\Sony4You\Sony4You\back\back\obj\Debug\net5.0\back.genruntimeconfig.cache
 >>>>>>> 3cf367ded8d3613485912aa0cc49935c77e61a3e
 C:\Users\mihaj\Desktop\Sony4You\Sony4You\back\back\bin\Debug\net5.0\Neo4jClient.dll
+C:\Users\Andjela\Sony4You\Sony4You\back\back\obj\Debug\net5.0\back.pdb
