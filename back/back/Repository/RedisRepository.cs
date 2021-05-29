@@ -26,7 +26,7 @@ namespace back.Repository
             bool exists = false;
             foreach (StreamEntry entry in users)
             {
-                if (entry.Values[0].Name == user.UserId)
+                if (entry.Values[0].Name == user.Username)
                 {
                     exists = true;
                 }
@@ -34,7 +34,7 @@ namespace back.Repository
             if(!exists)
             {
                 user.LoggedIn = false;
-                db.StreamAdd("logged_users", user.UserId, JsonSerializer.Serialize<LoggedUserDTO>(user));
+                db.StreamAdd("logged_users", user.Username, JsonSerializer.Serialize<LoggedUserDTO>(user));
             }
         }
 
@@ -46,7 +46,7 @@ namespace back.Repository
             RedisValue val = new RedisValue();
             foreach (StreamEntry entry in users)
             {
-                if (entry.Values[0].Name == user.UserId)
+                if (entry.Values[0].Name == user.Username)
                 {
                     exists = true;
                     val = entry.Id;
@@ -68,7 +68,7 @@ namespace back.Repository
             bool exists = false;
             foreach (StreamEntry entry in users)
             {
-                if (entry.Values[0].Name == user.UserId)
+                if (entry.Values[0].Name == user.Username)
                 {
                     exists = true;
                     idEntryUser = entry.Id;
@@ -84,18 +84,18 @@ namespace back.Repository
             {
                 db.StreamDelete("logged_users", new[] { idEntryUser });
                 entryUser.LoggedIn = true;
-                db.StreamAdd("logged_users", entryUser.UserId, JsonSerializer.Serialize<LoggedUserDTO>(entryUser));
+                db.StreamAdd("logged_users", entryUser.Username, JsonSerializer.Serialize<LoggedUserDTO>(entryUser));
 
-                var subscriber = _connectionMultiplexer.GetSubscriber();
-                subscriber.Subscribe($"notifications:{entryUser.UserId}").OnMessage(message =>
-                {
-                    NotificationDTO deserializedMessage = JsonSerializer.Deserialize<NotificationDTO>(message.Message);
-                    string groupName = $"notification:{deserializedMessage.ReceiverId}";
-                    //_ = _hub.Clients.Group(groupName).SendAsync("ReceiveFriendRequests", deserializedMessage);
+                //var subscriber = _connectionMultiplexer.GetSubscriber();
+                //subscriber.Subscribe($"notifications:{entryUser.Id}").OnMessage(message =>
+                //{
+                //    NotificationDTO deserializedMessage = JsonSerializer.Deserialize<NotificationDTO>(message.Message);
+                //    string groupName = $"notification:{deserializedMessage.ReceiverId}";
+                //    //_ = _hub.Clients.Group(groupName).SendAsync("ReceiveFriendRequests", deserializedMessage);
 
-                    //string groupName = $"requests:{deserializedMessage.ReceiverId}:friendship";
+                //    //string groupName = $"requests:{deserializedMessage.ReceiverId}:friendship";
 
-                });
+                //});
                 return entryUser;
             }
 
@@ -110,7 +110,7 @@ namespace back.Repository
             bool exists = false;
             foreach (StreamEntry entry in users)
             {
-                if (entry.Values[0].Name == user.UserId)
+                if (entry.Values[0].Name == user.Username)
                 {
                     exists = true;
                     idEntryUser = entry.Id;
@@ -122,25 +122,42 @@ namespace back.Repository
             {
                 db.StreamDelete("logged_users", new[] { idEntryUser });
                 entryUser.LoggedIn = false;
-                db.StreamAdd("logged_users", entryUser.UserId, JsonSerializer.Serialize<LoggedUserDTO>(entryUser));
+                db.StreamAdd("logged_users", entryUser.Username, JsonSerializer.Serialize<LoggedUserDTO>(entryUser));
 
             }
             
         }
 
-        public async Task<bool> CheckIfUserIsLoggedIn(LoggedUserDTO user)
+        public async Task<LoggedUserDTO> CheckIfUserIsValid(LoggedUserDTO user)
         {
             var db = _connectionMultiplexer.GetDatabase();
             var users = db.StreamRead("logged_users", "0-0");
             foreach (StreamEntry entry in users)
             {
-                if (entry.Values[0].Name == user.UserId)
+                if (entry.Values[0].Name == user.Username)
                 {
                     LoggedUserDTO entryUser = JsonSerializer.Deserialize<LoggedUserDTO>(entry.Values[0].Value.ToString());
-                    return entryUser.LoggedIn;
+                    if(entryUser.Password == user.Password)
+                        return entryUser;
                 }
             }
-            return false;
+            return null;
+        }
+
+        public async Task<LoggedUserDTO> CheckIfUserIsLoggedIn(LoggedUserDTO user)
+        {
+            var db = _connectionMultiplexer.GetDatabase();
+            var users = db.StreamRead("logged_users", "0-0");
+            foreach (StreamEntry entry in users)
+            {
+                if (entry.Values[0].Name == user.Username)
+                {
+                    LoggedUserDTO entryUser = JsonSerializer.Deserialize<LoggedUserDTO>(entry.Values[0].Value.ToString());
+                    if (entryUser.Password == user.Password && entryUser.LoggedIn)
+                        return entryUser;
+                }
+            }
+            return null;
         }
 
         public async Task PushNotification(NotificationDTO notification)

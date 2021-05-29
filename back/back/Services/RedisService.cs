@@ -37,11 +37,16 @@ namespace back
             await this._redisRepository.LogOutUser(user);
         }
 
-        public async Task<bool> CheckIfUserIsLoggedIn(LoggedUserDTO user)
+        public async Task<LoggedUserDTO> CheckIfUserIsValid(LoggedUserDTO user)
+        {
+            return await this._redisRepository.CheckIfUserIsValid(user);
+        }
+
+        public async Task<LoggedUserDTO> CheckIfUserIsLoggedIn(LoggedUserDTO user)
         {
             return await this._redisRepository.CheckIfUserIsLoggedIn(user);
         }
-        
+
 
         public async Task PushNotification(NotificationDTO notification)
         {

@@ -8,28 +8,48 @@ import { ILoggedUser } from '../models/LoggedUser';
   providedIn: 'root'
 })
 export class AuthService {
-   private baseURL: string = 'https://localhost:5001/api/account/';
+   private baseURL: string = 'https://localhost:5001/api/';
   constructor(private http: HttpClient) { }
 
-  checkIfUserValid(email: string, password: string): Observable<ILoggedUser> {
-    let url = this.baseURL + `/loggedUsers?email=${email}&&password=${password}`;
-    return this.http.get<ILoggedUser>(url);
+//LoggedUser if user exist or null if not
+checkIfUserValid(user: ILoggedUser): Observable<ILoggedUser> {
+    let url = this.baseURL + `redis/CheckIfUserIsValid`;
+    return this.http.post<ILoggedUser>(url, user);
 }
-
-getAllUsers(): Observable<ILoggedUser[]>{
-    let url = this.baseURL + "/loggedUsers";
-    return this.http.get<ILoggedUser[]>(url);
-}
-
-getUserByEmail(email: string): Observable<ILoggedUser> {
-    let url = this.baseURL + `/loggedUsers?email=${email}`;
-    return this.http.get<ILoggedUser>(url);
-}
-
-postRegisterLoggedUser(user: ILoggedUser) : Observable<ILoggedUser> {
-    let url=this.baseURL + `/loggedUsers`;
+//crete new LoggedUser
+registerLoggedUser(user: ILoggedUser) : Observable<ILoggedUser> {
+    let url=this.baseURL + `redis/AddNewLoggedUser`;
     return this.http.post<ILoggedUser>(url,user);
 }
+//logIn user
+logInUser(user: ILoggedUser) : Observable<ILoggedUser> {
+    let url=this.baseURL + `redis/LogInUser`;
+    return this.http.post<ILoggedUser>(url,user);
+}
+//logOut user
+logOutUser(user: ILoggedUser) {
+    let url=this.baseURL + `redis/LogOutUser`;
+    return this.http.post<ILoggedUser>(url,user);
+}
+//check is user logIn
+checkIsUserLogIn(user: ILoggedUser): Observable<ILoggedUser> {
+    let url=this.baseURL + `redis/LogOutUser`;
+    return this.http.post<ILoggedUser>(url,user);
+}
+
+
+
+// getAllUsers(): Observable<ILoggedUser[]>{
+//     let url = this.baseURL + "/loggedUsers";
+//     return this.http.get<ILoggedUser[]>(url);
+// }
+
+// getUserByEmail(email: string): Observable<ILoggedUser> {
+//     let url = this.baseURL + `/loggedUsers?email=${email}`;
+//     return this.http.get<ILoggedUser>(url);
+// }
+
+
 
 // postRegisterEmployer(emp:IEmployer):Observable<IEmployer>{
 //     let url=this.baseURL+`/employer`;

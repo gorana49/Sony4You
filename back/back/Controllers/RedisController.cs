@@ -46,6 +46,13 @@ namespace back
         }
 
         [HttpPost]
+        public async Task<IActionResult> CheckIfUserIsValid([FromBody] LoggedUserDTO user)
+        {
+            var value = await _redisService.CheckIfUserIsValid(user);
+            return Ok(value);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> CheckIfUserIsLoggedIn([FromBody] LoggedUserDTO user)
         {
             var value = await _redisService.CheckIfUserIsLoggedIn(user);
