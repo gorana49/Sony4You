@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {Router} from "@angular/router";
 import { map } from 'rxjs/operators'
+import { LoggedUser } from 'src/app/models/LoggedUser';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,14 +10,14 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  email: string;
+  username: string;
   password: string;
   errorMsg="";
   constructor(private authService:AuthService,
               private router: Router
               ) 
   { 
-    this.email = "";
+    this.username = "";
     this.password = "";
   }
 
@@ -31,9 +32,10 @@ export class LoginComponent implements OnInit {
   }
 
   btnLoginClicked(){
-    const provera=this.checkInput(this.email, this.password);
+    const provera=this.checkInput(this.username, this.password);
     if(provera){
-      this.authService.checkIfUserValid(this.email, this.password)
+      var u = new LoggedUser(this.username, this.password, "", false);
+      this.authService.checkIfUserValid(u)
       .pipe( 
         map(array=> array[0])
       ).subscribe(value=>{

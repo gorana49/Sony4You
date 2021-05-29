@@ -6,7 +6,7 @@ const routes: Routes = [
   {path: '', redirectTo: '/mainPage', pathMatch: 'full'},
   {path: 'mainPage', component: MainPageComponent},
   // {
-  //   path: 'employer',
+  //   path: 'renterer',
   //   component: EmployerComponent,
   //   canActivate:[AuthRoleGuard],
   //   children: [
@@ -14,10 +14,10 @@ const routes: Routes = [
   //     {path: 'profil', component: EmployerProfileComponent},
   //     {path: 'main', component: SearchWorkersComponent}
   //   ],
-  //   data: { role: 'employer'}
+  //   data: { role: 'renterer'}
   // },
   // {
-  //   path: 'worker',
+  //   path: 'rentee',
   //   component: WorkerComponent,
   //   children: [
   //     {path: '', component: WorkerProfileComponent },
@@ -25,7 +25,7 @@ const routes: Routes = [
   //     {path: 'main', component: SearchJobsComponent}
   //   ],
   //   canActivate:[AuthRoleGuard],
-  //   data: { role: 'worker'}
+  //   data: { role: 'rentee'}
   // },
   {path: '**', redirectTo: 'mainPage', pathMatch: 'full'}
 ];
