@@ -1,5 +1,6 @@
 ﻿using back.IRepository;
 using back.IService;
+using back.Models;
 using back.Repository;
 using back.Services;
 using Microsoft.AspNetCore.Builder;
@@ -25,8 +26,9 @@ namespace back
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<IRedisConnectionBuilder, RedisConnectionBuilder>();
-            services.AddSingleton<IRedisService, RedisService>();
+            services.AddScoped<IRedisConnectionBuilder, RedisConnectionBuilder>();
+            services.AddScoped<IRedisService, RedisService>();
+            services.AddScoped<IRedisRepository, RedisRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "back", Version = "v1" });
@@ -43,6 +45,8 @@ namespace back
             services.AddScoped(typeof(ISonyRepository), typeof(SonyRepository));
             services.AddScoped(typeof(IGameRepository), typeof(GameRepository));
             services.AddScoped(typeof(ICommentRepository), typeof(CommentRepository));
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +64,11 @@ namespace back
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<BroadCastHub>("/notify");
+            });
 
             app.UseEndpoints(endpoints =>
             {

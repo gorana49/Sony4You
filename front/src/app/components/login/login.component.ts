@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {UserService} from "../../services/user.service";
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {Router} from "@angular/router";
-import {User} from "../../../data-model/user";
+import { map } from 'rxjs/operators'
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,38 +9,53 @@ import {User} from "../../../data-model/user";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  user: User;
-  errorMessage: string = "";
-  constructor(private userService: UserService,
-    private router: Router) {
-this.user = new User();
-}
-
-  ngOnInit() {
-    this.user.username = "";
-    this.user.password = "";
-    this.errorMessage = "";
+  email: string;
+  password: string;
+  errorMsg="";
+  constructor(private authService:AuthService,
+              private router: Router
+              ) 
+  { 
+    this.email = "";
+    this.password = "";
   }
 
-  onLogIn()
-  {
-    if(this.user.username == "" || this.user.username == null)
-      return;
-    if(this.user.password == "" || this.user.password == null)
-      return;
-    this.userService.postUserLogIn(this.user).subscribe(
-      (result: User) => {
-        let user = result;
-        if(user!=null) {
-          this.errorMessage = "";
-          localStorage.setItem('user', JSON.stringify(user));
-          this.router.navigate(['/estimator']);
+  ngOnInit(): void {
+  }
+
+  @Output() cancelClicked: EventEmitter<any> =
+  new EventEmitter();
+
+  cancelLogIn(): void {
+    this.cancelClicked.emit();
+  }
+
+  btnLoginClicked(){
+    const provera=this.checkInput(this.email, this.password);
+    if(provera){
+      this.authService.checkIfUserValid(this.email, this.password)
+      .pipe( 
+        map(array=> array[0])
+      ).subscribe(value=>{
+        if(value!=undefined){
+          this.errorMsg="";
+          //this.store.dispatch(LogIn({user : value }));
+          this.router.navigate([`./${value.role}`]);
         }
-        else
-        {
-          this.errorMessage = "Invalid LogIn";
+        else{
+          this.errorMsg="Pogrešan email ili password!"
         }
-      }
-    )
+      })
+    }
+    else{
+      this.errorMsg="Morate uneti sva input polja!";
+    }
+  }
+
+  checkInput(email,password):boolean{
+    if((password === '' || password == null || password === undefined ) || 
+        (email === '' || email == null || email === undefined))
+        return false;
+    else return true;
   }
 }

@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using back.DtoModels;
+using Microsoft.AspNetCore.SignalR;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
+using back.Models;
 
 namespace back
 {
@@ -12,11 +15,11 @@ namespace back
         private static IConnectionMultiplexer _connection = null;
         private static object _objectLock = new object();
         private static readonly string ConnectionString = "localhost:6379";
-        //private readonly IHubContext<MessageHub> _hub;
+        private readonly IHubContext<BroadCastHub, IHubClient> _hub;
 
-        public RedisConnectionBuilder(/*IHubContext<MessageHub> hub*/)
+        public RedisConnectionBuilder(IHubContext<BroadCastHub, IHubClient> hub)
         {
-            //_hub = hub;
+            _hub = hub;
         }
 
         public IConnectionMultiplexer Connection
@@ -30,20 +33,19 @@ namespace back
                         if (_connection == null)
                         {
                             _connection = ConnectionMultiplexer.Connect(ConnectionString);
-                            //var redisPubSub = _connection.GetSubscriber();
+                            var redisPubSub = _connection.GetSubscriber();
 
-                            //redisPubSub.Subscribe("friendship.requests").OnMessage(message =>
-                            //{
+                            redisPubSub.Subscribe("friendship.requests").OnMessage(message =>
+                            {
 
-                                //FriendRequestNotificationDTO deserializedMessage = JsonSerializer.Deserialize<FriendRequestNotificationDTO>(message.Message);
+                                NotificationDTO deserializedMessage = JsonSerializer.Deserialize<NotificationDTO>(message.Message);
+                                string groupName = $"notification:{deserializedMessage.ReceiverId}";
 
-                                //string groupName = $"channel:{deserializedMessage.ReceiverId}";
+                                //_ =  _hub.Clients.Group(groupName).SendAsync("ReceiveFriendRequests", deserializedMessage);
 
-                                //_ = _hub.Clients.Group(groupName).SendAsync("ReceiveFriendRequests", deserializedMessage);
+                                //string groupName = $"requests:{deserializedMessage.ReceiverId}:friendship";
 
-                            //string groupName = $"requests:{deserializedMessage.ReceiverId}:friendship";
-
-                            //});
+                            });
                         }
                     }
                 }

@@ -8,12 +8,16 @@ import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { MainPageComponent } from './components/main-page/main-page.component';
+import { AuthRoleGuard } from './services/auth-role.guard';
+import { JwtHelperService, JWT_OPTIONS } from "@auth0/angular-jwt";
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    MainPageComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +25,11 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers:[
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService,
+    AuthRoleGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
