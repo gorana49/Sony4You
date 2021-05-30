@@ -11,15 +11,15 @@ services:
 #         # depends_on:
 #         # - front
 #         restart: always
-#   front:
-#         build:
-#             context: ./front
-#             dockerfile: Dockerfile
-#         image: front
-#         depends_on:
-#             - back
-#         volumes:
-#             - "./redis-vol:/data:rw"
+  front:
+        build:
+            context: ./front
+            dockerfile: Dockerfile
+        image: front
+        ports:
+          - 4200:4200
+        volumes:
+            - "./redis-vol:/data:rw"
   redis:
         image: redis:latest
         command: bash -c "redis-server --appendonly yes"

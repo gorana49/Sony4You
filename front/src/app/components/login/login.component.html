@@ -1,17 +1,26 @@
-<div class="login-page">
-    <div class="form">
-      <div class="login">
-        <div class="login-header">
-          <h3>LOG</h3>
-          <p>Please enter your credentials to login.</p>
-        </div>
+<div class='log-modalBackground'>
+  <div class='log-modal'>
+      <div class="log-modal-header">
+          <span (click)="cancelLogIn()" class="log-cancel">&times;</span>
       </div>
-      <form class="login-form">
-        <input type="text" [(ngModel)]="user.username" name="username" placeholder="username"/>
-        <input type="password" [(ngModel)]="user.password" name="password" placeholder="password"/>
-        <button (click)="onLogIn()">login</button>
-        <p class="error-message">{{errorMessage}}</p>
-      </form>
-    </div>
+      <div id="login">
+          <form id="login-form" class="form" action="" method="post">
+              <h3 class="text-center text-info">Login</h3>
+              <div class="form-group">
+                  <label for="username" class="text-info">Username:</label><br>
+                  <input [(ngModel)]="username" type="text" name="username" id="input-username" class="form-control">
+              </div>
+              <div class="form-group">
+                  <label for="password" class="text-info">Password:</label><br>
+                  <input [(ngModel)]="password" type="password" name="password" id="input-password" class="form-control">
+              </div>
+              <div class="form-group error-message">
+                  <label for="error">{{errorMsg}}</label><br>
+              </div>
+              <div class="form-group">
+                  <input class="btn btn-info btn-md" value="Login" (click)="btnLoginClicked();">
+              </div>
+          </form>
+      </div>
   </div>
-  
+</div>

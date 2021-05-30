@@ -1,5 +1,6 @@
 ﻿using back.IRepository;
 using back.IService;
+using back.Models;
 using back.Repository;
 using back.Services;
 using Microsoft.AspNetCore.Builder;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Neo4jClient;
+using System.Text.Json;
 
 namespace back
 {
@@ -25,8 +27,9 @@ namespace back
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<IRedisConnectionBuilder, RedisConnectionBuilder>();
-            services.AddSingleton<IRedisService, RedisService>();
+            services.AddScoped<IRedisConnectionBuilder, RedisConnectionBuilder>();
+            services.AddScoped<IRedisService, RedisService>();
+            services.AddScoped<IRedisRepository, RedisRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "back", Version = "v1" });
@@ -43,7 +46,33 @@ namespace back
             services.AddScoped(typeof(ISonyRepository), typeof(SonyRepository));
             services.AddScoped(typeof(IGameRepository), typeof(GameRepository));
             services.AddScoped(typeof(ICommentRepository), typeof(CommentRepository));
+<<<<<<< HEAD
             services.AddScoped(typeof(IFriendRequestRepository), typeof(FriendRequestRepository));
+=======
+
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.WriteIndented = true;
+                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            }).AddMvcOptions(options =>
+            {
+                options.EnableEndpointRouting = false;
+            });
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CORS", builder =>
+                {
+                    builder.AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .SetIsOriginAllowed((host) => true)
+                   .AllowCredentials();
+                });
+            });
+            services.AddSignalR(options =>
+            {
+                options.EnableDetailedErrors = true;
+            });
+>>>>>>> 048f27c60e33f1e63b7a6f7a95b09e55a12e515b
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,11 +89,14 @@ namespace back
 
             app.UseRouting();
 
+            app.UseCors("CORS");
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<MessageHub>("messenger");
             });
         }
     }
