@@ -1,0 +1,20 @@
+<div class="container-flex pl-5 pr-5 pt-1 d-flex justify-content-center">
+    <div class="row w-75  rounded pr-4" style="background-color: white;">
+        <div class="col-4 pl-5 pr-5">
+            <div class="row pt-2 ">
+                <p style="font-size:25px; font-weight:700;">Chats</p>
+            </div>
+            <div class="row pt-3 pb-3" style="cursor: pointer;" (click)='changeChatStudent(student)' *ngFor='let student of students'>
+                <div class="col-2">
+                    <img [src]="imgSrc(student.student.profilePicturePath)" height="50px" width="50px" class="rounded-circle" alt="profilePicture.jpg">
+                </div>
+                <div class="col-10 pt-2 ">
+                    <h5>{{ student.student.firstName }} {{student.student.lastName}}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-8  border-start" *ngIf='chosenStudent'>
+            <app-message-container [student]='chosenStudent' [changeStudentEvent]="changeStudentEvent" [newMessageEvent]="newMessageEvent"></app-message-container>
+        </div>
+    </div>
+</div>
