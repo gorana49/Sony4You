@@ -1,19 +1,18 @@
-﻿using System;
+﻿using back.DtoModels;
+using back.IRepository;
+using back.Models;
+using StackExchange.Redis;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using back.IRepository;
-using StackExchange.Redis;
-using back.Models;
-using back.DtoModels;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace back.Repository
 {
     public class MessageRepository : IMessageRepository
     {
         private readonly IConnectionMultiplexer _redisConnection;
-        //private readonly IHubContext<MessageHub> _hub;
         public MessageRepository(IRedisConnectionBuilder builder)
         {
             _redisConnection = builder.Connection;
@@ -44,9 +43,12 @@ namespace back.Repository
             int fromId = senderId > receiverId ? senderId : receiverId;
             int toId = senderId < receiverId ? senderId : receiverId;
             string channelName = $"messages:{fromId}:{toId}:chat";
+
             IDatabase redisDb = _redisConnection.GetDatabase();
+            var mess1 = redisDb.StreamRead(channelName, "0-0");
             from = Uri.UnescapeDataString(from);
-            var messages = await redisDb.StreamRangeAsync(channelName, minId: "-", maxId: from, count: count, messageOrder: Order.Descending);
+            var messages = redisDb.StreamRead(channelName, "0-0", count: count);
+            //  var messages = await redisDb.StreamRangeAsync(channelName, minId: "-", maxId: "-", count: count, messageOrder: Order.Descending);
             foreach (var message in messages)
             {
                 MessageDTO mess = new MessageDTO
@@ -56,7 +58,7 @@ namespace back.Repository
                     SenderId = int.Parse(message.Values.FirstOrDefault(value => value.Name == "senderId").Value),
                     ReceiverUsername = message.Values.FirstOrDefault(value => value.Name == "receiver").Value,
                     ReceiverId = int.Parse(message.Values.FirstOrDefault(value => value.Name == "receiverId").Value),
-                    Text = message.Values.FirstOrDefault(value => value.Name == "content").Value
+                    Text = message.Values.FirstOrDefault(value => value.Name == "text").Value
                 };
                 retMessages.Add(mess);
             }
@@ -82,26 +84,6 @@ namespace back.Repository
             await redisDB.SortedSetAddAsync(senderSetKey, senderSetEntry);
             await redisDB.SortedSetAddAsync(receiverSetKey, receiverSetEntry);
         }
-
-        //public async Task SetTimeToLiveForStream(int senderId, int receiverId)
-        //{
-        //    IDatabase redisDB = _redisConnection.GetDatabase();
-
-        //    int fromId = senderId > receiverId ? senderId : receiverId;
-        //    int toId = senderId < receiverId ? senderId : receiverId;
-
-        //    await redisDB.KeyExpireAsync($"messages:{fromId}:{toId}:chat", new TimeSpan(48, 0, 0));
-        //}
-
-        //public async Task<int> GetTimeToLiveForStream(int senderId, int receiverId)
-        //{
-        //    IDatabase redisDB = _redisConnection.GetDatabase();
-
-        //    int biggerId = senderId > receiverId ? senderId : receiverId;
-        //    int smallerId = senderId < receiverId ? senderId : receiverId;
-        //    TimeSpan? timeToLive = await redisDB.KeyTimeToLiveAsync($"messages:{biggerId}:{smallerId}:chat");
-        //    return (int)timeToLive.Value.TotalSeconds;
-        //}
 
         public async Task<IEnumerable<Rentee>> GetRentererInChatWith(int rentererId)
         {

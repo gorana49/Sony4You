@@ -1,11 +1,8 @@
 ﻿using back.DtoModels;
-using Microsoft.AspNetCore.Http;
+using back.IRepository;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-
 namespace back
 {
     [ApiController]
@@ -13,10 +10,12 @@ namespace back
     public class RedisController : ControllerBase
     {
         private readonly IRedisService _redisService;
+        private readonly IFriendRequestRepository _friendRepository;
 
-        public RedisController(IRedisService redisService)
+        public RedisController(IRedisService redisService, IFriendRequestRepository frendRepo)
         {
             _redisService = redisService;
+            _friendRepository = frendRepo;
         }
 
         [HttpPost]
@@ -63,6 +62,16 @@ namespace back
         public async Task PushNotification([FromBody] NotificationDTO notification)
         {
             await _redisService.PushNotification(notification);
+        }
+        [HttpPost]
+        public async Task SendFriendRequest([FromBody] FriendRequest request)
+        {
+            await _friendRepository.SendFriendRequest(request.senderId, request.receiverId, request.sender);
+        }
+        [HttpGet]
+        public async Task<IEnumerable<Request>> GetFriendRequests([FromQuery] string receiverId)
+        {
+            return await _friendRepository.GetFriendRequests(int.Parse(receiverId));
         }
     }
 }
