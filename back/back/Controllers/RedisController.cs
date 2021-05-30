@@ -63,13 +63,12 @@ namespace back
         {
             await _redisService.PushNotification(notification);
         }
-<<<<<<< HEAD
 
         [HttpPost]
         public async Task UpdatePassword([FromBody] LoggedUserDTO user)
         {
             await _redisService.UpdatePassword(user);
-=======
+        }
         [HttpPost]
         public async Task SendFriendRequest([FromBody] FriendRequest request)
         {
@@ -79,7 +78,6 @@ namespace back
         public async Task<IEnumerable<Request>> GetFriendRequests([FromQuery] string receiverId)
         {
             return await _friendRepository.GetFriendRequests(int.Parse(receiverId));
->>>>>>> ea74f833ab163ff8ac74489fcf380bebf771a96c
         }
     }
 }

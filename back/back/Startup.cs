@@ -48,6 +48,7 @@ namespace back
             services.AddScoped(typeof(ICommentRepository), typeof(CommentRepository));
             services.AddScoped(typeof(IFriendRequestRepository), typeof(FriendRequestRepository));
             services.AddScoped(typeof(IMessageRepository), typeof(MessageRepository));
+            services.AddScoped(typeof(IReservationRepository), typeof(ReservationRepository));
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.WriteIndented = true;
