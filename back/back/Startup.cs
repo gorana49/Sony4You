@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Neo4jClient;
+using System.Text.Json;
 
 namespace back
 {
@@ -46,7 +47,28 @@ namespace back
             services.AddScoped(typeof(IGameRepository), typeof(GameRepository));
             services.AddScoped(typeof(ICommentRepository), typeof(CommentRepository));
 
-            services.AddSignalR();
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.WriteIndented = true;
+                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            }).AddMvcOptions(options =>
+            {
+                options.EnableEndpointRouting = false;
+            });
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CORS", builder =>
+                {
+                    builder.AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .SetIsOriginAllowed((host) => true)
+                   .AllowCredentials();
+                });
+            });
+            services.AddSignalR(options =>
+            {
+                options.EnableDetailedErrors = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,16 +85,14 @@ namespace back
 
             app.UseRouting();
 
+            app.UseCors("CORS");
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<BroadCastHub>("/notify");
-            });
-
-            app.UseEndpoints(endpoints =>
-            {
                 endpoints.MapControllers();
+                endpoints.MapHub<MessageHub>("messenger");
             });
         }
     }
