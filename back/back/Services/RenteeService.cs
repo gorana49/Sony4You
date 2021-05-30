@@ -79,5 +79,9 @@ namespace back.Services
         {
             return this._friendRepository.MakeUsFriends(SenderUsername, ReceiverUsername);
         }
+        public Task CancelReservation(ReservationPreviewDTO previe)
+        {
+            return this._sonyRepository.CancelReservation(previe);
+        }
     }
 }

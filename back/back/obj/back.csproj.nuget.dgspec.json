@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Sony4You\\Sony4You\\back\\back\\back.csproj": {}
+    "C:\\Users\\Zeljko\\Desktop\\Sony4You\\Sony4You\\back\\back\\back.csproj": {}
   },
   "projects": {
-    "E:\\Sony4You\\Sony4You\\back\\back\\back.csproj": {
+    "C:\\Users\\Zeljko\\Desktop\\Sony4You\\Sony4You\\back\\back\\back.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Sony4You\\Sony4You\\back\\back\\back.csproj",
+        "projectUniqueName": "C:\\Users\\Zeljko\\Desktop\\Sony4You\\Sony4You\\back\\back\\back.csproj",
         "projectName": "back",
-        "projectPath": "E:\\Sony4You\\Sony4You\\back\\back\\back.csproj",
+        "projectPath": "C:\\Users\\Zeljko\\Desktop\\Sony4You\\Sony4You\\back\\back\\back.csproj",
         "packagesPath": "C:\\Users\\Zeljko\\.nuget\\packages\\",
-        "outputPath": "E:\\Sony4You\\Sony4You\\back\\back\\obj\\",
+        "outputPath": "C:\\Users\\Zeljko\\Desktop\\Sony4You\\Sony4You\\back\\back\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

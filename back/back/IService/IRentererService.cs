@@ -27,6 +27,7 @@ namespace back
         public Task<List<Game>> GetGamesOnSony(string SerialNumber);
         public Task<Sony> ReservedMySony(string SerialNumber, string UsernameRentee, RenterListDTO renterList);
         public Task<List<ReservationPreviewDTO>> GetReservedSonys(string UsernameRenterer);
+        public Task CancelReservation(ReservationPreviewDTO previe);
         public Task AddCommentToRentee(Comment comm, string Username, string UsernameRenterer);
         public Task DeleteComment(string title);
         public Task UpdateComment(string Text, string Title);

@@ -142,5 +142,10 @@ namespace back.Controllers
         {
             return _rentererService.MakeUsFriends(SenderUsername, ReceiverUsername);
         }
+        [HttpDelete]
+        public Task CancelReservation([FromBody] ReservationPreviewDTO preview)
+        {
+            return _rentererService.CancelReservation(preview);
+        }
     }
 }
