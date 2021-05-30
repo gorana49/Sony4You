@@ -1,27 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using back.DtoModels;
 using back.IRepository;
-using Microsoft.AspNetCore.SignalR;
 using back.Models;
-using back.DtoModels;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace back.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]/[action]")]
     public class MessageController : ControllerBase
     {
         private readonly IMessageRepository _repository;
-        private readonly IHubContext<MessageHub> _hub;
-        public MessageController(IMessageRepository repository, IHubContext<MessageHub> hub)
+        public MessageController(IMessageRepository repository)
         {
             _repository = repository;
-            _hub = hub;
         }
 
         [HttpPost]
-        [Route("send")]
         public async Task<ActionResult> SendMessage([FromBody] Message message)
         {
             await _repository.SendMessage(message);
@@ -29,7 +25,6 @@ namespace back.Controllers
         }
 
         [HttpGet]
-        [Route("receive")]
         public async Task<ActionResult> ReceiveMessage([FromQuery] int senderId, [FromQuery] int receiverId, [FromQuery] string from, [FromQuery] int count)
         {
             var messages = await _repository.ReceiveMessage(senderId, receiverId, from, count);
@@ -37,7 +32,6 @@ namespace back.Controllers
         }
 
         [HttpPost]
-        [Route("add-conversation/temp")]
         public async Task<ActionResult> StartConversation([FromBody] ConversationDTO participants)
         {
             try
@@ -53,7 +47,6 @@ namespace back.Controllers
                 };
 
                 await _repository.SendMessage(message);
-                //await _repository.SetTimeToLiveForStream(participants.Sender.Id, participants.Receiver.Id);
 
                 return Ok();
             }
@@ -63,36 +56,40 @@ namespace back.Controllers
             }
         }
 
-        //[HttpGet]
-        //[Route("time-left/sender/{senderId}/receiver/{receiverId}")]
-        //public async Task<ActionResult> GetConversationTimeLeft(int senderId, int receiverId)
-        //{
-        //    var timeLeft = await _repository.GetTimeToLiveForStream(senderId, receiverId);
-        //    return Ok(timeLeft);
-        //}
 
         [HttpGet]
-        [Route("chats/student/{studentId}")]
-        public async Task<ActionResult> GetStudentsInChatWith(int studentId)
+        public async Task<ActionResult> GetRentererInChatWith(int rentererId)
         {
-            var students = await _repository.GetRentererInChatWith(studentId);
-            return Ok(students);
+            var rentees = await _repository.GetRentererInChatWith(rentererId);
+            return Ok(rentees);
         }
 
         [HttpGet]
-        [Route("chat-ids/student/{studentId}")]
-        public async Task<ActionResult> GetIdsStudentsInChatWith(int studentId)
+        public async Task<ActionResult> GetIdsRentererInChatWith(int rentererId)
         {
-            var ids = await _repository.GetIdsRentererInChatWith(studentId);
+            var ids = await _repository.GetIdsRentererInChatWith(rentererId);
+            return Ok(ids);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetRenteesInChatWith(int renteeId)
+        {
+            var rentees = await _repository.GetRentererInChatWith(renteeId);
+            return Ok(rentees);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetIdsRenteesInChatWith(int renteeId)
+        {
+            var ids = await _repository.GetIdsRentererInChatWith(renteeId);
             return Ok(ids);
         }
 
         [HttpDelete]
-        [Route("deleteConversation/user/{biggerId}/{smallerId}")]
 
-        public async Task<IActionResult> DeleteConversation(int biggerId, int smallerId)
+        public async Task<IActionResult> DeleteConversation(int fromId, int toId)
         {
-            await _repository.DeleteConversation(biggerId, smallerId);
+            await _repository.DeleteConversation(fromId, toId);
             return Ok();
         }
     }

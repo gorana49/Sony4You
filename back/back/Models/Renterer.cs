@@ -1,7 +1,4 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace back.Models
+﻿namespace back.Models
 {
     public class Renterer
     {

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using back.DtoModels;
+﻿using back.DtoModels;
 using back.IRepository;
 using StackExchange.Redis;
 using System.Text.Json;
-using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace back.Repository
 {
@@ -31,7 +27,7 @@ namespace back.Repository
                     exists = true;
                 }
             }
-            if(!exists)
+            if (!exists)
             {
                 user.LoggedIn = false;
                 db.StreamAdd("logged_users", user.Username, JsonSerializer.Serialize<LoggedUserDTO>(user));
@@ -125,7 +121,7 @@ namespace back.Repository
                 db.StreamAdd("logged_users", entryUser.Username, JsonSerializer.Serialize<LoggedUserDTO>(entryUser));
 
             }
-            
+
         }
 
         public async Task<LoggedUserDTO> CheckIfUserIsValid(LoggedUserDTO user)
@@ -137,7 +133,7 @@ namespace back.Repository
                 if (entry.Values[0].Name == user.Username)
                 {
                     LoggedUserDTO entryUser = JsonSerializer.Deserialize<LoggedUserDTO>(entry.Values[0].Value.ToString());
-                    if(entryUser.Password == user.Password)
+                    if (entryUser.Password == user.Password)
                         return entryUser;
                 }
             }
@@ -163,7 +159,7 @@ namespace back.Repository
         public async Task PushNotification(NotificationDTO notification)
         {
             var publisher = _connectionMultiplexer.GetSubscriber();
-            publisher.Publish($"notification:{notification.ReceiverId}",JsonSerializer.Serialize<NotificationDTO>(notification));
+            publisher.Publish($"notification:{notification.ReceiverId}", JsonSerializer.Serialize<NotificationDTO>(notification));
         }
 
         public async Task UpdatePassword(LoggedUserDTO user)
