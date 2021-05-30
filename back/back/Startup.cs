@@ -43,6 +43,7 @@ namespace back
             services.AddScoped(typeof(ISonyRepository), typeof(SonyRepository));
             services.AddScoped(typeof(IGameRepository), typeof(GameRepository));
             services.AddScoped(typeof(ICommentRepository), typeof(CommentRepository));
+            services.AddScoped(typeof(IFriendRequestRepository), typeof(FriendRequestRepository));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

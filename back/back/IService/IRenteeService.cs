@@ -17,5 +17,8 @@ namespace back.IService
         public Task<List<Comment>> GetCommentRentee(string UsernameRentee, string UsernameRenterer);
         public Task UpdateComment(string Text, string Title);
         public Task<List<AvailableSonyDTO>> GetAvailableSonys();
+        public Task AddRequest(string SenderRequestUsername, string ReceiverRequestUsername);
+        public Task DeleteRequest(string SenderRequestUsername, string ReceiverRequestUsername);
+        public Task MakeUsFriends(string SenderUsername, string ReceiverUsername);
     }
 }
