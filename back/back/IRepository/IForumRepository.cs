@@ -1,11 +1,13 @@
-﻿using System;
+﻿using back.DtoModels;
+using back.Models;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace back.IRepository
 {
-    public class IForumRepository
+    public interface IForumRepository
     {
+        public Task SendMessage(Message message);
+        public Task<IEnumerable<MessageDTO>> ReceiveMessage(int senderId, int receiverId, string from, int count);
     }
 }

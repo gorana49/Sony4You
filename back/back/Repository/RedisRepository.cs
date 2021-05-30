@@ -162,6 +162,35 @@ namespace back.Repository
             publisher.Publish($"notification:{notification.ReceiverId}", JsonSerializer.Serialize<NotificationDTO>(notification));
         }
 
+        public async Task UpdatePassword(LoggedUserDTO user)
+        {
+            var db = _connectionMultiplexer.GetDatabase();
+            var users = db.StreamRead("logged_users", "0-0");
+            LoggedUserDTO entryUser = new LoggedUserDTO();
+            RedisValue idEntryUser = new RedisValue();
+            bool exists = false;
+            foreach (StreamEntry entry in users)
+            {
+                if (entry.Values[0].Name == user.Username)
+                {
+                    exists = true;
+                    idEntryUser = entry.Id;
+                    entryUser = JsonSerializer.Deserialize<LoggedUserDTO>(entry.Values[0].Value.ToString());
+                    break;
+                }
+            }
+            if (exists)
+            {
+                db.StreamDelete("logged_users", new[] { idEntryUser });
+                user.Role = entryUser.Role;
+                user.LoggedIn = entryUser.LoggedIn;
+                user.Id = entryUser.Id;
+                user.Username = entryUser.Username;
+                db.StreamAdd("logged_users", user.Username, JsonSerializer.Serialize<LoggedUserDTO>(user));
+
+            }
+        }
+
         //public async Task<string> GetCacheValueAsync(string key)
         //{
         //    var db = _connectionMultiplexer.GetDatabase();

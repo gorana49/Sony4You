@@ -17,5 +17,4 @@ export class LoggedUser implements ILoggedUser{
         this.role=role;
         this.loggedIn = loggedIn;
     }
-  
 }
