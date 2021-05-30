@@ -46,9 +46,7 @@ namespace back
             services.AddScoped(typeof(ISonyRepository), typeof(SonyRepository));
             services.AddScoped(typeof(IGameRepository), typeof(GameRepository));
             services.AddScoped(typeof(ICommentRepository), typeof(CommentRepository));
-<<<<<<< HEAD
             services.AddScoped(typeof(IFriendRequestRepository), typeof(FriendRequestRepository));
-=======
 
             services.AddMvc().AddJsonOptions(options =>
             {
@@ -72,7 +70,6 @@ namespace back
             {
                 options.EnableDetailedErrors = true;
             });
->>>>>>> 048f27c60e33f1e63b7a6f7a95b09e55a12e515b
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
