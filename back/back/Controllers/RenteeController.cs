@@ -69,5 +69,20 @@ namespace back.Controllers
         {
             return this._renteeService.GetAvailableSonys();
         }
+        [HttpPost]
+        public Task AddRequest(string SenderRequestUsername, string ReceiverRequestUsername)
+        {
+            return _renteeService.AddRequest(SenderRequestUsername, ReceiverRequestUsername);
+        }
+        [HttpDelete]
+        public Task DeleteRequest(string SenderRequestUsername, string ReceiverRequestUsername)
+        {
+            return _renteeService.DeleteRequest(SenderRequestUsername, ReceiverRequestUsername);
+        }
+        [HttpPost]
+        public Task MakeUsFriends(string SenderUsername, string ReceiverUsername)
+        {
+            return _renteeService.MakeUsFriends(SenderUsername, ReceiverUsername);
+        }
     }
 }

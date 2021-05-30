@@ -12,13 +12,15 @@ namespace back
         private readonly IContestRepository _contestRepository;
         private readonly IGameRepository _gameRepository;
         private readonly ICommentRepository _commentRepository;
-        public RentererService(IRentererRepository rentRepo, ISonyRepository sonyRepo, IContestRepository contRepo, IGameRepository gameRepo, ICommentRepository commRepo)
+        private readonly IFriendRequestRepository _friendRepository;
+        public RentererService(IRentererRepository rentRepo, ISonyRepository sonyRepo, IContestRepository contRepo, IGameRepository gameRepo, ICommentRepository commRepo, IFriendRequestRepository friendRepo)
         {
             _rentererRepository = rentRepo;
             _sonyRepository = sonyRepo;
             _contestRepository = contRepo;
             _gameRepository = gameRepo;
             _commentRepository = commRepo;
+            _friendRepository = friendRepo;
         }
 
         public async Task AddRenterer(Renterer renterer)
@@ -122,6 +124,18 @@ namespace back
         public Task<List<ReservationPreviewDTO>> GetReservedSonys(string UsernameRenterer)
         {
             return this._sonyRepository.GetReservedSonys(UsernameRenterer);
+        }
+        public Task AddRequest(string SenderRequestUsername, string ReceiverRequestUsername)
+        {
+            return this._friendRepository.AddRequest(SenderRequestUsername, ReceiverRequestUsername);
+        }
+        public Task DeleteRequest(string SenderRequestUsername, string ReceiverRequestUsername)
+        {
+            return this._friendRepository.DeleteRequest(SenderRequestUsername, ReceiverRequestUsername);
+        }
+        public Task MakeUsFriends(string SenderUsername, string ReceiverUsername)
+        {
+            return this._friendRepository.MakeUsFriends(SenderUsername, ReceiverUsername);
         }
     }
 }

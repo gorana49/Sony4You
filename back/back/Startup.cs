@@ -46,6 +46,7 @@ namespace back
             services.AddScoped(typeof(ISonyRepository), typeof(SonyRepository));
             services.AddScoped(typeof(IGameRepository), typeof(GameRepository));
             services.AddScoped(typeof(ICommentRepository), typeof(CommentRepository));
+            services.AddScoped(typeof(IFriendRequestRepository), typeof(FriendRequestRepository));
 
             services.AddMvc().AddJsonOptions(options =>
             {
