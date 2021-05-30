@@ -6,11 +6,10 @@ import { AppComponent } from './app.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { AuthRoleGuard } from './services/auth-role.guard';
-import { JwtHelperService, JWT_OPTIONS } from "@auth0/angular-jwt";
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
