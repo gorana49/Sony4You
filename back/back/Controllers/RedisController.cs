@@ -64,5 +64,11 @@ namespace back
         {
             await _redisService.PushNotification(notification);
         }
+
+        [HttpPost]
+        public async Task UpdatePassword([FromBody] LoggedUserDTO user)
+        {
+            await _redisService.UpdatePassword(user);
+        }
     }
 }

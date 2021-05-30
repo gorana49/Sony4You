@@ -52,5 +52,10 @@ namespace back
         {
             await _redisRepository.PushNotification(notification);
         }
+
+        public async Task UpdatePassword(LoggedUserDTO user)
+        {
+            await _redisRepository.UpdatePassword(user);
+        }
     }
 }
