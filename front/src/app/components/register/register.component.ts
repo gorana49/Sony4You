@@ -10,15 +10,14 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  isEmployer: boolean;
-  isWorker: boolean;
+  isRenterer: boolean;
+  isRentee: boolean;
   errorMsg: string;
   selectedSelect: string;
   constructor(//private authService: AuthService
     ) { 
-    this.isEmployer = true;
-    this.isWorker = false;
-    this.selectedSelect = "Elektricar";
+    this.isRenterer = true;
+    this.isRentee = false;
   }
 
   ngOnInit(): void {
@@ -27,13 +26,13 @@ export class RegisterComponent implements OnInit {
   radioChange(event) {
     if(event.target.value === "employer")
     {
-        this.isEmployer = true;
-        this.isWorker = false;
+        this.isRenterer = true;
+        this.isRentee = false;
     }
     else
     {
-      this.isEmployer = false;
-      this.isWorker = true;
+      this.isRenterer = false;
+      this.isRentee = true;
     }
   }
 
@@ -64,7 +63,7 @@ export class RegisterComponent implements OnInit {
     const email: HTMLInputElement = (document.getElementById('input-email') as HTMLInputElement);
     const password: HTMLInputElement = (document.getElementById('input-password') as HTMLInputElement);
     
-    if(this.isEmployer){
+    if(this.isRenterer){
       const company: HTMLInputElement = (document.getElementById('input-company') as HTMLInputElement);
       const provera=this.checkInput(ime.value, prezime.value, email.value,password.value, company.value);
       if(!provera){
@@ -88,7 +87,7 @@ export class RegisterComponent implements OnInit {
         // company.value='';
       }
     }
-    else if(this.isWorker){
+    else if(this.isRentee){
       const tip = this.selectedSelect;
       console.log(tip)
       const provera=this.checkInput(ime.value, prezime.value, email.value,password.value, tip);

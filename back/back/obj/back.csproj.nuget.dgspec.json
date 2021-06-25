@@ -1,7 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
     "C:\\Users\\Andjela\\Sony4You\\Sony4You\\back\\back\\back.csproj": {}
   },
   "projects": {
@@ -20,22 +19,6 @@
         "configFilePaths": [
           "C:\\Users\\Andjela\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-=======
-    "C:\\Users\\mihaj\\Desktop\\Sony4You\\Sony4You\\back\\back\\back.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\mihaj\\Desktop\\Sony4You\\Sony4You\\back\\back\\back.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\mihaj\\Desktop\\Sony4You\\Sony4You\\back\\back\\back.csproj",
-        "projectName": "back",
-        "projectPath": "C:\\Users\\mihaj\\Desktop\\Sony4You\\Sony4You\\back\\back\\back.csproj",
-        "packagesPath": "C:\\Users\\mihaj\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mihaj\\Desktop\\Sony4You\\Sony4You\\back\\back\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\mihaj\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> 3a4402577e90831f7e413c2fd37ee0a7ef0a690f
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -100,11 +83,7 @@
               "privateAssets": "all"
             }
           },
-<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
-=======
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
->>>>>>> 3a4402577e90831f7e413c2fd37ee0a7ef0a690f
         }
       }
     }
