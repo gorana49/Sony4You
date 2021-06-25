@@ -1,0 +1,26 @@
+<div class="glavni">
+    <div class="main-page">
+        <div class="left-div">
+            <div class="text-customers">
+                <label>Trazite posao?</label>
+                <label>Nudite posao?</label>
+            </div>
+            <div class="main-page-picture"></div>
+            <button  class="login-btn" (click)="showLogInModal()" >LOGIN</button>
+        </div>
+        <div class="right-div">
+            <div class="text-actions">
+                <label>Ukoliko niste</label>
+                <label>prijavljeni</label>
+                <label>registrujte</label>
+                <label>se odmah ispod</label>
+            </div>
+        </div>
+    </div>
+    <div class="registration-div">
+        <app-register></app-register>
+    </div>
+    
+</div>
+
+<app-login *ngIf='displayLogIn' (cancelClicked)='hideLogInModal()'></app-login>

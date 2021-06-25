@@ -30,6 +30,9 @@ namespace back
         public Task AddCommentToRentee(Comment comm, string Username, string UsernameRenterer);
         public Task DeleteComment(string title);
         public Task UpdateComment(string Text, string Title);
+        public Task AddRequest(string SenderRequestUsername, string ReceiverRequestUsername);
+        public Task DeleteRequest(string SenderRequestUsername, string ReceiverRequestUsername);
+        public Task MakeUsFriends(string SenderUsername, string ReceiverUsername);
 
     }
 }

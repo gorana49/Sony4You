@@ -13,12 +13,14 @@ namespace back.Services
         private readonly IContestRepository _contestRepository;
         private readonly ICommentRepository _commentRepository;
         private readonly ISonyRepository _sonyRepository;
-        public RenteeService(IRenteeRepository renteeRep, IContestRepository contestRepo, ICommentRepository commRepo, ISonyRepository sonyRepo)
+        private readonly IFriendRequestRepository _friendRepository;
+        public RenteeService(IRenteeRepository renteeRep, IContestRepository contestRepo, ICommentRepository commRepo, ISonyRepository sonyRepo, IFriendRequestRepository friendRepo)
         {
             _renteeRepository = renteeRep;
             _contestRepository = contestRepo;
             _commentRepository = commRepo;
             _sonyRepository = sonyRepo;
+            _friendRepository = friendRepo;
         }
 
         public async Task AddRentee(Rentee rentee)
@@ -65,6 +67,17 @@ namespace back.Services
         {
             return this._sonyRepository.GetAvailableSonys();
         }
-
+        public Task AddRequest(string SenderRequestUsername, string ReceiverRequestUsername)
+        {
+            return this._friendRepository.AddRequest(SenderRequestUsername, ReceiverRequestUsername);
+        }
+        public Task DeleteRequest(string SenderRequestUsername, string ReceiverRequestUsername)
+        {
+            return this._friendRepository.DeleteRequest(SenderRequestUsername, ReceiverRequestUsername);
+        }
+        public Task MakeUsFriends(string SenderUsername, string ReceiverUsername)
+        {
+            return this._friendRepository.MakeUsFriends(SenderUsername, ReceiverUsername);
+        }
     }
 }

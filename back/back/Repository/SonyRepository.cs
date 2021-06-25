@@ -25,6 +25,7 @@ namespace back.Repository
         }
         public Task DeleteSony(string SerialNumber)
         {
+
             var result = _client.Cypher.Match("(sony:Sony)")
                .Where((Sony sony) => sony.SerialNumber == SerialNumber)
                .DetachDelete("sony")

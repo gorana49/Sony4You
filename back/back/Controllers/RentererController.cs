@@ -127,5 +127,20 @@ namespace back.Controllers
         {
             return _rentererService.GetReservedSonys(UsernameRenterer);
         }
+        [HttpPost]
+        public Task AddRequest(string SenderRequestUsername, string ReceiverRequestUsername)
+        {
+            return _rentererService.AddRequest(SenderRequestUsername, ReceiverRequestUsername);
+        }
+        [HttpDelete]
+        public Task DeleteRequest(string SenderRequestUsername, string ReceiverRequestUsername)
+        {
+            return _rentererService.DeleteRequest(SenderRequestUsername, ReceiverRequestUsername);
+        }
+        [HttpPost]
+        public Task MakeUsFriends(string SenderUsername, string ReceiverUsername)
+        {
+            return _rentererService.MakeUsFriends(SenderUsername, ReceiverUsername);
+        }
     }
 }

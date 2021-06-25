@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import {UserService} from "../../services/user.service";
-import {Router} from "@angular/router";
-import {User} from "../../../data-model/user";
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+// import { Store } from '@ngrx/store';
+// import { AuthService } from 'src/app/services/auth.service';
+// import { AppState } from 'src/app/store';
+// import { LogIn } from 'src/app/store/actions/auth.actions';
+// import { map } from 'rxjs/operators'
+// import { NavService } from 'src/app/services/nav.service';
 
 @Component({
   selector: 'app-login',
@@ -9,38 +14,55 @@ import {User} from "../../../data-model/user";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  user: User;
-  errorMessage: string = "";
-  constructor(private userService: UserService,
-    private router: Router) {
-this.user = new User();
-}
+  email: string;
+  password: string;
+  errorMsg="";
+  constructor(// private authService:AuthService,
+              private router: Router,
+              //private store: Store<AppState>,
+              //private navService: NavService
+              ) { 
+                this.email = "";
+                this.password = "";
+              }
 
-  ngOnInit() {
-    this.user.username = "";
-    this.user.password = "";
-    this.errorMessage = "";
+  ngOnInit(): void {
   }
 
-  onLogIn()
-  {
-    if(this.user.username == "" || this.user.username == null)
-      return;
-    if(this.user.password == "" || this.user.password == null)
-      return;
-    this.userService.postUserLogIn(this.user).subscribe(
-      (result: User) => {
-        let user = result;
-        if(user!=null) {
-          this.errorMessage = "";
-          localStorage.setItem('user', JSON.stringify(user));
-          this.router.navigate(['/estimator']);
-        }
-        else
-        {
-          this.errorMessage = "Invalid LogIn";
-        }
-      }
-    )
+  @Output() cancelClicked: EventEmitter<any> =
+  new EventEmitter();
+
+  cancelLogIn(): void {
+    this.cancelClicked.emit();
+  }
+
+  btnLoginClicked(){
+    // const provera=this.checkInput(this.email, this.password);
+    // if(provera){
+    //   this.authService.checkIfUserValid(this.email, this.password)
+    //   .pipe( 
+    //     map(array=> array[0])
+    //   ).subscribe(value=>{
+    //     if(value!=undefined){
+    //       this.errorMsg="";
+    //       this.store.dispatch(LogIn({user : value }));
+    //       this.router.navigate([`./${value.role}`]);
+    //       this.navService.changeFlag(true);
+    //     }
+    //     else{
+    //       this.errorMsg="Pogrešan email ili password!"
+    //     }
+    //   })
+    // }
+    // else{
+    //   this.errorMsg="Morate uneti sva input polja!";
+    // }
+  }
+
+  checkInput(email:string,password:string){
+    if((password === '' || password == null || password === undefined ) || 
+        (email === '' || email == null || email === undefined))
+        return false;
+    else return true;
   }
 }
