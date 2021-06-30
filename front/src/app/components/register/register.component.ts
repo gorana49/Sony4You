@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
+import { Component, Input, OnInit } from '@angular/core';
+// import { Employer } from 'src/app/models/Employer';
+// import { LoggedUser } from 'src/app/models/LoggedUser';
+// import { AuthService } from 'src/app/services/auth.service';
+// import { Worker } from '../../models/Worker';
 
 @Component({
   selector: 'app-register',
@@ -7,14 +10,14 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  isEmployer: boolean;
-  isWorker: boolean;
+  isRenterer: boolean;
+  isRentee: boolean;
   errorMsg: string;
   selectedSelect: string;
-  constructor(private authService: AuthService) { 
-    this.isEmployer = true;
-    this.isWorker = false;
-    this.selectedSelect = "Elektricar";
+  constructor(//private authService: AuthService
+    ) { 
+    this.isRenterer = true;
+    this.isRentee = false;
   }
 
   ngOnInit(): void {
@@ -23,26 +26,26 @@ export class RegisterComponent implements OnInit {
   radioChange(event) {
     if(event.target.value === "employer")
     {
-        this.isEmployer = true;
-        this.isWorker = false;
+        this.isRenterer = true;
+        this.isRentee = false;
     }
     else
     {
-      this.isEmployer = false;
-      this.isWorker = true;
+      this.isRenterer = false;
+      this.isRentee = true;
     }
   }
 
-  // registerUser(email:string, password:string, role:string){
-  //   let regkorisnik=new LoggedUser(email, password, role)
-  //   this.authService.postRegisterLoggedUser(regkorisnik)
-  //   .subscribe(value => {
-  //     //console.log(`Uspešno registrovan user ${regkorisnik.email}!`)
-  //     },
-  //     err => {
-  //     alert(`Dogodila se greška pri registrovanju rezisera, pokušajte ponovo.`)
-  //   })
-  // }
+  registerUser(email:string, password:string, role:string){
+    // let regkorisnik=new LoggedUser(email, password, role)
+    // this.authService.postRegisterLoggedUser(regkorisnik)
+    // .subscribe(value => {
+    //   //console.log(`Uspešno registrovan user ${regkorisnik.email}!`)
+    //   },
+    //   err => {
+    //   alert(`Dogodila se greška pri registrovanju rezisera, pokušajte ponovo.`)
+    // })
+  }
 
   checkInput(ime, prezime,email,password, sertifikat):boolean{
     if((ime === '' || ime == null || ime === undefined)  ||
@@ -60,14 +63,14 @@ export class RegisterComponent implements OnInit {
     const email: HTMLInputElement = (document.getElementById('input-email') as HTMLInputElement);
     const password: HTMLInputElement = (document.getElementById('input-password') as HTMLInputElement);
     
-    if(this.isEmployer){
+    if(this.isRenterer){
       const company: HTMLInputElement = (document.getElementById('input-company') as HTMLInputElement);
       const provera=this.checkInput(ime.value, prezime.value, email.value,password.value, company.value);
       if(!provera){
         this.errorMsg="Unesite sva input polja za registraciju!"
       }
       else{
-        // this.registerUser(email.value, password.value, "employer");
+        this.registerUser(email.value, password.value, "employer");
       
         // let emp=new Employer(ime.value,prezime.value, email.value,company.value);
         // this.authService.postRegisterEmployer(emp)
@@ -77,14 +80,14 @@ export class RegisterComponent implements OnInit {
         //   err => {
         //   alert(`Dogodila se greška pri registrovanju poslodavca, pokušajte ponovo.`)
         // })
-        ime.value='';
-        prezime.value='';
-        email.value='';
-        password.value='';
-        company.value='';
+        // ime.value='';
+        // prezime.value='';
+        // email.value='';
+        // password.value='';
+        // company.value='';
       }
     }
-    else if(this.isWorker){
+    else if(this.isRentee){
       const tip = this.selectedSelect;
       console.log(tip)
       const provera=this.checkInput(ime.value, prezime.value, email.value,password.value, tip);
@@ -92,19 +95,19 @@ export class RegisterComponent implements OnInit {
         this.errorMsg="Unesite sva input polja za registraciju!"
       }
       else{
-        // this.registerUser(email.value, password.value, "worker");
+        this.registerUser(email.value, password.value, "worker");
         // let work = new Worker(ime.value, prezime.value, email.value, tip, 0);
-        // this.authService.postRegisterWorker(work)
-        // .subscribe(value => {
-        //   alert(`Uspešno registrovan ${tip} ${work.email}!`)
-        //   },
-        //   err => {
-        //   alert(`Dogodila se greška pri registrovanju ${tip}, pokušajte ponovo.`)
-        // })
-        ime.value='';
-        prezime.value='';
-        email.value='';
-        password.value='';
+      //   this.authService.postRegisterWorker(work)
+      //   .subscribe(value => {
+      //     alert(`Uspešno registrovan ${tip} ${work.email}!`)
+      //     },
+      //     err => {
+      //     alert(`Dogodila se greška pri registrovanju ${tip}, pokušajte ponovo.`)
+      //   })
+      //   ime.value='';
+      //   prezime.value='';
+      //   email.value='';
+      //   password.value='';
       }
     }
   }

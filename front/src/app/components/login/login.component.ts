@@ -1,8 +1,13 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import {Router} from "@angular/router";
-import { map } from 'rxjs/operators'
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoggedUser } from 'src/app/models/LoggedUser';
-import { AuthService } from 'src/app/services/auth.service';
+// import { Store } from '@ngrx/store';
+ import { AuthService } from 'src/app/services/auth.service';
+// import { AppState } from 'src/app/store';
+// import { LogIn } from 'src/app/store/actions/auth.actions';
+// import { map } from 'rxjs/operators'
+// import { NavService } from 'src/app/services/nav.service';
 
 @Component({
   selector: 'app-login',
@@ -13,13 +18,15 @@ export class LoginComponent implements OnInit {
   username: string;
   password: string;
   errorMsg="";
-  constructor(private authService:AuthService,
-              private router: Router
-              ) 
-  { 
-    this.username = "";
-    this.password = "";
-  }
+  constructor(
+              private authService:AuthService,
+              private router: Router,
+              //private store: Store<AppState>,
+              //private navService: NavService
+              ) { 
+                this.username = "";
+                this.password = "";
+              }
 
   ngOnInit(): void {
   }
@@ -34,15 +41,13 @@ export class LoginComponent implements OnInit {
   btnLoginClicked(){
     const provera=this.checkInput(this.username, this.password);
     if(provera){
-      var u = new LoggedUser(this.username, this.password, "", false);
-      this.authService.checkIfUserValid(u)
-      .pipe( 
-        map(array=> array[0])
-      ).subscribe(value=>{
+      this.authService.checkIfUserValid(new LoggedUser(this.username, this.password,  false, ""))
+      .subscribe(value=>{
         if(value!=undefined){
           this.errorMsg="";
-          //this.store.dispatch(LogIn({user : value }));
-          this.router.navigate([`./${value.role}`]);
+          this.authService.logInUser(value);
+          //this.router.navigate([`./${value.role}`]);
+          console.log(value)
         }
         else{
           this.errorMsg="Pogrešan email ili password!"
@@ -54,9 +59,9 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  checkInput(email,password):boolean{
+  checkInput(username:string,password:string){
     if((password === '' || password == null || password === undefined ) || 
-        (email === '' || email == null || email === undefined))
+        (username === '' || username == null || username === undefined))
         return false;
     else return true;
   }

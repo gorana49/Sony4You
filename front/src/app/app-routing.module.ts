@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { MainPageComponent } from './components/main-page/main-page.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/mainPage', pathMatch: 'full'},
   {path: 'mainPage', component: MainPageComponent},
   // {
-  //   path: 'renterer',
+  //   path: 'employer',
   //   component: EmployerComponent,
   //   canActivate:[AuthRoleGuard],
   //   children: [
@@ -14,10 +14,10 @@ const routes: Routes = [
   //     {path: 'profil', component: EmployerProfileComponent},
   //     {path: 'main', component: SearchWorkersComponent}
   //   ],
-  //   data: { role: 'renterer'}
+  //   data: { role: 'employer'}
   // },
   // {
-  //   path: 'rentee',
+  //   path: 'worker',
   //   component: WorkerComponent,
   //   children: [
   //     {path: '', component: WorkerProfileComponent },
@@ -25,7 +25,7 @@ const routes: Routes = [
   //     {path: 'main', component: SearchJobsComponent}
   //   ],
   //   canActivate:[AuthRoleGuard],
-  //   data: { role: 'rentee'}
+  //   data: { role: 'worker'}
   // },
   {path: '**', redirectTo: 'mainPage', pathMatch: 'full'}
 ];

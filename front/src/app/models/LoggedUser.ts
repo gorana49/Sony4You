@@ -1,20 +1,15 @@
-export interface ILoggedUser {
+export class LoggedUser{
+    id:string;
     username: string;
     password: string;
-    role: string;
     loggedIn: boolean;
-}
-
-export class LoggedUser implements ILoggedUser{
-    username: string;
-    password: string;
     role: string;
-    loggedIn: boolean;
 
-    constructor(username, password, role, loggedIn) {
+    constructor(username, pass, lg, role) {
         this.username=username;
-        this.password=password;
+        this.password=pass;
+        this.loggedIn=lg;
         this.role=role;
-        this.loggedIn = loggedIn;
     }
+  
 }

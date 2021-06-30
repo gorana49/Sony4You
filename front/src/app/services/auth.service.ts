@@ -1,63 +1,51 @@
-import { Injectable } from '@angular/core';
-import { HttpClient} from "@angular/common/http";
+import { Injectable } from '@angular/core'
+import { environmentVariables } from '../constants/url-constants'
+import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { ILoggedUser } from '../models/LoggedUser';
+import { LoggedUser } from '../models/LoggedUser';
 
 
 @Injectable({
-  providedIn: 'root'
-})
-export class AuthService {
-   private baseURL: string = 'https://localhost:5001/api/';
-  constructor(private http: HttpClient) { }
+    providedIn: 'root'
+  })
+  export class AuthService {
 
-//LoggedUser if user exist or null if not
-checkIfUserValid(user: ILoggedUser): Observable<ILoggedUser> {
-    let url = this.baseURL + `redis/CheckIfUserIsValid`;
-    return this.http.post<ILoggedUser>(url, user);
-}
-//crete new LoggedUser
-registerLoggedUser(user: ILoggedUser) : Observable<ILoggedUser> {
-    let url=this.baseURL + `redis/AddNewLoggedUser`;
-    return this.http.post<ILoggedUser>(url,user);
-}
-//logIn user
-logInUser(user: ILoggedUser) : Observable<ILoggedUser> {
-    let url=this.baseURL + `redis/LogInUser`;
-    return this.http.post<ILoggedUser>(url,user);
-}
-//logOut user
-logOutUser(user: ILoggedUser) {
-    let url=this.baseURL + `redis/LogOutUser`;
-    return this.http.post<ILoggedUser>(url,user);
-}
-//check is user logIn
-checkIsUserLogIn(user: ILoggedUser): Observable<ILoggedUser> {
-    let url=this.baseURL + `redis/LogOutUser`;
-    return this.http.post<ILoggedUser>(url,user);
-}
+        private URL = environmentVariables.BACK_URL;
 
+        constructor(private http: HttpClient) {}
 
+        checkIfUserValid(loggedUser: LoggedUser): Observable<LoggedUser> {
+            let url = this.URL + `Redis/CheckIfUserIsValid`;
+            return this.http.post<LoggedUser>(url, loggedUser);
+        }
 
-// getAllUsers(): Observable<ILoggedUser[]>{
-//     let url = this.baseURL + "/loggedUsers";
-//     return this.http.get<ILoggedUser[]>(url);
-// }
+        logInUser(loggedUser : LoggedUser): Observable<LoggedUser>{
+            let url = this.URL + `Redis/LogInUser`;
+            return this.http.post<LoggedUser>(url, loggedUser);
+        }
 
-// getUserByEmail(email: string): Observable<ILoggedUser> {
-//     let url = this.baseURL + `/loggedUsers?email=${email}`;
-//     return this.http.get<ILoggedUser>(url);
-// }
+//         getAllUsers(): Observable<ILoggedUser[]>{
+//             let url = this.baseURL + "/loggedUsers";
+//             return this.http.get<ILoggedUser[]>(url);
+//         }
 
+//         getUserByEmail(email: string): Observable<ILoggedUser> {
+//             let url = this.baseURL + `/loggedUsers?email=${email}`;
+//             return this.http.get<ILoggedUser>(url);
+//         }
 
+//         postRegisterLoggedUser(user: ILoggedUser) : Observable<ILoggedUser> {
+//             let url=this.baseURL + `/loggedUsers`;
+//             return this.http.post<ILoggedUser>(url,user);
+//         }
 
-// postRegisterEmployer(emp:IEmployer):Observable<IEmployer>{
-//     let url=this.baseURL+`/employer`;
-//     return this.http.post<IEmployer>(url,emp);
-//   }
-
-//   postRegisterWorker(worker: IWorker): Observable<IWorker>{
-//     let url=this.baseURL+`/worker`;
-//     return this.http.post<IWorker>(url, worker);
-//   }
-}
+//         postRegisterEmployer(emp:IEmployer):Observable<IEmployer>{
+//             let url=this.baseURL+`/employer`;
+//             return this.http.post<IEmployer>(url,emp);
+//           }
+        
+//           postRegisterWorker(worker: IWorker): Observable<IWorker>{
+//             let url=this.baseURL+`/worker`;
+//             return this.http.post<IWorker>(url, worker);
+//           }
+ }

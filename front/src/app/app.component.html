@@ -7,10 +7,15 @@
 
 <div class="celo">
     <div class="nav-bar">
+     <!--  <div class="nav-buttons" *ngIf="showNavButtons">
+        <button class="nav-button" (click)="pocetnaClicked();">Početna</button>
+        <button class="nav-button" (click)="profilClicked();">Profil</button>
+        <button class="nav-button" (click)="logoutClicked();">Logout</button>
+      </div> -->
       <img class="logo" src="../assets/job2.png">
       <span class="text-logo">NadjiPosao.</span>
     </div>
     <div class="ruter">
       <router-outlet></router-outlet>
     </div>
-</div>
+  </div>

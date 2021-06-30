@@ -1,24 +1,29 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+import {select, Store} from '@ngrx/store';
+import {isLoggedIn, selectedLoggedUser} from '../store/selectors/auth.selectors';
+import {AppState} from '../store'
 import { LoggedUser } from '../models/LoggedUser';
-import { AuthService } from './auth.service';
 
 
 
 @Injectable({ providedIn: 'root' })
 export class AuthRoleGuard implements CanActivate {
-  logged:boolean;
-  constructor(private router: Router,
-              private authService:AuthService) 
-  { 
-    this.logged = false;
-  }
+  loggedUser:LoggedUser;
+  logged: boolean = false;
+  constructor(private store: Store<AppState>, 
+              private router: Router) { }
 
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):boolean  {
 
-    var user:LoggedUser = JSON.parse(localStorage.getItem("logged-user"));
-    if(user.loggedIn){
+    this.store.select(isLoggedIn).subscribe( 
+      value => this.logged=value
+    )
+    this.store.select(selectedLoggedUser).subscribe( 
+      value => this.loggedUser=value
+    )
+    if(this.logged && route.data.role === this.loggedUser.role){
         return true;
     }
     this.router.navigate(['./mainPage']);
