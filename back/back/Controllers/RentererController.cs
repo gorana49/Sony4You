@@ -16,7 +16,7 @@ namespace back.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateRenterer([FromBody] Renterer renterer)
+        public async Task<IActionResult> CreateRenterer([FromBody] RentererDTO renterer)
         {
             await _rentererService.AddRenterer(renterer);
             return StatusCode(201, "Node has succesifully added to db");

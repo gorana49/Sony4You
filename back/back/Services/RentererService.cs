@@ -23,7 +23,7 @@ namespace back
             _friendRepository = friendRepo;
         }
 
-        public async Task AddRenterer(Renterer renterer)
+        public async Task AddRenterer(RentererDTO renterer)
         {
             await this._rentererRepository.AddRenterer(renterer);
         }

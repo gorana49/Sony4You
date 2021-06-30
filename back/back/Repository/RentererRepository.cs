@@ -1,7 +1,9 @@
 ﻿using back.DtoModels;
+using back.IRepository;
 using back.Models;
 using Neo4jClient;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace back
@@ -9,13 +11,34 @@ namespace back
     public class RentererRepository : IRentererRepository
     {
         private readonly IBoltGraphClient _client;
-        public RentererRepository(IBoltGraphClient client)
+        private readonly IRedisRepository _redisRepository;
+        public RentererRepository(IBoltGraphClient client, IRedisRepository redisRepo)
         {
             _client = client;
+            _client.Cypher.CreateUniqueConstraint("(renterer:Renterer)", "renterer.Id");
+            _redisRepository = redisRepo;
         }
-        public async Task AddRenterer(Renterer renterer)
+        public async Task AddRenterer(RentererDTO renterer)
         {
-            await _client.Cypher.Create("(renterer:Renterer {renterer})").WithParams(new { renterer }).ExecuteWithoutResultsAsync();
+            var flag = this.IfRentererExists(renterer.Username).Result;
+            if (flag == false)
+            {
+                var result = await _client.Cypher.Create("(renterer:Renterer {renterer})").WithParams(new { renterer }).Set("renterer.Id = id(renterer)").Return(renterer => new
+                {
+                    Renterer = renterer.As<Renterer>()
+                }).ResultsAsync;
+                LoggedUserDTO user = new LoggedUserDTO(result.First().Renterer.Id, result.First().Renterer.Username, result.First().Renterer.Password, true, "renterer");
+                await _redisRepository.AddNewLoggedUser(user);
+            }
+        }
+        public async Task<bool> IfRentererExists(string username)
+        {
+            var result = await _client.Cypher
+                .Match("(renterer:Renterer)")
+                .Where((Renterer renterer) => renterer.Username == username)
+                .Return<int>("count(renterer)")
+                .ResultsAsync;
+            return result.Single() > 0;
         }
         public async Task<List<Renterer>> GetAllRenterers()
         {
@@ -45,7 +68,7 @@ namespace back
         public Task DeleteRenterer(string Name)
         {
             var result = _client.Cypher.Match("(renterer:Renterer)")
-                .Where((Renterer renterer) => renterer.Name == Name)
+                .Where((Renterer renterer) => renterer.Username == Name)
                 .DetachDelete("renterer")
                 .ExecuteWithoutResultsAsync();
             return result;
