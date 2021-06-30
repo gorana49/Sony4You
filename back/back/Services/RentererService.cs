@@ -23,7 +23,7 @@ namespace back
             _friendRepository = friendRepo;
         }
 
-        public async Task AddRenterer(Renterer renterer)
+        public async Task AddRenterer(RentererDTO renterer)
         {
             await this._rentererRepository.AddRenterer(renterer);
         }
@@ -136,6 +136,10 @@ namespace back
         public Task MakeUsFriends(string SenderUsername, string ReceiverUsername)
         {
             return this._friendRepository.MakeUsFriends(SenderUsername, ReceiverUsername);
+        }
+        public Task CancelReservation(ReservationPreviewDTO previe)
+        {
+            return this._sonyRepository.CancelReservation(previe);
         }
     }
 }

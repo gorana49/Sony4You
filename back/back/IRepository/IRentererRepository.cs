@@ -6,7 +6,7 @@ namespace back
 {
     public interface IRentererRepository
     {
-        public Task AddRenterer(Renterer renterer);
+        public Task AddRenterer(RentererDTO renterer);
         public Task<List<Renterer>> GetAllRenterers();
         public Task<Renterer> GetRenterer(string CompanyName);
         public Task DeleteRenterer(string Name);

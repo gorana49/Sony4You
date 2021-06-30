@@ -171,5 +171,22 @@ namespace back.Repository
             }
             return true;
         }
+        //public string SerialNumber { get; set; }
+        //public string UsernameRentee { get; set; }
+        //public RenterListDTO RenterList { get; set; }
+        //public string StartTime { get; set; }
+        //public string Period { get; set; }
+        //public string Address { get; set; }
+        //public string Joystick { get; set; }
+        //public string Notes { get; set; }
+
+        public Task CancelReservation(ReservationPreviewDTO previe)
+        {
+            var result = _client.Cypher.Match(@"(sony:Sony), (rentee:Rentee").Where((Sony sony) => sony.SerialNumber == previe.SerialNumber)
+                .Match(@"(sony)-[r:RESERVED_BY]-(rentee)")
+                .Delete("(r)")
+                .ExecuteWithoutResultsAsync();
+            return result;
+        }
     }
 }

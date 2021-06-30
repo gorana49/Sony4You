@@ -15,5 +15,6 @@ namespace back.IRepository
         public Task<Sony> ReservedMySony(string SerialNumber, string UsernameRentee, RenterListDTO renterList);
         public Task<List<ReservationPreviewDTO>> GetReservedSonys(string UsernameRenterer);
         public Task<List<AvailableSonyDTO>> GetAvailableSonys();
+        public Task CancelReservation(ReservationPreviewDTO previe);
     }
 }

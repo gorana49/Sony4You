@@ -20,5 +20,6 @@ namespace back.IService
         public Task AddRequest(string SenderRequestUsername, string ReceiverRequestUsername);
         public Task DeleteRequest(string SenderRequestUsername, string ReceiverRequestUsername);
         public Task MakeUsFriends(string SenderUsername, string ReceiverUsername);
+        public Task CancelReservation(ReservationPreviewDTO previe);
     }
 }
