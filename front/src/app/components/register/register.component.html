@@ -23,7 +23,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-user"></i> </span>
              </div>
-            <input id="input-username" name="" class="form-control" placeholder="Usernaem" type="text" required>
+            <input id="input-username" name="" class="form-control" placeholder="Username" type="text" required>
         </div> <!-- form-group// -->
         <div class="form-group input-group">
             <div class="input-group-prepend">
@@ -31,24 +31,33 @@
              </div>
             <input id="input-email" name="" class="form-control" placeholder="Email" type="email" required>
         </div> <!-- form-group// -->
-        <div class="form-group input-group" *ngIf="isRenterer">
-            <div class="input-group-prepend">
-                <span class="input-group-text"> <i class="fa fa-building"></i> </span>
-             </div>
-            <input id="input-phone" name="" class="form-control" placeholder="Broj telefona" type="text" required>
-        </div> <!-- form-group// -->
-        <div class="form-group input-group" *ngIf="isRentee">
-            <div class="input-group-prepend">
-                <span class="input-group-text"> <i class="fa fa-building"></i> </span>
-            </div>
-            <input id="input-phone" name="" class="form-control" placeholder="Broj telefona" type="text" required>
-        </div> <!-- form-group end.// -->
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
             </div>
             <input id="input-password" class="form-control" placeholder="Password" type="password">
-        </div> <!-- form-group// -->                                     
+        </div> <!-- form-group// -->  
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+             </div>
+            <input id="input-phone" name="" class="form-control" placeholder="Broj telefona" type="text" required>
+        </div> <!-- form-group// -->
+        <div class="form-group input-group" *ngIf="isRenterer">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+            </div>
+            <input id="input-address" name="" class="form-control" placeholder="Adresa" type="text" required>
+        </div> <!-- form-group end.// -->   
+        <div class="form-group input-group" *ngIf="isRenterer">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+            </div>
+            <input id="input-company" name="" class="form-control" placeholder="Ime kompanije" type="text" required>
+        </div> <!-- form-group end.// -->
+
+        <label class="label-err">{{errorMsg}}</label>  
+                               
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block" (click)="btnRegistrujClicked();"> Registruj se </button>
         </div> <!-- form-group// -->                                                               
