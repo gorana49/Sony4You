@@ -28,9 +28,9 @@ namespace back.Controllers
         }
 
         [HttpGet]
-        public async Task<Renterer> GetRenterer([FromQuery] string CompanyName)
+        public async Task<Renterer> GetRenterer([FromQuery] string username)
         {
-            return await _rentererService.GetRenterer(CompanyName);
+            return await _rentererService.GetRenterer(username);
         }
         [HttpDelete]
         public Task DeleteRenterer([FromQuery] string Name)

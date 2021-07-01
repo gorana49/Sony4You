@@ -8,7 +8,7 @@ namespace back
     {
         public Task AddRenterer(RentererDTO renterer);
         public Task<List<Renterer>> GetAllRenterers();
-        public Task<Renterer> GetRenterer(string CompanyName);
+        public Task<Renterer> GetRenterer(string username);
         public Task DeleteRenterer(string Name);
         public Task UpdateRenterer(UpdateRentererDTO renter);
         public Task AddSony(string Username, Sony sony);

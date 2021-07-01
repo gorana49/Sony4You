@@ -53,11 +53,11 @@ namespace back
             }
             return list;
         }
-        public async Task<Renterer> GetRenterer(string CompanyName)
+        public async Task<Renterer> GetRenterer(string username)
         {
             Renterer rent = new Renterer();
             var result = await _client.Cypher.Match(@"(renterer:Renterer)")
-                .Where((Renterer renterer) => renterer.CompanyName == CompanyName)
+                .Where((Renterer renterer) => renterer.Username == username)
                 .Return(renterer => new { Renterer = renterer.As<Renterer>() }).Limit(1).ResultsAsync;
             foreach (var indeks in result)
             {
