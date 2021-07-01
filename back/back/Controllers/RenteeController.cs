@@ -17,10 +17,11 @@ namespace back.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateRentee([FromBody] Rentee rentee)
+        public async Task<Rentee> CreateRentee([FromBody] Rentee rentee)
         {
-            await _renteeService.AddRentee(rentee);
-            return StatusCode(201, "Node has succesifully added to db");
+            var result = await _renteeService.AddRentee(rentee);
+            Rentee renteeEmpty = new Rentee();
+            return result == true ? rentee : renteeEmpty;
         }
         [HttpGet]
         public async Task<List<Rentee>> GetAllRentees()
@@ -32,6 +33,7 @@ namespace back.Controllers
         public async Task<Rentee> GetRentee([FromQuery] string Username)
         {
             return await _renteeService.GetRentee(Username);
+
         }
         [HttpDelete]
         public Task DeleteRentee([FromQuery] string Username)

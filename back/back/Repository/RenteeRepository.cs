@@ -18,18 +18,24 @@ namespace back.Repository
             _client.Cypher.CreateUniqueConstraint("(rentee:Rentee)", "rentee.Id");
             _redisRepository = redisRepository;
         }
-        public async Task AddRentee(Rentee rentee)
+        public async Task<bool> AddRentee(Rentee rentee)
         {
             var flag = this.IfRenteeExists(rentee.Username).Result;
             if (flag == false)
             {
-                var result = await _client.Cypher.Create("(rentee:Rentee {rentee})").WithParams(new { rentee }).Return(rentee => new
+                var result = _client.Cypher.Create("(rentee:Rentee {rentee})").WithParams(new { rentee }).Return(rentee => new
                 {
                     Rentee = rentee.As<Rentee>()
-                }).ResultsAsync;
-                LoggedUserDTO user = new LoggedUserDTO(result.First().Rentee.Id, result.First().Rentee.Username, result.First().Rentee.Password.ToString(), true, "rentee");
-                await _redisRepository.AddNewLoggedUser(user);
+                }).ResultsAsync.IsCompletedSuccessfully;
+                if (result)
+                {
+                    return true;
+                    LoggedUserDTO user = new LoggedUserDTO(rentee.Id, rentee.Username, rentee.Password.ToString(), true, "rentee");
+                    await _redisRepository.AddNewLoggedUser(user);
+                }
+                return false;
             }
+            return false;
         }
         public async Task<bool> IfRenteeExists(string username)
         {
@@ -67,19 +73,20 @@ namespace back.Repository
         }
         public Task DeleteRentee(string Username)
         {
-            var result = _client.Cypher.Match("(rentee:Rentee)")
-                .Where((Rentee rentee) => rentee.Username == Username)
-                .DetachDelete("rentee")
-                .ExecuteWithoutResultsAsync();
-            return result;
+            var rentee = this.GetRentee(Username);
+            _client.Cypher.Match("(rentee:Rentee)")
+            .Where((Rentee rentee) => rentee.Username == Username)
+            .DetachDelete("rentee").ExecuteWithoutResultsAsync();
+            return rentee ?? null;
         }
 
-        public Task UpdateRentee(UpdateRenteeDTO renteee)
+        public async Task<Rentee> UpdateRentee(UpdateRenteeDTO renteee)
         {
-            var result = _client.Cypher.Match(@"(rentee:Rentee)").Where((Rentee rentee) => rentee.Name == renteee.Name)
+
+            var result = await _client.Cypher.Match(@"(rentee:Rentee)").Where((Rentee rentee) => rentee.Username == renteee.Username)
                 .Set("rentee.Password = " + "\"" + renteee.Password + "\"").Set("rentee.PhoneNumber = " + "\"" + renteee.PhoneNumber + "\"")
-                .ExecuteWithoutResultsAsync();
-            return result;
+                .Limit(1).Return<Rentee>("rentee").ResultsAsync;
+            return result.First();
         }
     }
 }

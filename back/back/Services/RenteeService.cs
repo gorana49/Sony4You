@@ -23,9 +23,9 @@ namespace back.Services
             _friendRepository = friendRepo;
         }
 
-        public async Task AddRentee(Rentee rentee)
+        public async Task<bool> AddRentee(Rentee rentee)
         {
-            await this._renteeRepository.AddRentee(rentee);
+            return await this._renteeRepository.AddRentee(rentee);
         }
         public async Task<List<Rentee>> GetAllRentees()
         {
@@ -39,7 +39,7 @@ namespace back.Services
         {
             return this._renteeRepository.DeleteRentee(Username);
         }
-        public Task UpdateRentee(UpdateRenteeDTO rentee)
+        public Task<Rentee> UpdateRentee(UpdateRenteeDTO rentee)
         {
             return this._renteeRepository.UpdateRentee(rentee);
         }
