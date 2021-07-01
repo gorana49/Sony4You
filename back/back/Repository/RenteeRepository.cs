@@ -3,6 +3,7 @@ using back.IRepository;
 using back.Models;
 using Neo4jClient;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace back.Repository
@@ -10,13 +11,34 @@ namespace back.Repository
     public class RenteeRepository : IRenteeRepository
     {
         private readonly IBoltGraphClient _client;
-        public RenteeRepository(IBoltGraphClient client)
+        private readonly IRedisRepository _redisRepository;
+        public RenteeRepository(IBoltGraphClient client, IRedisRepository redisRepository)
         {
             _client = client;
+            _client.Cypher.CreateUniqueConstraint("(rentee:Rentee)", "rentee.Id");
+            _redisRepository = redisRepository;
         }
         public async Task AddRentee(Rentee rentee)
         {
-            await _client.Cypher.Create("(rentee:Rentee {rentee})").WithParams(new { rentee }).ExecuteWithoutResultsAsync();
+            var flag = this.IfRenteeExists(rentee.Username).Result;
+            if (flag == false)
+            {
+                var result = await _client.Cypher.Create("(rentee:Rentee {rentee})").WithParams(new { rentee }).Return(rentee => new
+                {
+                    Rentee = rentee.As<Rentee>()
+                }).ResultsAsync;
+                LoggedUserDTO user = new LoggedUserDTO(result.First().Rentee.Id, result.First().Rentee.Username, result.First().Rentee.Password.ToString(), true, "rentee");
+                await _redisRepository.AddNewLoggedUser(user);
+            }
+        }
+        public async Task<bool> IfRenteeExists(string username)
+        {
+            var result = await _client.Cypher
+                .Match("(renterer:Renterer)")
+                .Where((Renterer renterer) => renterer.Username == username)
+                .Return<int>("count(renterer)")
+                .ResultsAsync;
+            return result.Single() > 0;
         }
         public async Task<List<Rentee>> GetAllRentees()
         {

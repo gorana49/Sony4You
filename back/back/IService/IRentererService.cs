@@ -6,7 +6,7 @@ namespace back
 {
     public interface IRentererService
     {
-        public Task AddRenterer(Renterer renterer);
+        public Task AddRenterer(RentererDTO renterer);
         public Task<List<Renterer>> GetAllRenterers();
         public Task<Renterer> GetRenterer(string CompanyName);
         public Task DeleteRenterer(string Name);
@@ -27,6 +27,7 @@ namespace back
         public Task<List<Game>> GetGamesOnSony(string SerialNumber);
         public Task<Sony> ReservedMySony(string SerialNumber, string UsernameRentee, RenterListDTO renterList);
         public Task<List<ReservationPreviewDTO>> GetReservedSonys(string UsernameRenterer);
+        public Task CancelReservation(ReservationPreviewDTO previe);
         public Task AddCommentToRentee(Comment comm, string Username, string UsernameRenterer);
         public Task DeleteComment(string title);
         public Task UpdateComment(string Text, string Title);
