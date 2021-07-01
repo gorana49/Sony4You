@@ -31,9 +31,9 @@ namespace back
         {
             return await this._rentererRepository.GetAllRenterers();
         }
-        public async Task<Renterer> GetRenterer(string CompanyName)
+        public async Task<Renterer> GetRenterer(string username)
         {
-            return await this._rentererRepository.GetRenterer(CompanyName);
+            return await this._rentererRepository.GetRenterer(username);
         }
         public Task DeleteRenterer(string Name)
         {

@@ -8,13 +8,23 @@ import { LoginComponent } from './components/login/login.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { RentererPageComponent } from './components/renterer/renterer-page/renterer-page.component';
+import { SonyPageComponent } from './components/renterer/sony-page/sony-page.component';
+import { ReservationPageComponent } from './components/renterer/reservation-page/reservation-page.component';
+import { ChatPageComponent } from './components/renterer/chat-page/chat-page.component';
+import { ForumPageComponent } from './components/renterer/forum-page/forum-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    MainPageComponent
+    MainPageComponent,
+    RentererPageComponent,
+    SonyPageComponent,
+    ReservationPageComponent,
+    ChatPageComponent,
+    ForumPageComponent
   ],
   imports: [
     BrowserModule,
