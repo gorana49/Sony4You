@@ -68,11 +68,6 @@ export class RegisterComponent implements OnInit {
           err => {
           alert(`Dogodila se greška pri registrovanju korinika, pokušajte ponovo.`)
         })
-        name.value='';
-        username.value='';
-        email.value='';
-        password.value='';
-        phoneNumber.value='';
         this.errorMsg='';
       }
     }
@@ -95,16 +90,16 @@ export class RegisterComponent implements OnInit {
           err => {
           alert(`Dogodila se greška pri registrovanju izdavača, pokušajte ponovo.`)
         })
-        name.value='';
-        username.value='';
-        email.value='';
-        password.value='';
-        phoneNumber.value='';
         address.value='';
         company.value='';
         this.errorMsg='';
       }
     }
+    name.value='';
+    username.value='';
+    email.value='';
+    password.value='';
+    phoneNumber.value='';
   }
 
 
