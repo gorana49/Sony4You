@@ -2,12 +2,11 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoggedUser } from 'src/app/models/LoggedUser';
-// import { Store } from '@ngrx/store';
- import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { NavigationService } from 'src/app/services/navigation.service';
 // import { AppState } from 'src/app/store';
 // import { LogIn } from 'src/app/store/actions/auth.actions';
 // import { map } from 'rxjs/operators'
-// import { NavService } from 'src/app/services/nav.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +21,7 @@ export class LoginComponent implements OnInit {
               private authService:AuthService,
               private router: Router,
               //private store: Store<AppState>,
-              //private navService: NavService
+              private navigationService: NavigationService
               ) { 
                 this.username = "";
                 this.password = "";
@@ -46,8 +45,12 @@ export class LoginComponent implements OnInit {
         if(value!=undefined){
           this.errorMsg="";
           this.authService.logInUser(value);
-          //this.router.navigate([`./${value.role}`]);
-          console.log(value)
+          localStorage.setItem("user", JSON.stringify(value));
+          this.router.navigate([`./${value.role}`]);
+          this.navigationService.changeFlag(true);
+
+          const userData=localStorage.getItem("user");
+          console.log(userData);
         }
         else{
           this.errorMsg="Pogrešan email ili password!"

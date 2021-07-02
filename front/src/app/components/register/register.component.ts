@@ -81,7 +81,7 @@ export class RegisterComponent implements OnInit {
         console.log(this.errorMsg);
       }
       else{
-        this.registerUser(email.value, password.value, "renter");
+        this.registerUser(email.value, password.value, "renterer");
         let renterer= new Renterer(name.value, username.value, email.value, password.value, phoneNumber.value, address.value, company.value, "")
         this.authService.addNewRenterer(renterer)
         .subscribe(value => {

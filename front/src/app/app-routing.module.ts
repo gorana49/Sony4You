@@ -18,7 +18,7 @@ const routes: Routes = [
       {path: '', component: SonyPageComponent },
       {path: 'sony', component: SonyPageComponent},
       {path: 'reservation', component: ReservationPageComponent},
-      {path: 'caht', component: ChatPageComponent},
+      {path: 'chat', component: ChatPageComponent},
       {path: 'forum', component: ForumPageComponent}
     ],
     //data: { role: 'renterer'}
