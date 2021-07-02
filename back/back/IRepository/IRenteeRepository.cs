@@ -6,7 +6,7 @@ namespace back.IRepository
 {
     public interface IRenteeRepository
     {
-        public Task<bool> AddRentee(Rentee rentee);
+        public Task<RenteeDTO> AddRentee(RenteeDTO rentee);
         public Task<List<Rentee>> GetAllRentees();
         public Task<Rentee> GetRentee(string Username);
         public Task DeleteRentee(string Username);

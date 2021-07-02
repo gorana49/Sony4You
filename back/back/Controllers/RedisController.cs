@@ -32,7 +32,7 @@ namespace back
         [HttpGet]
         public async Task<List<LoggedUserDTO>> GetAllLoggedUsers()
         {
-
+            return await _redisService.GetAllLoggedUsers();
         }
         [HttpPost]
         public async Task<IActionResult> LogInUser([FromBody] LoggedUserDTO user)

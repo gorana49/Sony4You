@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using back.DtoModels;
+﻿using back.DtoModels;
 using back.IRepository;
-using StackExchange.Redis;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace back
 {
@@ -21,7 +18,10 @@ namespace back
         {
             await _redisRepository.AddNewLoggedUser(user);
         }
-
+        public async Task<List<LoggedUserDTO>> GetAllLoggedUsers()
+        {
+            return await _redisRepository.GetAllLoggedUsers();
+        }
         public async Task RemoveLoggedUser(LoggedUserDTO user)
         {
             await _redisRepository.RemoveLoggedUser(user);
