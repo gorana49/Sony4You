@@ -24,12 +24,16 @@ namespace back
             await _redisService.AddNewLoggedUser(user);
         }
 
-        [HttpPost]
+        [HttpDelete]
         public async Task RemoveLoggedUser([FromBody] LoggedUserDTO user)
         {
             await _redisService.RemoveLoggedUser(user);
         }
-
+        [HttpGet]
+        public async Task<List<LoggedUserDTO>> GetAllLoggedUsers()
+        {
+            return await _redisService.GetAllLoggedUsers();
+        }
         [HttpPost]
         public async Task<IActionResult> LogInUser([FromBody] LoggedUserDTO user)
         {

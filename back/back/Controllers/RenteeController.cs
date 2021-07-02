@@ -17,11 +17,9 @@ namespace back.Controllers
         }
 
         [HttpPost]
-        public async Task<Rentee> CreateRentee([FromBody] Rentee rentee)
+        public async Task<RenteeDTO> CreateRentee([FromBody] RenteeDTO rentee)
         {
-            var result = await _renteeService.AddRentee(rentee);
-            Rentee renteeEmpty = new Rentee();
-            return result == true ? rentee : renteeEmpty;
+            return await _renteeService.AddRentee(rentee);
         }
         [HttpGet]
         public async Task<List<Rentee>> GetAllRentees()

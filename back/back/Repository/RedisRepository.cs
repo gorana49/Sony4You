@@ -1,6 +1,7 @@
 ﻿using back.DtoModels;
 using back.IRepository;
 using StackExchange.Redis;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -14,11 +15,21 @@ namespace back.Repository
         {
             _connectionMultiplexer = connectionBuilder.Connection;
         }
-
+        public async Task<List<LoggedUserDTO>> GetAllLoggedUsers()
+        {
+            var db = _connectionMultiplexer.GetDatabase();
+            var users = await db.StreamReadAsync("logged_users", "0-0");
+            List<LoggedUserDTO> loggedUsers = new List<LoggedUserDTO>();
+            foreach (StreamEntry entry in users)
+            {
+                loggedUsers.Add(JsonSerializer.Deserialize<LoggedUserDTO>(entry.Values[0].Value));
+            }
+            return loggedUsers;
+        }
         public async Task AddNewLoggedUser(LoggedUserDTO user)
         {
             var db = _connectionMultiplexer.GetDatabase();
-            var users = db.StreamRead("logged_users", "0-0");
+            var users = await db.StreamReadAsync("logged_users", "0-0");
             bool exists = false;
             foreach (StreamEntry entry in users)
             {
@@ -37,7 +48,7 @@ namespace back.Repository
         public async Task RemoveLoggedUser(LoggedUserDTO user)
         {
             var db = _connectionMultiplexer.GetDatabase();
-            var users = db.StreamRead("logged_users", "0-0");
+            var users = await db.StreamReadAsync("logged_users", "0-0");
             bool exists = false;
             RedisValue val = new RedisValue();
             foreach (StreamEntry entry in users)
@@ -58,7 +69,7 @@ namespace back.Repository
         public async Task<LoggedUserDTO> LogInUser(LoggedUserDTO user)
         {
             var db = _connectionMultiplexer.GetDatabase();
-            var users = db.StreamRead("logged_users", "0-0");
+            var users = await db.StreamReadAsync("logged_users", "0-0");
             LoggedUserDTO entryUser = new LoggedUserDTO();
             RedisValue idEntryUser = new RedisValue();
             bool exists = false;

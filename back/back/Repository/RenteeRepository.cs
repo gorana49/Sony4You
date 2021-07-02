@@ -2,6 +2,7 @@
 using back.IRepository;
 using back.Models;
 using Neo4jClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace back.Repository
             _client.Cypher.CreateUniqueConstraint("(rentee:Rentee)", "rentee.Id");
             _redisRepository = redisRepository;
         }
-        public async Task<bool> AddRentee(Rentee rentee)
+        public async Task<RenteeDTO> AddRentee(RenteeDTO rentee)
         {
             var flag = this.IfRenteeExists(rentee.Username).Result;
             if (flag == false)
@@ -26,16 +27,14 @@ namespace back.Repository
                 var result = _client.Cypher.Create("(rentee:Rentee {rentee})").WithParams(new { rentee }).Return(rentee => new
                 {
                     Rentee = rentee.As<Rentee>()
-                }).ResultsAsync.IsCompletedSuccessfully;
-                if (result)
-                {
-                    return true;
-                    LoggedUserDTO user = new LoggedUserDTO(rentee.Id, rentee.Username, rentee.Password.ToString(), true, "rentee");
-                    await _redisRepository.AddNewLoggedUser(user);
-                }
-                return false;
+                }).ResultsAsync;
+                Rentee renteee = result.Result.First().Rentee;
+                Console.WriteLine(renteee.Id.ToString());
+                LoggedUserDTO user = new LoggedUserDTO(renteee.Id.ToString(), rentee.Username, rentee.Password.ToString(), true, "rentee");
+                await _redisRepository.AddNewLoggedUser(user);
+                return rentee;
             }
-            return false;
+            return null;
         }
         public async Task<bool> IfRenteeExists(string username)
         {

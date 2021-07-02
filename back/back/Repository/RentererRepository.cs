@@ -23,13 +23,14 @@ namespace back
             var flag = this.IfRentererExists(renterer.Username).Result;
             if (flag == false)
             {
-                var result =  _client.Cypher.Create("(renterer:Renterer {renterer})").WithParams(new { renterer }).Set("renterer.Id = id(renterer)").Return(renterer => new
+                var result = _client.Cypher.Create("(renterer:Renterer {renterer})").WithParams(new { renterer }).Set("renterer.Id = id(renterer)").Return(renterer => new
                 {
                     Renterer = renterer.As<Renterer>()
                 }).ResultsAsync.IsCompletedSuccessfully;
-                if (result) {
+                if (result)
+                {
                     return true;
-                    LoggedUserDTO user = new LoggedUserDTO(renterer.Id, renterer.Name, renterer.Password, true, "renterer");
+                    LoggedUserDTO user = new LoggedUserDTO(renterer.Id.ToString(), renterer.Name, renterer.Password, true, "renterer");
                     await _redisRepository.AddNewLoggedUser(user);
                 }
                 return false;
