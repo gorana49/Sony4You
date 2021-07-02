@@ -85,9 +85,11 @@ export class RegisterComponent implements OnInit {
         let renterer= new Renterer(name.value, username.value, email.value, password.value, phoneNumber.value, address.value, company.value, "")
         this.authService.addNewRenterer(renterer)
         .subscribe(value => {
+          console.log(value);
           alert(`Uspešno registrovan izdavač ${renterer.username}!`)
           },
           err => {
+          console.log(err);
           alert(`Dogodila se greška pri registrovanju izdavača, pokušajte ponovo.`)
         })
         address.value='';

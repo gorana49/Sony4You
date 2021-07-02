@@ -13,6 +13,7 @@ import { SonyPageComponent } from './components/renterer/sony-page/sony-page.com
 import { ReservationPageComponent } from './components/renterer/reservation-page/reservation-page.component';
 import { ChatPageComponent } from './components/renterer/chat-page/chat-page.component';
 import { ForumPageComponent } from './components/renterer/forum-page/forum-page.component';
+import { RenteePageComponent } from './components/rentee/rentee-page/rentee-page.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ForumPageComponent } from './components/renterer/forum-page/forum-page.
     SonyPageComponent,
     ReservationPageComponent,
     ChatPageComponent,
-    ForumPageComponent
+    ForumPageComponent,
+    RenteePageComponent
   ],
   imports: [
     BrowserModule,
