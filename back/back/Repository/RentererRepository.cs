@@ -18,18 +18,23 @@ namespace back
             _client.Cypher.CreateUniqueConstraint("(renterer:Renterer)", "renterer.Id");
             _redisRepository = redisRepo;
         }
-        public async Task AddRenterer(RentererDTO renterer)
+        public async Task<bool> AddRenterer(Renterer renterer)
         {
             var flag = this.IfRentererExists(renterer.Username).Result;
             if (flag == false)
             {
-                var result = await _client.Cypher.Create("(renterer:Renterer {renterer})").WithParams(new { renterer }).Set("renterer.Id = id(renterer)").Return(renterer => new
+                var result =  _client.Cypher.Create("(renterer:Renterer {renterer})").WithParams(new { renterer }).Set("renterer.Id = id(renterer)").Return(renterer => new
                 {
                     Renterer = renterer.As<Renterer>()
-                }).ResultsAsync;
-                LoggedUserDTO user = new LoggedUserDTO(result.First().Renterer.Id, result.First().Renterer.Username, result.First().Renterer.Password, true, "renterer");
-                await _redisRepository.AddNewLoggedUser(user);
+                }).ResultsAsync.IsCompletedSuccessfully;
+                if (result) {
+                    return true;
+                    LoggedUserDTO user = new LoggedUserDTO(renterer.Id, renterer.Name, renterer.Password, true, "renterer");
+                    await _redisRepository.AddNewLoggedUser(user);
+                }
+                return false;
             }
+            return false;
         }
         public async Task<bool> IfRentererExists(string username)
         {
@@ -53,11 +58,11 @@ namespace back
             }
             return list;
         }
-        public async Task<Renterer> GetRenterer(string CompanyName)
+        public async Task<Renterer> GetRenterer(string username)
         {
             Renterer rent = new Renterer();
             var result = await _client.Cypher.Match(@"(renterer:Renterer)")
-                .Where((Renterer renterer) => renterer.CompanyName == CompanyName)
+                .Where((Renterer renterer) => renterer.Username == username)
                 .Return(renterer => new { Renterer = renterer.As<Renterer>() }).Limit(1).ResultsAsync;
             foreach (var indeks in result)
             {

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { NavigationService } from './services/navigation.service';
 
 @Component({
   selector: 'app-root',
@@ -8,22 +9,17 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'JobApp';
-  // showNavButtons: boolean;
-  // user$=this.store.pipe(
-  //     select(selectedLoggedUser),
-  //     filter(val => val !== undefined)
-  //   );
-  constructor(// private showNavService: NavService,
-  //   private store: Store<AppState>,
+  showNavButtons: boolean;
+  constructor(private navigationService: NavigationService,
     private router: Router) {}
 
 ngOnInit(){
-  // this.showNavService.flagCurrent.subscribe(flag => this.showNavButtons=flag);
+  this.navigationService.flagCurrent.subscribe(flag => this.showNavButtons=flag);
 }
 
 logoutClicked(){
-    // this.store.dispatch(LogOut());
-    // this.showNavService.changeFlag(false);
+    this.navigationService.changeFlag(false);
+    localStorage.removeItem("user");
     this.router.navigate([`./mainPage`]);
 }
 

@@ -23,17 +23,17 @@ namespace back
             _friendRepository = friendRepo;
         }
 
-        public async Task AddRenterer(RentererDTO renterer)
+        public async Task<bool> AddRenterer(Renterer renterer)
         {
-            await this._rentererRepository.AddRenterer(renterer);
+           return await this._rentererRepository.AddRenterer(renterer);
         }
         public async Task<List<Renterer>> GetAllRenterers()
         {
             return await this._rentererRepository.GetAllRenterers();
         }
-        public async Task<Renterer> GetRenterer(string CompanyName)
+        public async Task<Renterer> GetRenterer(string username)
         {
-            return await this._rentererRepository.GetRenterer(CompanyName);
+            return await this._rentererRepository.GetRenterer(username);
         }
         public Task DeleteRenterer(string Name)
         {

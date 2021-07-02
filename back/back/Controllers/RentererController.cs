@@ -16,10 +16,11 @@ namespace back.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateRenterer([FromBody] RentererDTO renterer)
+        public async Task<Renterer> CreateRenterer([FromBody] Renterer renterer)
         {
-            await _rentererService.AddRenterer(renterer);
-            return StatusCode(201, "Node has succesifully added to db");
+            var result = await _rentererService.AddRenterer(renterer);
+            Renterer rentererEmpty = new Renterer();
+            return result == true ? renterer : rentererEmpty;
         }
         [HttpGet]
         public async Task<List<Renterer>> GetAllRenterers()
@@ -28,9 +29,9 @@ namespace back.Controllers
         }
 
         [HttpGet]
-        public async Task<Renterer> GetRenterer([FromQuery] string CompanyName)
+        public async Task<Renterer> GetRenterer([FromQuery] string username)
         {
-            return await _rentererService.GetRenterer(CompanyName);
+            return await _rentererService.GetRenterer(username);
         }
         [HttpDelete]
         public Task DeleteRenterer([FromQuery] string Name)
