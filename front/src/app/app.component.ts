@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoggedUser } from './models/LoggedUser';
 import { NavigationService } from './services/navigation.service';
 
 @Component({
@@ -24,26 +25,18 @@ logoutClicked(){
 }
 
 pocetnaClicked(){
-  // this.user$.subscribe(
-  // user=>{
-  //   if(user.role==="employer"){
-  //     this.router.navigate(['/employer/main'])
-  //     }
-  //     else{
-  //       this.router.navigate(['/worker/main'])
-  //     }
-  // })
+  const loggedUserData: LoggedUser= JSON.parse(localStorage.getItem("user"));
+  if(loggedUserData.role==="rentee"){
+    this.router.navigate(['./rentee'])
+    }
+ 
 }
 
-profilClicked(){
-  // this.user$.subscribe(
-  // user=>{
-  //   if(user.role==="employer"){
-  //     this.router.navigate(['/employer/profil'])
-  //   }
-  //   else{
-  //     this.router.navigate(['/worker/profil'])
-  //   }
-  //   })
- }
+izdavaciClicked(){
+  const loggedUserData: LoggedUser= JSON.parse(localStorage.getItem("user"));
+  console.log(loggedUserData);
+  if(loggedUserData.role==="rentee"){
+    this.router.navigate(['./rentee/izdavaci'])
+    }
+  }
 }

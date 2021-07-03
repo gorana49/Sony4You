@@ -22,7 +22,8 @@ namespace back.Repository
             List<LoggedUserDTO> loggedUsers = new List<LoggedUserDTO>();
             foreach (StreamEntry entry in users)
             {
-                loggedUsers.Add(JsonSerializer.Deserialize<LoggedUserDTO>(entry.Values[0].Value));
+                var obj = JsonSerializer.Deserialize<LoggedUserDTO>(entry.Values[0].Value);
+                loggedUsers.Add(obj);
             }
             return loggedUsers;
         }
@@ -195,7 +196,6 @@ namespace back.Repository
                 db.StreamDelete("logged_users", new[] { idEntryUser });
                 user.Role = entryUser.Role;
                 user.LoggedIn = entryUser.LoggedIn;
-                user.Id = entryUser.Id;
                 user.Username = entryUser.Username;
                 db.StreamAdd("logged_users", user.Username, JsonSerializer.Serialize<LoggedUserDTO>(user));
 

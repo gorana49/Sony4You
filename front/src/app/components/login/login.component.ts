@@ -40,17 +40,19 @@ export class LoginComponent implements OnInit {
   btnLoginClicked(){
     const provera=this.checkInput(this.username, this.password);
     if(provera){
-      this.authService.checkIfUserValid(new LoggedUser(this.username, this.password,  false, ""))
+      this.authService.checkIfUserValid(new LoggedUser(this.username, this.password,  false, ''))
       .subscribe(value=>{
         if(value!=undefined){
+          console.log(value.role);
+          console.log("---------")
           this.errorMsg="";
           this.authService.logInUser(value);
           localStorage.setItem("user", JSON.stringify(value));
           this.router.navigate([`./${value.role}`]);
           this.navigationService.changeFlag(true);
 
-          const userData=localStorage.getItem("user");
-          console.log(userData);
+          const loggedUserData: LoggedUser= JSON.parse(localStorage.getItem("user"));
+          console.log(loggedUserData);
         }
         else{
           this.errorMsg="Pogrešan email ili password!"
