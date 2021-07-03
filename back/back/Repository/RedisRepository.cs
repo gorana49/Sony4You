@@ -22,7 +22,8 @@ namespace back.Repository
             List<LoggedUserDTO> loggedUsers = new List<LoggedUserDTO>();
             foreach (StreamEntry entry in users)
             {
-                loggedUsers.Add(JsonSerializer.Deserialize<LoggedUserDTO>(entry.Values[0].Value));
+                var obj = JsonSerializer.Deserialize<LoggedUserDTO>(entry.Values[0].Value);
+                loggedUsers.Add(obj);
             }
             return loggedUsers;
         }
