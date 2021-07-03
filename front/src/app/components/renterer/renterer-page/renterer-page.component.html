@@ -1,1 +1,19 @@
-<p>renterer-page works!</p>
+<div class="renterer-container">
+    <div class="renterer-menu-container">
+        <div class="renterer-menu-item" (click)="navigateTo('sony');">
+            Sony
+        </div>
+        <div class="renterer-menu-item" (click)="navigateTo('reservation');">
+            Rezervacije
+        </div>
+        <div class="renterer-menu-item" (click)="navigateTo('chat');">
+            Chat
+        </div>
+        <div class="renterer-menu-item" (click)="navigateTo('forum');">
+            Forum
+        </div>
+    </div>
+    <div class="renterer-content">
+        <router-outlet></router-outlet>
+    </div>
+</div>
