@@ -30,7 +30,7 @@ namespace back.Repository
                 }).ResultsAsync;
                 Rentee renteee = result.Result.First().Rentee;
                 Console.WriteLine(renteee.Id.ToString());
-                LoggedUserDTO user = new LoggedUserDTO(renteee.Id.ToString(), rentee.Username, rentee.Password.ToString(), true, "rentee");
+                LoggedUserDTO user = new LoggedUserDTO(rentee.Username, rentee.Password.ToString(), true, "rentee");
                 await _redisRepository.AddNewLoggedUser(user);
                 return rentee;
             }

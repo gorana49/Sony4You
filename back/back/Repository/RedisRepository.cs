@@ -195,7 +195,6 @@ namespace back.Repository
                 db.StreamDelete("logged_users", new[] { idEntryUser });
                 user.Role = entryUser.Role;
                 user.LoggedIn = entryUser.LoggedIn;
-                user.Id = entryUser.Id;
                 user.Username = entryUser.Username;
                 db.StreamAdd("logged_users", user.Username, JsonSerializer.Serialize<LoggedUserDTO>(user));
 

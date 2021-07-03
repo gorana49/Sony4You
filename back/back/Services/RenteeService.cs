@@ -23,7 +23,7 @@ namespace back.Services
             _friendRepository = friendRepo;
         }
 
-        public async Task<bool> AddRentee(Rentee rentee)
+        public async Task<RenteeDTO> AddRentee(RenteeDTO rentee)
         {
             return await this._renteeRepository.AddRentee(rentee);
         }

@@ -16,11 +16,9 @@ namespace back.Controllers
         }
 
         [HttpPost]
-        public async Task<Renterer> CreateRenterer([FromBody] Renterer renterer)
+        public async Task<RentererDTO> CreateRenterer([FromBody] RentererDTO renterer)
         {
-            var result = await _rentererService.AddRenterer(renterer);
-            Renterer rentererEmpty = new Renterer();
-            return result == true ? renterer : rentererEmpty;
+            return await _rentererService.AddRenterer(renterer);
         }
         [HttpGet]
         public async Task<List<Renterer>> GetAllRenterers()
@@ -97,17 +95,16 @@ namespace back.Controllers
         {
             return _rentererService.GetContest(Name);
         }
-        //[HttpPost]
-        //public Task AddGame(string SerialNumber, Game game)
-        //{
-
-
-        //}
-        //[HttpPut]
-        //public Task UpdateGame(string Players, Game gam)
-        //{
-
-        //}
+        [HttpPost]
+        public Task AddGame(string SerialNumber, Game game)
+        {
+            return _rentererService.AddGame(SerialNumber, game);
+        }
+        [HttpPut]
+        public Task UpdateGame(string Players, Game gam)
+        {
+            return _rentererService.UpdateGame(Players, gam);
+        }
         [HttpDelete]
         public Task DeleteGame([FromQuery] string Name)
         {

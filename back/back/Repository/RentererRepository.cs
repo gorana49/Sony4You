@@ -18,7 +18,7 @@ namespace back
             _client.Cypher.CreateUniqueConstraint("(renterer:Renterer)", "renterer.Id");
             _redisRepository = redisRepo;
         }
-        public async Task<bool> AddRenterer(Renterer renterer)
+        public async Task<RentererDTO> AddRenterer(RentererDTO renterer)
         {
             var flag = this.IfRentererExists(renterer.Username).Result;
             if (flag == false)
@@ -26,16 +26,13 @@ namespace back
                 var result = _client.Cypher.Create("(renterer:Renterer {renterer})").WithParams(new { renterer }).Set("renterer.Id = id(renterer)").Return(renterer => new
                 {
                     Renterer = renterer.As<Renterer>()
-                }).ResultsAsync.IsCompletedSuccessfully;
-                if (result)
-                {
-                    return true;
-                    LoggedUserDTO user = new LoggedUserDTO(renterer.Id.ToString(), renterer.Name, renterer.Password, true, "renterer");
-                    await _redisRepository.AddNewLoggedUser(user);
-                }
-                return false;
+                }).ResultsAsync;
+
+                LoggedUserDTO user = new LoggedUserDTO(renterer.Name, renterer.Password, true, "renterer");
+                await _redisRepository.AddNewLoggedUser(user);
+                return renterer;
             }
-            return false;
+            return null;
         }
         public async Task<bool> IfRentererExists(string username)
         {
