@@ -15,17 +15,17 @@ import { Sony } from "../models/Sony";
     constructor(private http: HttpClient) { }
   
     getEmployerByUsername(username: string): Observable<Renterer>{
-      let url=this.baseUrl+`/employer?email=${username}`;
+      let url=this.baseUrl+`Renterer/GetRenterer?username=${username}`;
       return this.http.get<Renterer>(url);
     }
     
     getAllSonys( username: string): Observable<Sony[]>{
-      let url=this.baseUrl+`/job?employerId=${username}`;
+      let url=this.baseUrl+`Renterer/GetMySonys?Username=${username}`;
       return this.http.get<Sony[]>(url);
     }
   
     createSony(sony: Sony):Observable<Sony>{
-      let url=this.baseUrl+`/job`;
+      let url=this.baseUrl+`/Renterer/AddSony`;
       return this.http.post<Sony>(url,sony);
     }
 
