@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainPageComponent } from './components/main-page/main-page.component';
+import { MainPageRenteeComponent } from './components/rentee/main-page-rentee/main-page-rentee.component';
 import { RenteePageComponent } from './components/rentee/rentee-page/rentee-page.component';
+import { SearchRenterersComponent } from './components/rentee/search-renterers/search-renterers.component';
 import { ChatPageComponent } from './components/renterer/chat-page/chat-page.component';
 import { ForumPageComponent } from './components/renterer/forum-page/forum-page.component';
 import { RentererPageComponent } from './components/renterer/renterer-page/renterer-page.component';
@@ -27,11 +29,11 @@ const routes: Routes = [
   {
     path: 'rentee',
     component: RenteePageComponent,
-  //   children: [
-  //     {path: '', component: WorkerProfileComponent },
-  //     {path: 'profil', component: WorkerProfileComponent},
-  //     {path: 'main', component: SearchJobsComponent}
-  //   ],
+    children: [
+      {path: '', component: MainPageRenteeComponent },
+      {path: 'profil', component: MainPageRenteeComponent},
+      {path: 'izdavaci', component: SearchRenterersComponent}
+    ],
   //   canActivate:[AuthRoleGuard],
   //   data: { role: 'worker'}
   },

@@ -44,14 +44,14 @@ export class LoginComponent implements OnInit {
       .subscribe(value=>{
         if(value!=undefined){
           console.log(value.role);
+          console.log("---------")
           this.errorMsg="";
           this.authService.logInUser(value);
           localStorage.setItem("user", JSON.stringify(value));
           this.router.navigate([`./${value.role}`]);
           this.navigationService.changeFlag(true);
 
-          const userData =localStorage.getItem("user");
-          const loggedUserData: LoggedUser= JSON.parse(userData);
+          const loggedUserData: LoggedUser= JSON.parse(localStorage.getItem("user"));
           console.log(loggedUserData);
         }
         else{

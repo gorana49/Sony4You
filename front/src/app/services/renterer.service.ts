@@ -28,6 +28,11 @@ import { Sony } from "../models/Sony";
       let url=this.baseUrl+`/job`;
       return this.http.post<Sony>(url,sony);
     }
+
+    getAllRenterers(): Observable<Renterer[]>{
+      let url=this.baseUrl+`Renterer/GetAllRenterers`;
+      return this.http.get<Renterer[]>(url);
+    }
   
     // updateJob(idJob: number, job: Job):Observable<IJob>{
     //   let url=this.baseUrl+`/job/${idJob}`;

@@ -14,6 +14,9 @@ import { ReservationPageComponent } from './components/renterer/reservation-page
 import { ChatPageComponent } from './components/renterer/chat-page/chat-page.component';
 import { ForumPageComponent } from './components/renterer/forum-page/forum-page.component';
 import { RenteePageComponent } from './components/rentee/rentee-page/rentee-page.component';
+import { MainPageRenteeComponent } from './components/rentee/main-page-rentee/main-page-rentee.component';
+import { CommonModule } from '@angular/common';
+import { SearchRenterersComponent } from './components/rentee/search-renterers/search-renterers.component';
 
 @NgModule({
   declarations: [
@@ -26,10 +29,13 @@ import { RenteePageComponent } from './components/rentee/rentee-page/rentee-page
     ReservationPageComponent,
     ChatPageComponent,
     ForumPageComponent,
-    RenteePageComponent
+    RenteePageComponent,
+    MainPageRenteeComponent,
+    SearchRenterersComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     FormsModule, 
     HttpClientModule

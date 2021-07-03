@@ -38,8 +38,8 @@ export class RegisterComponent implements OnInit {
     console.log(this.selectedSelect);
   }
 
-  registerUser(email:string, password:string, role:string){
-    let loggedUser=new LoggedUser(email, password,false, role)
+  registerUser(username:string, password:string, role:string){
+    let loggedUser=new LoggedUser(username, password,false, role)
     this.authService.addNewLoggedUser(loggedUser)
     .subscribe(value => {},
       err => {})
@@ -51,6 +51,7 @@ export class RegisterComponent implements OnInit {
     const email: HTMLInputElement = (document.getElementById('input-email') as HTMLInputElement);
     const password: HTMLInputElement = (document.getElementById('input-password') as HTMLInputElement);
     const phoneNumber: HTMLInputElement = (document.getElementById('input-phone') as HTMLInputElement);
+    //console.log(name.value +' '+ username.value +' '+ email.value+' '+ password.value+' '+ phoneNumber.value);
   
     if(this.isRentee){
       const provera=this.checkInput(name.value, username.value, email.value,password.value, phoneNumber.value);
@@ -60,7 +61,7 @@ export class RegisterComponent implements OnInit {
       }
       else{
         let rentee= new Rentee(name.value, username.value, email.value, password.value, phoneNumber.value, "");
-        this.registerUser(email.value, password.value, "rentee");
+        this.registerUser(username.value, password.value, "rentee");
         this.authService.addNewRentee(rentee)
         .subscribe(value => {
           alert(`Uspešno registrovan poslodavac ${rentee.email}!`)
@@ -78,18 +79,15 @@ export class RegisterComponent implements OnInit {
       const provera=this.checkInput(name.value, username.value, email.value,password.value, phoneNumber.value);
       if(!provera){
         this.errorMsg="Unesite sva input polja za registraciju!";
-        console.log(this.errorMsg);
       }
       else{
-        this.registerUser(email.value, password.value, "renterer");
+        this.registerUser(username.value, password.value, "renterer");
         let renterer= new Renterer(name.value, username.value, email.value, password.value, phoneNumber.value, address.value, company.value, "")
         this.authService.addNewRenterer(renterer)
         .subscribe(value => {
-          console.log(value);
           alert(`Uspešno registrovan izdavač ${renterer.username}!`)
           },
           err => {
-          console.log(err);
           alert(`Dogodila se greška pri registrovanju izdavača, pokušajte ponovo.`)
         })
         address.value='';

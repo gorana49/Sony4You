@@ -14,16 +14,14 @@
         //    this.v2 = v2;
         //}
 
-        public LoggedUserDTO(string id, string username, string password, bool logged, string role)
+        public LoggedUserDTO(string username, string password, bool logged, string role)
         {
-            Id = id;
             Username = username;
             Password = password;
             LoggedIn = logged;
             Role = role;
         }
         public LoggedUserDTO() { }
-        public string Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public bool LoggedIn { get; set; }

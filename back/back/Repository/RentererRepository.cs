@@ -30,7 +30,7 @@ namespace back
                 if (result)
                 {
                     return true;
-                    LoggedUserDTO user = new LoggedUserDTO(renterer.Id.ToString(), renterer.Name, renterer.Password, true, "renterer");
+                    LoggedUserDTO user = new LoggedUserDTO( renterer.Name, renterer.Password, true, "renterer");
                     await _redisRepository.AddNewLoggedUser(user);
                 }
                 return false;
