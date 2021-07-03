@@ -341,3 +341,4 @@ healthchecksdb
 front/node_modules/
 back/back/obj
 back/back/bin
+back/.vs
