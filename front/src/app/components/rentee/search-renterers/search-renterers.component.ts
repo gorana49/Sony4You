@@ -5,6 +5,7 @@ import { Rentee } from 'src/app/models/Rentee';
 import { Renterer } from 'src/app/models/Renterer';
 import { RentererService } from 'src/app/services/renterer.service';
 import { CommonModule } from '@angular/common';
+import { Sony } from 'src/app/models/Sony';
 // import { Event } from 'src/app/models/Event';
 // import { User } from 'src/app/models/User';
 // import { AppState } from 'src/app/store';
@@ -26,8 +27,7 @@ export class SearchRenterersComponent implements OnInit {
   // idsSignedEvents: string[]=[];
   
   allRenterers: Renterer[]=[];
-  showRenterers: boolean=true;
-  //filteredEvents: Event[]=[];
+  rentererSonies: Sony[]=[];
   rentee: Rentee = {
     id: undefined,
     name: '',
@@ -43,13 +43,10 @@ export class SearchRenterersComponent implements OnInit {
   
   ngOnInit(): void {
 
-    this.showRenterers=true;
     this.rentee = JSON.parse(localStorage.getItem("user"));
     this.rentererServicve.getAllRenterers()
     .subscribe(value => {
       this.allRenterers=value;
-      console.log(this.allRenterers);
-
       },
       err => {
       alert(`Dogodila se greška pri ucitavanju svih izdavaca.`)
