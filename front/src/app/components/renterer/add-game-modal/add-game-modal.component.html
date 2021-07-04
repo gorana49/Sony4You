@@ -1,0 +1,34 @@
+<div class='modalBackground'>
+    <div class='modal'>
+        <div class="modal-header">
+            <span (click)="cancelModal()" class="cancel">&times;</span>
+        </div>
+        <div class="log-modal-main">
+            <form>
+                <label class="label">Unesite podatke o novom oglasu</label>
+                <div class="form-group">
+                    <label>Unesite naziv igrice:</label>
+                    <input name="job-name" class="form-control" type="text" [(ngModel)]="newGame.name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Unesite opis igrice:</label>
+                    <textarea name="job-description" class="form-control" type="text" rows="5" [(ngModel)]="newGame.description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Unesite broj igraca:</label>
+                    <input name="job-count" class="form-control" type="number" [(ngModel)]="newGame.players" required>
+                </div>
+                <div class="form-group">
+                    <label>Unesite godinu igrice:</label>
+                    <textarea name="job-description" class="form-control" type="number" [(ngModel)]="newGame.yearOfProduction" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Unesite tip igrice:</label>
+                    <input name="job-count" class="form-control" type="text" [(ngModel)]="newGame.type" required>
+                </div>
+                <button class="btn btn-primary" type="button" (click)="handleClick()">Sačuvaj</button>
+            </form>
+        </div>
+    </div>
+</div> 

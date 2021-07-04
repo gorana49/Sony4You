@@ -1,4 +1,42 @@
-<div class="sony-page-container">
+<div class="bbody">
+    <div class="ookvir">
+        <div class="pretraga" >
+            <div class="sonys" *ngIf='allSonys && allSonys.length'>
+              <div class="example-card" *ngFor="let r of allSonys">
+                <div>
+                  <div class="oglas-content">
+                      <div class="oglas-details">
+                          <div>Serijski broj: {{r.serialNumber}}</div>
+                          <div>Notes: {{r.notes}} </div>
+                          <div>Tip: {{r.type}} </div>
+                          <div>Cena: {{r.price}} </div>
+                          <div class="oglas-buttons">
+                              <button type="button" class="show-games-dugme btn" (click)="btnShowGamesClicked(r);">Prikaži igrice</button>
+                              <button type="button" class="show-games-dugme btn" (click)="btnShowAddGame(r);">Dodaj igricu</button>
+                          </div>
+                      </div>
+                    <div class="oglas-image" ></div>
+                  </div>
+                </div>
+                <div class="games" *ngIf= "r.serialNumber===sonySerial" >
+                  <div class="header" *ngIf="allSonyGames && allSonyGames.length">
+                      <span class="btncancel" (click)="closeSignedUsers();">&times;</span>
+                  </div>
+                  <div *ngFor="let game of allSonyGames" class="sony">
+                      <label class="userLbl"><b>{{game.name}}</b>, Godina: <b> {{game.yearOfProduction}}</b>, Igraca: <b>{{game.players}}</b></label>
+                      <!-- <button type="button" class="btn" (click)="btnShowSoniesClicked(r);">Igrice</button>
+                      <button type="button" class="btn" (click)="btnShowSoniesClicked(r);">Naruči</button> -->
+                  </div>
+                </div>
+              </div>
+           </div>    
+        </div> 
+    </div>
+  </div>
+
+  <app-add-game-modal *ngIf="displayAddGameModal" [sonyAddGame]="sonyAddGame" (cancelClicked)='hideAddGameModal()'></app-add-game-modal>
+
+<!-- <div class="sony-page-container">
     <div class="create-sony-container">
         <div class="create-sony-title">
             Dodaj sony
@@ -38,31 +76,4 @@
         <div class="create-sony-item">
             <button (click)="createSony();">Kreiraj</button>
         </div>
-    </div>
-    <div class="renterer-sonys-container">
-        <div *ngFor="let sony of allSonys">
-            <div class="sony-item-container">
-                <div class="sony-item">
-                    <div>
-                        Serial number: {{sony.serialNumber}}
-                    </div>
-                </div>
-                <div class="sony-item">
-                    <div>
-                        Tip: {{sony.type}}
-                    </div> 
-                </div>
-                <div class="sony-item">
-                    <div>
-                        Notes:{{sony.notes}}
-                    </div> 
-                </div>
-                <div class="sony-item">
-                    <div>
-                        Cena:{{sony.price}}
-                    </div> 
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    </div> -->

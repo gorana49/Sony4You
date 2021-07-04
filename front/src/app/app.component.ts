@@ -10,7 +10,9 @@ import { NavigationService } from './services/navigation.service';
 })
 export class AppComponent {
   title = 'JobApp';
-  showNavButtons: boolean;
+  showNavButtons: string;
+  isRenterer: boolean;
+  // loggedUserData: LoggedUser;
   constructor(private navigationService: NavigationService,
     private router: Router) {}
 
@@ -19,7 +21,7 @@ ngOnInit(){
 }
 
 logoutClicked(){
-    this.navigationService.changeFlag(false);
+    this.navigationService.changeFlag("");
     localStorage.removeItem("user");
     this.router.navigate([`./mainPage`]);
 }
@@ -37,6 +39,22 @@ izdavaciClicked(){
   console.log(loggedUserData);
   if(loggedUserData.role==="rentee"){
     this.router.navigate(['./rentee/izdavaci'])
+    }
+  }
+
+  sonyClicked(){
+    const loggedUserData: LoggedUser= JSON.parse(localStorage.getItem("user"));
+    console.log(loggedUserData);
+    if(loggedUserData.role==="renterer"){
+      this.router.navigate(['./renterer/sony'])
+    }
+  }
+
+  rezervacijeClicked(){
+    const loggedUserData: LoggedUser= JSON.parse(localStorage.getItem("user"));
+    console.log(loggedUserData);
+    if(loggedUserData.role==="renterer"){
+      this.router.navigate(['./renterer/reservation'])
     }
   }
 }

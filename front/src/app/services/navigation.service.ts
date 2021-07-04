@@ -6,12 +6,12 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class NavigationService {
 
-  private flagSource= new BehaviorSubject<boolean>(false);
+  private flagSource= new BehaviorSubject<string>("");
   flagCurrent= this.flagSource.asObservable();
 
   constructor() { }
 
-  changeFlag(value: boolean){
+  changeFlag(value: string){
     this.flagSource.next(value);
   }
 }

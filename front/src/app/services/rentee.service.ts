@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { environmentVariables } from "../constants/url-constants";
 import { Rentee } from "../models/Rentee";
 import { Sony } from "../models/Sony";
+import { Game } from "../models/Game"
 
 @Injectable({
     providedIn: 'root'
@@ -28,6 +29,11 @@ import { Sony } from "../models/Sony";
         let url=this.baseUrl+`Rentee/GetAllRentees`;
         return this.http.get<Rentee[]>(url);
       }
+    
+    getGamesForSony(serialNum : number): Observable<Game[]>{
+      let url=this.baseUrl+`Renterer/GetGamesOnSony`;
+      return this.http.get<Game[]>(url);
+    }
   
     // createSony(sony: Sony):Observable<Sony>{
     //   let url=this.baseUrl+`/job`;
