@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environmentVariables } from "../constants/url-constants";
+import { Game } from "../models/Game";
 import { Renterer } from "../models/Renterer";
 import { Sony } from "../models/Sony";
 
@@ -32,6 +33,11 @@ import { Sony } from "../models/Sony";
     getAllRenterers(): Observable<Renterer[]>{
       let url=this.baseUrl+`Renterer/GetAllRenterers`;
       return this.http.get<Renterer[]>(url);
+    }
+
+    getGamesOnSony(serialNumber: string): Observable<Game[]>{
+      let url=this.baseUrl+`Renterer/GetGamesOnSony?SerialNumber=${serialNumber}`;
+      return this.http.get<Game[]>(url);
     }
   
     // updateJob(idJob: number, job: Job):Observable<IJob>{

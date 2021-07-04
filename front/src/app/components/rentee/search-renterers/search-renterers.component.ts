@@ -7,6 +7,7 @@ import { RentererService } from 'src/app/services/renterer.service';
 import { CommonModule } from '@angular/common';
 import { Sony } from 'src/app/models/Sony';
 import { AppComponent } from 'src/app/app.component';
+import { Game } from 'src/app/models/Game';
 // import { Event } from 'src/app/models/Event';
 // import { User } from 'src/app/models/User';
 // import { AppState } from 'src/app/store';
@@ -29,6 +30,7 @@ export class SearchRenterersComponent implements OnInit {
   
   allRenterers: Renterer[]=[];
   rentererSonies: Sony[]=[];
+  gamesForSony: Game[]=[];
   rentererUsername: string;
   rentee: Rentee = {
     id: undefined,
@@ -41,11 +43,11 @@ export class SearchRenterersComponent implements OnInit {
   };
 
   constructor(/*private store: Store<AppState>,*/
-              private rentererServicve: RentererService) { }
+              private rentererService: RentererService) { }
   
   ngOnInit(): void {
     this.rentee = JSON.parse(localStorage.getItem("user"));
-    this.rentererServicve.getAllRenterers()
+    this.rentererService.getAllRenterers()
     .subscribe(value => {
       this.allRenterers=value;
       },
@@ -57,7 +59,7 @@ export class SearchRenterersComponent implements OnInit {
   btnShowSoniesClicked(renterer: Renterer){
     this.rentererUsername=renterer.username;
 
-    this.rentererServicve.getAllSonysForRenterer(renterer.username)
+    this.rentererService.getAllSonysForRenterer(renterer.username)
     .subscribe(value=>{
       this.rentererSonies=value;
       console.log(this.rentererSonies);
@@ -72,6 +74,15 @@ export class SearchRenterersComponent implements OnInit {
 
   closeSignedUsers(){
     this.rentererSonies=[];
+  }
+
+  btnShowGamesClicked(r: Renterer, sony: Sony){
+    this.rentererService.getGamesOnSony(sony.serialNumber)
+    .subscribe(value=>{
+      this.gamesForSony=value;
+      console.log(this.gamesForSony);
+    })
+
   }
 
   // _inputFilter: string;
