@@ -13,7 +13,7 @@ namespace back.IService
         public Task<Rentee> UpdateRentee(UpdateRenteeDTO rentee);
         public Task AddParticipant(Contest _contest, Rentee renteee);
         public Task AddCommentToRenterer(Comment comm, string Username, string UsernameRentee);
-        public Task DeleteComment(string title);
+        public Task DeleteComment(System.DateTime date);
         public Task<List<Comment>> GetCommentRentee(string UsernameRentee, string UsernameRenterer);
         public Task UpdateComment(string Text, string Title);
         public Task<List<AvailableSonyDTO>> GetAvailableSonys();
@@ -21,5 +21,6 @@ namespace back.IService
         public Task DeleteRequest(string SenderRequestUsername, string ReceiverRequestUsername);
         public Task MakeUsFriends(string SenderUsername, string ReceiverUsername);
         public Task CancelReservation(ReservationPreviewDTO previe);
+        public Task<List<Comment>> GetCommentsForRenterer(string UsernameRenterer);
     }
 }

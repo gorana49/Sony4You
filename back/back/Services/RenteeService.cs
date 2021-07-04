@@ -51,9 +51,9 @@ namespace back.Services
         {
             return this._commentRepository.AddCommentToRenterer(comm, Username, UsernameRentee);
         }
-        public Task DeleteComment(string title)
+        public Task DeleteComment(System.DateTime date)
         {
-            return this._commentRepository.DeleteComment(title);
+            return this._commentRepository.DeleteComment(date);
         }
         public Task<List<Comment>> GetCommentRentee(string UsernameRentee, string UsernameRenterer)
         {
@@ -82,6 +82,10 @@ namespace back.Services
         public Task CancelReservation(ReservationPreviewDTO previe)
         {
             return this._sonyRepository.CancelReservation(previe);
+        }
+        public  Task<List<Comment>> GetCommentsForRenterer(string UsernameRenterer)
+        {
+            return this._commentRepository.GetCommentsForRenterer(UsernameRenterer);
         }
     }
 }

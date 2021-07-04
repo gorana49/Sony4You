@@ -29,7 +29,7 @@ namespace back
         public Task<List<ReservationPreviewDTO>> GetReservedSonys(string UsernameRenterer);
         public Task CancelReservation(ReservationPreviewDTO previe);
         public Task AddCommentToRentee(Comment comm, string Username, string UsernameRenterer);
-        public Task DeleteComment(string title);
+        public Task DeleteComment(System.DateTime date);
         public Task UpdateComment(string Text, string Title);
         public Task AddRequest(string SenderRequestUsername, string ReceiverRequestUsername);
         public Task DeleteRequest(string SenderRequestUsername, string ReceiverRequestUsername);

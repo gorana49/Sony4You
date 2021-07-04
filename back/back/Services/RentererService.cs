@@ -109,9 +109,9 @@ namespace back
         {
             return this._commentRepository.AddCommentToRentee(comm, Username, UsernameRenterer);
         }
-        public Task DeleteComment(string title)
+        public Task DeleteComment(System.DateTime date)
         {
-            return this._commentRepository.DeleteComment(title);
+            return this._commentRepository.DeleteComment(date);
         }
         public Task UpdateComment(string Text, string Title)
         {
