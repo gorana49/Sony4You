@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
           this.authService.logInUser(value);
           localStorage.setItem("user", JSON.stringify(value));
           this.router.navigate([`./${value.role}`]);
-          this.navigationService.changeFlag(true);
+          this.navigationService.changeFlag(value.role);
 
           const loggedUserData: LoggedUser= JSON.parse(localStorage.getItem("user"));
           console.log(loggedUserData);

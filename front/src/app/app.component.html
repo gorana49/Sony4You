@@ -7,10 +7,12 @@
 
 <div class="celo">
     <div class="nav-bar">
-      <div class="nav-buttons" *ngIf="showNavButtons">
-        <button class="nav-button" (click)="logoutClicked();">Logout</button>
-        <button class="nav-button" (click)="pocetnaClicked();">Početna</button>
-        <button class="nav-button" (click)="izdavaciClicked();">Izdavači</button>
+      <div class="nav-buttons">
+        <button *ngIf="showNavButtons!=''" class="nav-button" (click)="logoutClicked();">Logout</button>
+        <button *ngIf="showNavButtons==='rentee'" class="nav-button" (click)="pocetnaClicked();">Početna</button>
+        <button *ngIf="showNavButtons==='rentee'" class="nav-button" (click)="izdavaciClicked();">Izdavači</button>
+        <button *ngIf="showNavButtons==='renterer'" class="nav-button" (click)="sonyClicked();">Sony</button>
+        <button *ngIf="showNavButtons==='renterer'" class="nav-button" (click)="rezervacijeClicked();">Rezervacije</button>
       </div>
       <!-- <img class="logo" src="../assets/logo1.jpg"> -->
       <span class="text-logo">SONY4U</span>

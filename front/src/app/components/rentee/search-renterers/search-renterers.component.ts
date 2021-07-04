@@ -6,6 +6,7 @@ import { Renterer } from 'src/app/models/Renterer';
 import { RentererService } from 'src/app/services/renterer.service';
 import { CommonModule } from '@angular/common';
 import { Sony } from 'src/app/models/Sony';
+import { AppComponent } from 'src/app/app.component';
 // import { Event } from 'src/app/models/Event';
 // import { User } from 'src/app/models/User';
 // import { AppState } from 'src/app/store';
@@ -28,6 +29,7 @@ export class SearchRenterersComponent implements OnInit {
   
   allRenterers: Renterer[]=[];
   rentererSonies: Sony[]=[];
+  rentererUsername: string;
   rentee: Rentee = {
     id: undefined,
     name: '',
@@ -42,7 +44,6 @@ export class SearchRenterersComponent implements OnInit {
               private rentererServicve: RentererService) { }
   
   ngOnInit(): void {
-
     this.rentee = JSON.parse(localStorage.getItem("user"));
     this.rentererServicve.getAllRenterers()
     .subscribe(value => {
@@ -52,7 +53,27 @@ export class SearchRenterersComponent implements OnInit {
       alert(`Dogodila se greška pri ucitavanju svih izdavaca.`)
     })
   }
-             
+    
+  btnShowSoniesClicked(renterer: Renterer){
+    this.rentererUsername=renterer.username;
+
+    this.rentererServicve.getAllSonysForRenterer(renterer.username)
+    .subscribe(value=>{
+      this.rentererSonies=value;
+      console.log(this.rentererSonies);
+      if(value.length === 0){
+        alert(`Nema slobodnih sonija.`)
+      }
+    },
+    err=>{
+      alert(`Dogodila se greška pri ucitavanju sonija.`)
+    })
+  }
+
+  closeSignedUsers(){
+    this.rentererSonies=[];
+  }
+
   // _inputFilter: string;
   // get inputFilter(){
   //   return this._inputFilter;

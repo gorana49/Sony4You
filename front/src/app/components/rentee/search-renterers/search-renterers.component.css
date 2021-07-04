@@ -51,6 +51,7 @@
 }
 
 .oglas-content{
+    padding: 10px;
     width: 100%;
     margin:10px;
     display:flex;
@@ -65,8 +66,9 @@
     justify-content: space-between;
 }
 .oglas-image{
-    margin:10px;
-    background-image: url("../../../../assets/logo1.jpg");
+    padding: 5px;
+    margin:20px;
+    background-image: url("../../../../assets/logo2.jpg");
     min-height: 240px;
     width: 50%;
     background-position: center; 
@@ -82,11 +84,67 @@
   
 }
 
-.oglas-dugme{
-    background-color: rgb(170, 144, 140);
+.show-Sonies-dugme{
+    width: 200px;
+    height:60px;
+    background-color: rgba(28, 60, 68, 0.966);
+    color:white;
+    font-size: 20px;
 }
 
-.oglas-dugme:hover{
-    background-color: rgb(146, 125, 122);
+.show-Sonies-dugme:hover{
+    background-color: rgba(51, 101, 114, 0.966);
+    color:white;
 }
-  
+
+.sony{
+    margin:5px;
+    padding:5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color:rgb(134, 39, 24);
+    border-radius: 5px;
+    text-align: left;
+}
+
+.sonies{
+    display: flex;
+    flex-direction: column;
+}
+
+.userLbl{
+    margin:10px;
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    width: 70%;
+}
+
+.header{
+    height:30px;
+    padding: 0px;
+    font-family: 'Century Gothic';
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 35px;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.btncancel{
+    display:flex;
+    align-self: end;
+    justify-self: end;
+    cursor: pointer;
+    color: #ccc;
+    position: relative;
+    top: 0;
+    right:15px;
+    font-size: 40px;  
+}
+
+.btncancel:hover{
+    color:rgb(145, 140, 140);
+}

@@ -19,13 +19,13 @@ import { Sony } from "../models/Sony";
       return this.http.get<Renterer>(url);
     }
     
-    getAllSonys( username: string): Observable<Sony[]>{
-      let url=this.baseUrl+`Renterer/GetMySonys?Username=${username}`;
+    getAllSonysForRenterer( username: string): Observable<Sony[]>{
+      let url=this.baseUrl +`Renterer/GetMySonys?Username=${username}`;
       return this.http.get<Sony[]>(url);
     }
   
     createSony(sony: Sony):Observable<Sony>{
-      let url=this.baseUrl+`/Renterer/AddSony`;
+      let url=this.baseUrl+`Renterer/AddSony`;
       return this.http.post<Sony>(url,sony);
     }
 

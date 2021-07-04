@@ -6,24 +6,32 @@
                 <!-- <label class="filter-label"> Filtrirano po: {{ inputFilter }}</label> -->
             </div>
             <div class="korisnici" *ngIf='allRenterers && allRenterers.length'>
-              <div *ngFor="let r of allRenterers">
+              <div class="example-card" *ngFor="let r of allRenterers">
                 <div>
-                <div class="example-card">
                   <div class="oglas-content">
                       <div class="oglas-details">
                           <div>Izdavac: {{r.name}}</div>
-                          <div>je dobarr {{r.email}} </div>
+                          <div>Email: {{r.email}} </div>
                           <div>Kontakt telefon: {{r.phoneNumber}} </div>
                           <div class="oglas-buttons">
-                              <button class="show-Sonies-dugme" (click)="btnShowSoniesClicked();">Prijavi se</button>
+                              <button type="button" class="show-Sonies-dugme btn" (click)="btnShowSoniesClicked(r);">Prikaži sonije</button>
                           </div>
-                        </div>
-                      <div class="oglas-image" ></div>
+                      </div>
+                    <div class="oglas-image" ></div>
+                  </div>
+                </div>
+                <div class="sonies" *ngIf= "r.username===rentererUsername" >
+                  <div class="header" *ngIf="rentererSonies && rentererSonies.length">
+                      <span class="btncancel" (click)="closeSignedUsers();">&times;</span>
+                  </div>
+                  <div *ngFor="let sony of rentererSonies" class="sony">
+                      <label class="userLbl"><b>{{sony.type}}</b>, Serijski broj: <b> {{sony.serialNumber}}</b>, Cena: <b>{{sony.price}}</b></label>
+                      <button type="button" class="btn" (click)="btnShowSoniesClicked(r);">Igrice</button>
+                      <button type="button" class="btn" (click)="btnShowSoniesClicked(r);">Naruči</button>
                   </div>
                 </div>
               </div>
-            </div>    
+           </div>    
         </div> 
-        
     </div>
 </div>
