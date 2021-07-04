@@ -1,6 +1,6 @@
-﻿using back.IRepository;
+﻿using back.HubConfiguration;
+using back.IRepository;
 using back.IService;
-using back.Models;
 using back.Repository;
 using back.Services;
 using Microsoft.AspNetCore.Builder;
@@ -69,6 +69,7 @@ namespace back
                    .AllowCredentials();
                 });
             });
+
             services.AddSignalR(options =>
             {
                 options.EnableDetailedErrors = true;
@@ -85,7 +86,7 @@ namespace back
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "back v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
@@ -96,7 +97,7 @@ namespace back
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<MessageHub>("messenger");
+                endpoints.MapHub<MessageHub>("/messenger");
             });
         }
     }

@@ -41,10 +41,10 @@ import { Rentee } from '../models/Rentee';
             return this.http.post<any>(url, rentee);
         }
 
-//         getAllUsers(): Observable<ILoggedUser[]>{
-//             let url = this.baseURL + "/loggedUsers";
-//             return this.http.get<ILoggedUser[]>(url);
-//         }
+        getAllUsers(): Observable<LoggedUser[]>{
+            let url = this.URL + `Redis/GetAllLoggedUsers`;
+            return this.http.get<LoggedUser[]>(url);
+        }
 
 //         getUserByEmail(email: string): Observable<ILoggedUser> {
 //             let url = this.baseURL + `/loggedUsers?email=${email}`;

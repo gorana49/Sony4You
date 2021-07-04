@@ -1,12 +1,8 @@
-﻿using back.DtoModels;
+﻿using back.HubConfiguration;
+using back.Models;
 using Microsoft.AspNetCore.SignalR;
 using StackExchange.Redis;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
-using back.Models;
 
 namespace back
 {

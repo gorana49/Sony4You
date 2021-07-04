@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace back.DtoModels
 {
     public class MessageDTO
     {
-        public string Id { get; set; }
-        public string SenderUsername { get; set; }
-        public int SenderId { get; set; }
-        public string ReceiverUsername { get; set; }
-        public int ReceiverId { get; set; }
-        public string Text { get; set; }
-
+        public string clientuniqueid { get; set; }
+        public string senderUsername { get; set; }
+        public string receiverId { get; set; }
+        public string receiverUsername { get; set; }
+        public string type { get; set; }
+        public string message { get; set; }
+        public DateTime date { get; set; }
     }
 }

@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using back.DtoModels;
 using back.Models;
-using back.DtoModels;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace back.IRepository
 {
     public interface IMessageRepository
     {
-        Task SendMessage(Message message);
-        Task<IEnumerable<MessageDTO>> ReceiveMessage(int senderId, int receiverId, string from, int count);
+        Task SendMessage(MessageDTO message);
+        Task<IEnumerable<MessageDTO>> ReceiveMessage(string senderUsername, string receiverUsername, string from, int count);
         Task StartConversation(ConversationDTO participants);
         //Task SetTimeToLiveForStream(int senderId, int receiverId);
         //Task<int> GetTimeToLiveForStream(int senderId, int receiverId);

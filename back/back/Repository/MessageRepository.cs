@@ -17,48 +17,68 @@ namespace back.Repository
         {
             _redisConnection = builder.Connection;
         }
-        public async Task SendMessage(Message message)
+        public async Task SendMessage(MessageDTO message)
         {
             var values = new NameValueEntry[]
             {
-                new NameValueEntry("sender_username", message.SenderUsername),
-                new NameValueEntry("senderId", message.SenderId),
-                new NameValueEntry("receiver_username", message.ReceiverUsername),
-                new NameValueEntry("receiverId", message.ReceiverId),
-                new NameValueEntry("text", message.Text)
+                new NameValueEntry("clientuniqueid", message.clientuniqueid),
+                new NameValueEntry("sender_username", message.senderUsername),
+                new NameValueEntry("receiver_id", message.receiverId),
+                new NameValueEntry("receiver_username", message.receiverUsername),
+                new NameValueEntry("type", message.type),
+                new NameValueEntry("message", message.message),
+                new NameValueEntry("date", message.date.ToString()),
             };
             IDatabase redisDB = _redisConnection.GetDatabase();
-            int fromId = message.SenderId > message.ReceiverId ? message.SenderId : message.ReceiverId;
-            int toId = message.SenderId < message.ReceiverId ? message.SenderId : message.ReceiverId;
-            await redisDB.StreamAddAsync($"messages:{fromId}:{toId}:chat", values);
-
-            var jsonMessage = JsonSerializer.Serialize(message);
-            ISubscriber chatPubSub = _redisConnection.GetSubscriber();
-            await chatPubSub.PublishAsync("chat.messages", jsonMessage);
+            string fromUsername;
+            string toUsername;
+            int proba = string.Compare(message.senderUsername, message.receiverUsername);
+            if (proba > 0)
+            {
+                fromUsername = message.receiverUsername;
+                toUsername = message.senderUsername;
+            }
+            else
+            {
+                fromUsername = message.senderUsername;
+                toUsername = message.receiverUsername;
+            }
+            await redisDB.StreamAddAsync($"messages:{fromUsername}:{toUsername}:chat", values);
         }
 
-        public async Task<IEnumerable<MessageDTO>> ReceiveMessage(int senderId, int receiverId, string from, int count)
+        public async Task<IEnumerable<MessageDTO>> ReceiveMessage(string senderUsername, string receiverUsername, string from, int count)
         {
             List<MessageDTO> retMessages = new List<MessageDTO>();
-            int fromId = senderId > receiverId ? senderId : receiverId;
-            int toId = senderId < receiverId ? senderId : receiverId;
-            string channelName = $"messages:{fromId}:{toId}:chat";
+            string fromUsername;
+            string toUsername;
+            int proba = string.Compare(senderUsername, receiverUsername);
+            if (proba > 0)
+            {
+                fromUsername = receiverUsername;
+                toUsername = senderUsername;
+            }
+            else
+            {
+                fromUsername = senderUsername;
+                toUsername = receiverUsername;
+            }
+            string channelName = $"messages:{fromUsername}:{toUsername}:chat";
 
             IDatabase redisDb = _redisConnection.GetDatabase();
             var mess1 = redisDb.StreamRead(channelName, "0-0");
             from = Uri.UnescapeDataString(from);
             var messages = redisDb.StreamRead(channelName, "0-0", count: count);
-            //  var messages = await redisDb.StreamRangeAsync(channelName, minId: "-", maxId: "-", count: count, messageOrder: Order.Descending);
             foreach (var message in messages)
             {
                 MessageDTO mess = new MessageDTO
                 {
-                    Id = message.Id,
-                    SenderUsername = message.Values.FirstOrDefault(value => value.Name == "sender").Value,
-                    SenderId = int.Parse(message.Values.FirstOrDefault(value => value.Name == "senderId").Value),
-                    ReceiverUsername = message.Values.FirstOrDefault(value => value.Name == "receiver").Value,
-                    ReceiverId = int.Parse(message.Values.FirstOrDefault(value => value.Name == "receiverId").Value),
-                    Text = message.Values.FirstOrDefault(value => value.Name == "text").Value
+                    clientuniqueid = message.Values.FirstOrDefault(value => value.Name == "clientuniqueid").Value,
+                    senderUsername = message.Values.FirstOrDefault(value => value.Name == "sender_username").Value,
+                    receiverId = message.Values.FirstOrDefault(value => value.Name == "receiver_id").Value,
+                    receiverUsername = message.Values.FirstOrDefault(value => value.Name == "receiver_username").Value,
+                    type = message.Values.FirstOrDefault(value => value.Name == "type").Value,
+                    message = message.Values.FirstOrDefault(value => value.Name == "message").Value,
+                    date = DateTime.Parse(message.Values.FirstOrDefault(value => value.Name == "date").Value.ToString())
                 };
                 retMessages.Add(mess);
             }
