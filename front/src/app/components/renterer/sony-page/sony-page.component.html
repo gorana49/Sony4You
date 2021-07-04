@@ -1,1 +1,68 @@
-<p>sony-page works!</p>
+<div class="sony-page-container">
+    <div class="create-sony-container">
+        <div class="create-sony-title">
+            Dodaj sony
+        </div>
+        <div class="create-sony-item">
+            <div>
+                Serial number:
+            </div>
+            <div>
+                <input type="text" name="serial-number" id="sony-serial-number">
+            </div> 
+        </div>
+        <div class="create-sony-item">
+            <div>
+                Tip:
+            </div>
+            <div>
+                <input type="text" name="type" id="sony-type">
+            </div> 
+        </div>
+        <div class="create-sony-item">
+            <div>
+                Notes:
+            </div>
+            <div>
+                <input type="text" name="notes" id="sony-notes">
+            </div> 
+        </div>
+        <div class="create-sony-item">
+            <div>
+                Cena:
+            </div>
+            <div>
+                <input type="number" name="price" id="sony-price">
+            </div> 
+        </div>
+        <div class="create-sony-item">
+            <button (click)="createSony();">Kreiraj</button>
+        </div>
+    </div>
+    <div class="renterer-sonys-container">
+        <div *ngFor="let sony of allSonys">
+            <div class="sony-item-container">
+                <div class="sony-item">
+                    <div>
+                        Serial number: {{sony.serialNumber}}
+                    </div>
+                </div>
+                <div class="sony-item">
+                    <div>
+                        Tip: {{sony.type}}
+                    </div> 
+                </div>
+                <div class="sony-item">
+                    <div>
+                        Notes:{{sony.notes}}
+                    </div> 
+                </div>
+                <div class="sony-item">
+                    <div>
+                        Cena:{{sony.price}}
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { environmentVariables } from "../constants/url-constants";
 import { Renterer } from "../models/Renterer";
 import { Sony } from "../models/Sony";
+import { SonyCreate } from "../models/SonyCreate";
 
 @Injectable({
     providedIn: 'root'
@@ -24,8 +25,8 @@ import { Sony } from "../models/Sony";
       return this.http.get<Sony[]>(url);
     }
   
-    createSony(sony: Sony):Observable<Sony>{
-      let url=this.baseUrl+`/Renterer/AddSony`;
+    createSony(sony: SonyCreate):Observable<Sony>{
+      let url=this.baseUrl+`Renterer/AddSony`;
       return this.http.post<Sony>(url,sony);
     }
 
