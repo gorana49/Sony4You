@@ -43,8 +43,6 @@ export class LoginComponent implements OnInit {
       this.authService.checkIfUserValid(new LoggedUser(this.username, this.password,  false, ''))
       .subscribe(value=>{
         if(value!=undefined){
-          console.log(value.role);
-          console.log("---------")
           this.errorMsg="";
           this.authService.logInUser(value);
           localStorage.setItem("user", JSON.stringify(value));
@@ -52,7 +50,6 @@ export class LoginComponent implements OnInit {
           this.navigationService.changeFlag(value.role);
 
           const loggedUserData: LoggedUser= JSON.parse(localStorage.getItem("user"));
-          console.log(loggedUserData);
         }
         else{
           this.errorMsg="Pogrešan email ili password!"

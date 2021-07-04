@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environmentVariables } from "../constants/url-constants";
+import { Game } from "../models/Game";
 import { Renterer } from "../models/Renterer";
 import { Sony } from "../models/Sony";
 
@@ -14,7 +15,7 @@ import { Sony } from "../models/Sony";
   
     constructor(private http: HttpClient) { }
   
-    getEmployerByUsername(username: string): Observable<Renterer>{
+    getRentererByUsername(username: string): Observable<Renterer>{
       let url=this.baseUrl+`Renterer/GetRenterer?username=${username}`;
       return this.http.get<Renterer>(url);
     }
@@ -24,8 +25,8 @@ import { Sony } from "../models/Sony";
       return this.http.get<Sony[]>(url);
     }
   
-    createSony(sony: Sony):Observable<Sony>{
-      let url=this.baseUrl+`Renterer/AddSony`;
+    createSony(rentererUsername:string,sony: Sony):Observable<Sony>{
+      let url=this.baseUrl+`Renterer/AddSony?rentererUsername=${rentererUsername}`;
       return this.http.post<Sony>(url,sony);
     }
 
@@ -33,20 +34,36 @@ import { Sony } from "../models/Sony";
       let url=this.baseUrl+`Renterer/GetAllRenterers`;
       return this.http.get<Renterer[]>(url);
     }
-  
-    // updateJob(idJob: number, job: Job):Observable<IJob>{
-    //   let url=this.baseUrl+`/job/${idJob}`;
-    //   return this.http.put<IJob>(url,job);
-    // }
-  
-    // deleteJob( eventId: number):Observable<IJob>{
-    //   let url=this.baseUrl+`/job/${eventId}`;
-    //   return this.http.delete<IJob>(url);
-    // }
-  
-    // getAllUsers() : Observable<IWorker[]>{
-    //   let url=this.baseUrl+"/worker";
-    //   return this.http.get<IWorker[]>(url);
-    // }
+
+    addGameForSony(serialNum:string,newGame: Game){
+      let url=this.baseUrl+`Renterer/AddGame?SerialNumber=${serialNum}`;
+      console.log(url)
+      return this.http.post(url,newGame);
+    }
+
+    getGamesOnSony(serialNumber: string): Observable<Game[]>{
+      let url=this.baseUrl+`Renterer/GetGamesOnSony?SerialNumber=${serialNumber}`;
+      return this.http.get<Game[]>(url);
+    }
+
+    deleteGame(game:Game) {
+      let url=this.baseUrl+`Renterer/DeleteGame?Name=${game.name}`;
+      return this.http.delete(url);
+    }
+
+    updateGame(game: Game) {
+      let url=this.baseUrl+`Renterer/UpdateGame?Players=${game.players}`;
+      return this.http.put(url,game);
+    }
+
+    deleteSony(sony: Sony) {
+      let url=this.baseUrl+`Renterer/DeleteSony?SerialNumber=${sony.serialNumber}`;
+      return this.http.delete(url);
+    }
+
+    updateSony(sony: Sony) {
+      let url=this.baseUrl+`Renterer/UpdateSony?Price=${sony.price}&SerialNumber=${sony.serialNumber}`;
+      return this.http.put(url,null);
+    }
   }
   

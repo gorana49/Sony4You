@@ -50,9 +50,9 @@ namespace back.Controllers
             return _renteeService.AddCommentToRenterer(addCommentDto.Comment, addCommentDto.Username, addCommentDto.UsernameRentee);
         }
         [HttpDelete]
-        public Task DeleteComment([FromQuery] string title)
+        public Task DeleteComment([FromQuery] System.DateTime date)
         {
-            return _renteeService.DeleteComment(title);
+            return _renteeService.DeleteComment(date);
         }
         [HttpGet]
         public Task<List<Comment>> GetCommentRentee([FromQuery] string UsernameRentee, string UsernameRenterer)
@@ -83,6 +83,12 @@ namespace back.Controllers
         public Task MakeUsFriends(string SenderUsername, string ReceiverUsername)
         {
             return _renteeService.MakeUsFriends(SenderUsername, ReceiverUsername);
+        }
+
+        [HttpGet]
+        public Task<List<Comment>> GetCommentsForRenterer(string UsernameRenterer)
+        {
+            return _renteeService.GetCommentsForRenterer(UsernameRenterer);
         }
     }
 }

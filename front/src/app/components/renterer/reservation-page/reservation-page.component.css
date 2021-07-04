@@ -1,0 +1,150 @@
+.bbody{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+
+}
+.ookvir{
+    margin: 20px 20px;
+    background-color: rgba(28, 60, 68, 0.966);
+    border-radius:5px;
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+}
+
+.pretraga{
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+}
+
+.searchDiv{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.search{
+    border-radius:3px;
+    margin:10px;
+    padding:10px;
+    height: 40px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size:20px;
+}
+
+.filter-label{
+    margin-left:20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgba(255, 255, 255, 0.781);
+}
+
+.example-card {
+    background-color:rgb(184, 157, 153);
+    margin:10px;
+    min-width: 100;
+    min-height: 240px;
+    box-shadow: 5px 5px 8px 0 rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.2);
+}
+
+.oglas-content{
+    padding: 10px;
+    width: 100%;
+    margin:10px;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+}
+.oglas-details{
+    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.oglas-image{
+    padding: 5px;
+    margin:20px;
+    background-image: url("../../../../assets/logo2.jpg");
+    min-height: 240px;
+    width: 50%;
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover;
+    display: flex;
+    justify-self:center;
+}
+
+.oglas-buttons{
+    display: flex;
+    flex-direction: row;
+  
+}
+
+.show-games-dugme{
+    width: 200px;
+    height:60px;
+    background-color: rgba(28, 60, 68, 0.966);
+    color:white;
+    font-size: 20px;
+}
+
+.show-games-dugme:hover{
+    background-color: rgba(51, 101, 114, 0.966);
+    color:white;
+}
+
+.sony{
+    margin:5px;
+    padding:5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color:rgb(134, 39, 24);
+    border-radius: 5px;
+    text-align: left;
+}
+
+.games{
+    display: flex;
+    flex-direction: column;
+}
+
+.userLbl{
+    margin:10px;
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    width: 70%;
+}
+
+.header{
+    height:30px;
+    padding: 0px;
+    font-family: 'Century Gothic';
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 35px;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.btncancel{
+    display:flex;
+    align-self: end;
+    justify-self: end;
+    cursor: pointer;
+    color: #ccc;
+    position: relative;
+    top: 0;
+    right:15px;
+    font-size: 40px;  
+}
+
+.btncancel:hover{
+    color:rgb(145, 140, 140);
+}

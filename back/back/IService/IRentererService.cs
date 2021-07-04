@@ -22,14 +22,14 @@ namespace back
         public Task<List<Contest>> GetAllContest();
         public Task<Contest> GetContest(string Name);
         public Task AddGame(string SerialNumber, Game game);
-        public Task UpdateGame(string Players, Game gam);
+        public Task UpdateGame(int Players, Game gam);
         public Task DeleteGame(string Name);
         public Task<List<Game>> GetGamesOnSony(string SerialNumber);
         public Task<Sony> ReservedMySony(string SerialNumber, string UsernameRentee, RenterListDTO renterList);
         public Task<List<ReservationPreviewDTO>> GetReservedSonys(string UsernameRenterer);
         public Task CancelReservation(ReservationPreviewDTO previe);
         public Task AddCommentToRentee(Comment comm, string Username, string UsernameRenterer);
-        public Task DeleteComment(string title);
+        public Task DeleteComment(System.DateTime date);
         public Task UpdateComment(string Text, string Title);
         public Task AddRequest(string SenderRequestUsername, string ReceiverRequestUsername);
         public Task DeleteRequest(string SenderRequestUsername, string ReceiverRequestUsername);

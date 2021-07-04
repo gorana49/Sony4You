@@ -1,37 +1,88 @@
 <div class="bbody">
     <div class="ookvir">
         <div class="pretraga" >
-            <div class="searchDiv">
-                <input type="text" class="search form-control" placeholder="Pretrazite oglase po tipu korisnika koje traže"/>
-                <!-- <label class="filter-label"> Filtrirano po: {{ inputFilter }}</label> -->
-            </div>
-            <div class="korisnici" *ngIf='allRenterers && allRenterers.length'>
-              <div class="example-card" *ngFor="let r of allRenterers">
+            <div class="korisnici" *ngIf='allRenterersComments && allRenterersComments.length'>
+              <div class="example-card" *ngFor="let rentComm of allRenterersComments">
                 <div>
                   <div class="oglas-content">
                       <div class="oglas-details">
-                          <div>Izdavac: {{r.name}}</div>
-                          <div>Email: {{r.email}} </div>
-                          <div>Kontakt telefon: {{r.phoneNumber}} </div>
+                          <div>Izdavac: {{rentComm.renterer.name}}</div>
+                          <div>Email: {{rentComm.renterer.email}} </div>
+                          <div>Kontakt telefon: {{rentComm.renterer.phoneNumber}} </div>
                           <div class="oglas-buttons">
-                              <button type="button" class="show-Sonies-dugme btn" (click)="btnShowSoniesClicked(r);">Prikaži sonije</button>
+                              <button type="button" class="show-Sonies-dugme btn" (click)="btnShowSoniesClicked(rentComm.renterer);">Prikaži sonije</button>
                           </div>
                       </div>
                     <div class="oglas-image" ></div>
                   </div>
                 </div>
-                <div class="sonies" *ngIf= "r.username===rentererUsername" >
+                <div class="sonies" *ngIf= "rentComm.renterer.username===rentererUsername" >
                   <div class="header" *ngIf="rentererSonies && rentererSonies.length">
                       <span class="btncancel" (click)="closeSignedUsers();">&times;</span>
                   </div>
                   <div *ngFor="let sony of rentererSonies" class="sony">
                       <label class="userLbl"><b>{{sony.type}}</b>, Serijski broj: <b> {{sony.serialNumber}}</b>, Cena: <b>{{sony.price}}</b></label>
-                      <button type="button" class="btn" (click)="btnShowSoniesClicked(r);">Igrice</button>
-                      <button type="button" class="btn" (click)="btnShowSoniesClicked(r);">Naruči</button>
+                      <button type="button" class="show-Sonies-dugme btn" (click)="btnShowGamesClicked(rentComm.renterer, sony);">Igrice</button>
+                      <button type="button" class="show-Sonies-dugme btn" >Naruči</button>
                   </div>
                 </div>
+                <!-- comments -->
+                <div class="container mt-5 mb-5">
+                  <div class="d-flex justify-content-center row">
+                      <div class="comments-body ">
+                          <div class="d-flex flex-row align-items-center add-comment p-2 bg-white rounded'">
+                            <img class="rounded-circle" src="https://i.imgur.com/QvDFBCC.jpg" width="40">
+                            <input type="text" id="input-comment" class=" form-control border-0 no-box-shadow ml-1" placeholder="Ostavite komentar...">
+                            <button type="button" class=" btn small-button" (click)="commentClicked(rentComm.renterer);">Komentariši</button>
+                          </div>
+                          <div *ngIf='rentComm.commentArray && rentComm.commentArray.length' >  
+                            <div *ngFor="let comment of rentComm.commentArray">
+                              <div class="p-3 bg-white mt-2 rounded flex-column">
+                                  <div class="d-flex justify-content-between">
+                                      <div class="d-flex flex-row user">
+                                        <img class="rounded-circle img-fluid " src="https://i.imgur.com/Yxje2El.jpg" width="80">
+                                        <div class="d-flex flex-column ml-2">
+                                          <span class="font-weight-bold">@ {{comment.title}}</span>
+                                          <span class="day">{{comment.date.toString()}}</span>
+                                        </div>
+                                      </div>
+                                  </div>
+                                  <div class="comment-text text-justify mt-2 ">
+                                      <p>{{comment.text}}</p>
+                                  </div>
+                                  <button type="button" class=" btn small-button delete-btn" (click)="deleteCommentClicked(comment);">Izbriši</button>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <!-- end comments -->
               </div>
            </div>    
         </div> 
     </div>
 </div>
+
+<div *ngIf="showModal" class='modalBackground'>
+  <div class='modal'>
+    <div class="modal-body">
+        <div class="modalHeader">
+            <span (click)="cancelModal();"  class="btncancel">&times;</span>
+        </div>
+        <div class="modalMain" *ngIf="noGamesForSony">
+          <label class="detailsLblFirst">Trenutno nema dodatih igrica za dati Sony.</label>
+        </div>
+        <div class="modalMain" *ngIf="gamesForSony && gamesForSony.length">
+          <div class="userDetails" *ngFor="let game of gamesForSony">
+            <label class="detailsLblFirst detailsLbl">{{game.name}}</label>
+            <label class="detailsLbl">Broj igrača {{game.players}}</label>
+            <label class="detailsLbl">Godina izdavanja: {{game.yearOfProduction}}</label>
+            <label class="detailsLbl">Tip: {{game.type}}</label>
+            <label class="detailsLbl"> {{game.description}}</label>
+          </div>
+            <button class="okBtn" (click)="cancelModal();"  type="button">U redu</button>
+        </div>
+    </div>
+  </div>
+</div> 

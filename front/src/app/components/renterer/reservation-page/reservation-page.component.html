@@ -1,1 +1,30 @@
-<p>reservation-page works!</p>
+<div class="bbody">
+    <div class="ookvir">
+        <div class="pretraga" >
+            <div class="sonys" *ngIf='sonyReservations && sonyReservations.length'>
+              <div class="example-card" *ngFor="let r of sonyReservations">
+                <div>
+                  <div class="oglas-content">
+                      <div class="oglas-details">
+                          <div>Serijski broj: {{r.sony.serialNumber}}</div>
+                          <div>Notes: {{r.sony.notes}} </div>
+                          <div>Tip: {{r.sony.type}} </div>
+                          <div>Cena: {{r.sony.price}} </div>
+                      </div>
+                    <div class="oglas-image" ></div>
+                  </div>
+                </div>
+                <div class="games">
+                  <div class="header" *ngIf="r.reservation && r.reservation.length">
+                  </div>
+                  <div *ngFor="let res of r.reservation" class="sony">
+                      <label class="userLbl"><b>Pocetak: {{res.renterList.startTime}}</b>, Period: <b> {{res.renterList.period}}</b>, Adresa: <b>{{res.renterList.address}}</b></label>
+                      <button type="button" class="btn" (click)="btnApproveReservation(res);">Prihvati</button>
+                      <button type="button" class="btn" (click)="btnCancelReservation(res);">Odbij</button>
+                  </div>
+                </div>
+              </div>
+           </div>    
+        </div> 
+    </div>
+  </div>

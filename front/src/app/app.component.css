@@ -54,4 +54,6 @@
 
 .ruter{
     min-width: 1000px;
+    min-height: 100%;
+    background-color:rgb(221, 216, 216);
 }

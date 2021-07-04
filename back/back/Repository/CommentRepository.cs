@@ -35,10 +35,10 @@ namespace back.Repository
             return result;
         }
 
-        public Task DeleteComment(string title)
+        public Task DeleteComment(System.DateTime date)
         {
             var result = _client.Cypher.Match("(comment:Comment)")
-               .Where((Comment comment) => comment.Title == title)
+               .Where((Comment comment) => comment.Date == date)
                .DetachDelete("comment")
                .ExecuteWithoutResultsAsync();
             return result;
@@ -55,6 +55,21 @@ namespace back.Repository
         {
             var result = await _client.Cypher.Match(@"(rentee:Rentee)-[r:HAS { Written_by:" + "\"" + UsernameRenterer + "\"" + "}] -> (comment)")
                 .Where((Rentee rentee) => rentee.Username == UsernameRentee)
+                .Return((comment) => new
+                {
+                    Comment = comment.As<Comment>()
+                }).ResultsAsync;
+            List<Comment> comments = new List<Comment>();
+            foreach (var indeks in result)
+            {
+                comments.Add(indeks.Comment);
+            }
+            return comments;
+        }
+        public async Task<List<Comment>> GetCommentsForRenterer(string UsernameRenterer)
+        {
+            var result = await _client.Cypher.Match(@"(renterer:Renterer)-[r:HAS]-(comment:Comment)")
+                .Where((Renterer renterer) => renterer.Username == UsernameRenterer)
                 .Return((comment) => new
                 {
                     Comment = comment.As<Comment>()

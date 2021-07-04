@@ -1,0 +1,18 @@
+<p>update-sony-modal works!</p>
+<div class='modalBackground'>
+    <div class='modal'>
+        <div class="modal-header">
+            <span (click)="cancelModal()" class="cancel">&times;</span>
+        </div>
+        <div class="log-modal-main">
+            <form>
+                <label class="label">Izmeni sony</label>
+                <div class="form-group">
+                    <label>Cena:</label>
+                    <input name="job-name" class="form-control" type="number" [(ngModel)]="updateSony.price" required>
+                </div>
+                <button class="btn btn-primary" type="button" (click)="handleClick()">Sačuvaj</button>
+            </form>
+        </div>
+    </div>
+</div> 

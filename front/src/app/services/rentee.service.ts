@@ -5,6 +5,8 @@ import { environmentVariables } from "../constants/url-constants";
 import { Rentee } from "../models/Rentee";
 import { Sony } from "../models/Sony";
 import { Game } from "../models/Game"
+import { CommentDTO } from "../models/CommentDTO";
+import {Comment } from "../models/Comment"
 
 @Injectable({
     providedIn: 'root'
@@ -28,12 +30,23 @@ import { Game } from "../models/Game"
     getAllRentees(): Observable<Rentee[]>{
         let url=this.baseUrl+`Rentee/GetAllRentees`;
         return this.http.get<Rentee[]>(url);
-      }
-    
-    getGamesForSony(serialNum : number): Observable<Game[]>{
-      let url=this.baseUrl+`Renterer/GetGamesOnSony`;
-      return this.http.get<Game[]>(url);
     }
+
+    addCommentToRenterer(commentDto: CommentDTO): Observable<any>{
+      let url=this.baseUrl+`Rentee/AddCommentToRenterer`;
+      return this.http.post<any>(url, commentDto);
+    }
+
+    deleteComment(date: Date): Observable<any>{
+      let url=this.baseUrl+`Rentee/DeleteComment?date=${date}`;
+      return this.http.delete<any>(url);
+    }
+    
+    getCommentsForRenterer(rentererUsername: string): Observable<Comment[]>{
+      let url=this.baseUrl+`Rentee/GetCommentsForRenterer?UsernameRenterer=${rentererUsername}`;
+      return this.http.get<Comment[]>(url);
+    }
+  
   
     // createSony(sony: Sony):Observable<Sony>{
     //   let url=this.baseUrl+`/job`;

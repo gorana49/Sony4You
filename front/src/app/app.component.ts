@@ -36,7 +36,6 @@ pocetnaClicked(){
 
 izdavaciClicked(){
   const loggedUserData: LoggedUser= JSON.parse(localStorage.getItem("user"));
-  console.log(loggedUserData);
   if(loggedUserData.role==="rentee"){
     this.router.navigate(['./rentee/izdavaci'])
     }
@@ -44,7 +43,6 @@ izdavaciClicked(){
 
   sonyClicked(){
     const loggedUserData: LoggedUser= JSON.parse(localStorage.getItem("user"));
-    console.log(loggedUserData);
     if(loggedUserData.role==="renterer"){
       this.router.navigate(['./renterer/sony'])
     }
@@ -52,7 +50,6 @@ izdavaciClicked(){
 
   rezervacijeClicked(){
     const loggedUserData: LoggedUser= JSON.parse(localStorage.getItem("user"));
-    console.log(loggedUserData);
     if(loggedUserData.role==="renterer"){
       this.router.navigate(['./renterer/reservation'])
     }

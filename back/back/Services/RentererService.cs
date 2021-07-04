@@ -92,7 +92,7 @@ namespace back
         {
             return this._gameRepository.AddGame(SerialNumber, game);
         }
-        public Task UpdateGame(string Players, Game gam)
+        public Task UpdateGame(int Players, Game gam)
         {
             return this._gameRepository.UpdateGame(Players, gam);
         }
@@ -109,9 +109,9 @@ namespace back
         {
             return this._commentRepository.AddCommentToRentee(comm, Username, UsernameRenterer);
         }
-        public Task DeleteComment(string title)
+        public Task DeleteComment(System.DateTime date)
         {
-            return this._commentRepository.DeleteComment(title);
+            return this._commentRepository.DeleteComment(date);
         }
         public Task UpdateComment(string Text, string Title)
         {
