@@ -17,6 +17,10 @@ import { RenteePageComponent } from './components/rentee/rentee-page/rentee-page
 import { MainPageRenteeComponent } from './components/rentee/main-page-rentee/main-page-rentee.component';
 import { CommonModule } from '@angular/common';
 import { SearchRenterersComponent } from './components/rentee/search-renterers/search-renterers.component';
+import { MainPageRentererComponent } from './components/renterer/main-page-renterer/main-page-renterer.component';
+import { AddGameModalComponent } from './components/renterer/add-game-modal/add-game-modal.component';
+import { UpdateGameModalComponent } from './components/renterer/update-game-modal/update-game-modal.component';
+import { UpdateSonyModalComponent } from './components/renterer/update-sony-modal/update-sony-modal.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,11 @@ import { SearchRenterersComponent } from './components/rentee/search-renterers/s
     ForumPageComponent,
     RenteePageComponent,
     MainPageRenteeComponent,
-    SearchRenterersComponent
+    SearchRenterersComponent,
+    MainPageRentererComponent,
+    AddGameModalComponent,
+    UpdateGameModalComponent,
+    UpdateSonyModalComponent
   ],
   imports: [
     BrowserModule,

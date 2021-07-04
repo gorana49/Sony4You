@@ -42,10 +42,10 @@ namespace back.Controllers
             return _rentererService.UpdateRenterer(renterer);
         }
         [HttpPost]
-        public Task AddSony([FromBody] AddSonyDTO Addsony)
+        public Task AddSony([FromQuery]string rentererUsername, [FromBody] Sony Addsony)
         {
-            Sony sony = new Sony(Addsony.SerialNumber, Addsony.Type, Addsony.Price, Addsony.Notes);
-            return _rentererService.AddSony(Addsony.RentererUsername, sony);
+            //Sony sony = new Sony(Addsony.SerialNumber, Addsony.Type, Addsony.Price, Addsony.Notes);
+            return _rentererService.AddSony(rentererUsername, Addsony);
         }
         [HttpDelete]
         public Task DeleteSony([FromQuery] string SerialNumber)
@@ -96,12 +96,12 @@ namespace back.Controllers
             return _rentererService.GetContest(Name);
         }
         [HttpPost]
-        public Task AddGame(string SerialNumber, Game game)
+        public Task AddGame([FromQuery]string SerialNumber, [FromBody]Game game)
         {
             return _rentererService.AddGame(SerialNumber, game);
         }
         [HttpPut]
-        public Task UpdateGame(string Players, Game gam)
+        public Task UpdateGame(int Players, Game gam)
         {
             return _rentererService.UpdateGame(Players, gam);
         }
