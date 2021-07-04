@@ -1,6 +1,24 @@
 <div class="bbody">
     <div class="ookvir">
         <div class="pretraga" >
+            <div class="sonys">
+                <div class="example-card">
+                  <div>
+                    <div class="oglas-content">
+                        <div class="oglas-details">
+                            <div>Serijski broj: <input type="text" name="serial-number" [(ngModel)]="newSony.serialNumber"></div>
+                            <div>Notes: <input type="text" name="notes" [(ngModel)]="newSony.notes"> </div>
+                            <div>Tip:  <input type="text" name="type" [(ngModel)]="newSony.type"></div>
+                            <div>Cena: <input type="number" name="cena" [(ngModel)]="newSony.price"> </div>
+                            <div class="oglas-buttons">
+                                <button type="button" class="show-games-dugme btn" (click)="createSony();">Kreiraj</button>
+                            </div>
+                        </div>
+                      <div class="oglas-image" ></div>
+                    </div>
+                  </div>
+                </div>
+             </div> 
             <div class="sonys" *ngIf='allSonys && allSonys.length'>
               <div class="example-card" *ngFor="let r of allSonys">
                 <div>
@@ -13,6 +31,8 @@
                           <div class="oglas-buttons">
                               <button type="button" class="show-games-dugme btn" (click)="btnShowGamesClicked(r);">Prikaži igrice</button>
                               <button type="button" class="show-games-dugme btn" (click)="btnShowAddGame(r);">Dodaj igricu</button>
+                              <button type="button" class="show-games-dugme btn" (click)="btnIzmeniSony(r);">Izmeni</button>
+                              <button type="button" class="show-games-dugme btn" (click)="btnObrisiSony(r);">Obrisi</button>
                           </div>
                       </div>
                     <div class="oglas-image" ></div>
@@ -24,8 +44,8 @@
                   </div>
                   <div *ngFor="let game of allSonyGames" class="sony">
                       <label class="userLbl"><b>{{game.name}}</b>, Godina: <b> {{game.yearOfProduction}}</b>, Igraca: <b>{{game.players}}</b></label>
-                      <!-- <button type="button" class="btn" (click)="btnShowSoniesClicked(r);">Igrice</button>
-                      <button type="button" class="btn" (click)="btnShowSoniesClicked(r);">Naruči</button> -->
+                      <button type="button" class="btn" (click)="btnDeleteGame(game);">Obrisi</button>
+                      <button type="button" class="btn" (click)="btnUpdateGame(game);">Izmeni</button>
                   </div>
                 </div>
               </div>
@@ -35,45 +55,5 @@
   </div>
 
   <app-add-game-modal *ngIf="displayAddGameModal" [sonyAddGame]="sonyAddGame" (cancelClicked)='hideAddGameModal()'></app-add-game-modal>
-
-<!-- <div class="sony-page-container">
-    <div class="create-sony-container">
-        <div class="create-sony-title">
-            Dodaj sony
-        </div>
-        <div class="create-sony-item">
-            <div>
-                Serial number:
-            </div>
-            <div>
-                <input type="text" name="serial-number" id="sony-serial-number">
-            </div> 
-        </div>
-        <div class="create-sony-item">
-            <div>
-                Tip:
-            </div>
-            <div>
-                <input type="text" name="type" id="sony-type">
-            </div> 
-        </div>
-        <div class="create-sony-item">
-            <div>
-                Notes:
-            </div>
-            <div>
-                <input type="text" name="notes" id="sony-notes">
-            </div> 
-        </div>
-        <div class="create-sony-item">
-            <div>
-                Cena:
-            </div>
-            <div>
-                <input type="number" name="price" id="sony-price">
-            </div> 
-        </div>
-        <div class="create-sony-item">
-            <button (click)="createSony();">Kreiraj</button>
-        </div>
-    </div> -->
+  <app-update-game-modal *ngIf="displayUpdateGameModal" [updateGame]="updateGame" (cancelClicked)='hideUpdateGameModal()'></app-update-game-modal>
+  <app-update-sony-modal *ngIf="displayUpdateSony" [updateSony]="updateSony" (cancelClicked)='hideUpdateSonyModal()'></app-update-sony-modal>

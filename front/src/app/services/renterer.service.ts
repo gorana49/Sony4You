@@ -5,7 +5,6 @@ import { environmentVariables } from "../constants/url-constants";
 import { Game } from "../models/Game";
 import { Renterer } from "../models/Renterer";
 import { Sony } from "../models/Sony";
-import { SonyCreate } from "../models/SonyCreate";
 
 @Injectable({
     providedIn: 'root'
@@ -26,8 +25,8 @@ import { SonyCreate } from "../models/SonyCreate";
       return this.http.get<Sony[]>(url);
     }
   
-    createSony(sony: Sony):Observable<Sony>{
-      let url=this.baseUrl+`Renterer/AddSony`;
+    createSony(rentererUsername:string,sony: Sony):Observable<Sony>{
+      let url=this.baseUrl+`Renterer/AddSony?rentererUsername=${rentererUsername}`;
       return this.http.post<Sony>(url,sony);
     }
 
@@ -38,6 +37,7 @@ import { SonyCreate } from "../models/SonyCreate";
 
     addGameForSony(serialNum:string,newGame: Game){
       let url=this.baseUrl+`Renterer/AddGame?SerialNumber=${serialNum}`;
+      console.log(url)
       return this.http.post(url,newGame);
     }
 
@@ -45,17 +45,25 @@ import { SonyCreate } from "../models/SonyCreate";
       let url=this.baseUrl+`Renterer/GetGamesOnSony?SerialNumber=${serialNumber}`;
       return this.http.get<Game[]>(url);
     }
-  
-    // updateJob(idJob: number, job: Job):Observable<IJob>{
-    //   let url=this.baseUrl+`/job/${idJob}`;
-    //   return this.http.put<IJob>(url,job);
-    // }
-  
-    // deleteJob( eventId: number):Observable<IJob>{
-    //   let url=this.baseUrl+`/job/${eventId}`;
-    //   return this.http.delete<IJob>(url);
-    // }
-  
- 
+
+    deleteGame(game:Game) {
+      let url=this.baseUrl+`Renterer/DeleteGame?Name=${game.name}`;
+      return this.http.delete(url);
+    }
+
+    updateGame(game: Game) {
+      let url=this.baseUrl+`Renterer/UpdateGame?Players=${game.players}`;
+      return this.http.put(url,game);
+    }
+
+    deleteSony(sony: Sony) {
+      let url=this.baseUrl+`Renterer/DeleteSony?SerialNumber=${sony.serialNumber}`;
+      return this.http.delete(url);
+    }
+
+    updateSony(sony: Sony) {
+      let url=this.baseUrl+`Renterer/UpdateSony?Price=${sony.price}&SerialNumber=${sony.serialNumber}`;
+      return this.http.put(url,null);
+    }
   }
   

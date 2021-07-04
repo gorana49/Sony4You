@@ -19,6 +19,8 @@ import { CommonModule } from '@angular/common';
 import { SearchRenterersComponent } from './components/rentee/search-renterers/search-renterers.component';
 import { MainPageRentererComponent } from './components/renterer/main-page-renterer/main-page-renterer.component';
 import { AddGameModalComponent } from './components/renterer/add-game-modal/add-game-modal.component';
+import { UpdateGameModalComponent } from './components/renterer/update-game-modal/update-game-modal.component';
+import { UpdateSonyModalComponent } from './components/renterer/update-sony-modal/update-sony-modal.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { AddGameModalComponent } from './components/renterer/add-game-modal/add-
     MainPageRenteeComponent,
     SearchRenterersComponent,
     MainPageRentererComponent,
-    AddGameModalComponent
+    AddGameModalComponent,
+    UpdateGameModalComponent,
+    UpdateSonyModalComponent
   ],
   imports: [
     BrowserModule,

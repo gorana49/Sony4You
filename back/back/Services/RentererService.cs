@@ -92,7 +92,7 @@ namespace back
         {
             return this._gameRepository.AddGame(SerialNumber, game);
         }
-        public Task UpdateGame(string Players, Game gam)
+        public Task UpdateGame(int Players, Game gam)
         {
             return this._gameRepository.UpdateGame(Players, gam);
         }

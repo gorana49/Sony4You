@@ -1,20 +1,17 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Game } from 'src/app/models/Game';
 import { Sony } from 'src/app/models/Sony';
 import { RentererService } from 'src/app/services/renterer.service';
 
 @Component({
-  selector: 'app-add-game-modal',
-  templateUrl: './add-game-modal.component.html',
-  styleUrls: ['./add-game-modal.component.css']
+  selector: 'app-update-sony-modal',
+  templateUrl: './update-sony-modal.component.html',
+  styleUrls: ['./update-sony-modal.component.css']
 })
-export class AddGameModalComponent implements OnInit {
-  newGame:Game;
+export class UpdateSonyModalComponent implements OnInit {
   @Output() cancelClicked: EventEmitter<any> = new EventEmitter();
-  @Input() sonyAddGame: Sony;
+  @Input() updateSony: Sony;
 
   constructor(private rentererService:RentererService) { 
-    this.newGame = new Game("","","","","");
   }
 
   ngOnInit(): void {
@@ -26,10 +23,10 @@ export class AddGameModalComponent implements OnInit {
   }
 
   handleClick(): void {
-    this.rentererService.addGameForSony(this.sonyAddGame.serialNumber,this.newGame).subscribe(
+    this.rentererService.updateSony(this.updateSony).subscribe(
       (val) => {}
     )
     this.cancelModal();
   }
- 
+
 }

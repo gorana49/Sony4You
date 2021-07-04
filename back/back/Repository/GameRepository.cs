@@ -16,16 +16,16 @@ namespace back.Repository
         public Task AddGame(string SerialNumber, Game game)
         {
             var result = _client.Cypher
-                .Match(@"(sony:Sony)").Where((Sony sony) => sony.SerialNumber == SerialNumber)
-                .Create("(game:Game {game})").WithParams(new { game })
+                .Create("(game:Game {game})").WithParams(new { game }).With("game")
+                .Match(@"(sony:Sony)").Where((Sony sony) => sony.SerialNumber == SerialNumber)       
                 .Create("(sony) -[r:HAS]-> (game)").ExecuteWithoutResultsAsync();
             return result;
         }
 
-        public Task UpdateGame(string Players, Game gam)
+        public Task UpdateGame(int Players, Game gam)
         {
             var result = _client.Cypher.Match(@"(game:Game)").Where((Game game) => game.Name == gam.Name)
-                .Set("game.Players" + "\"" + Players + "\"").ExecuteWithoutResultsAsync();
+                .Set("game.Players=" + "\"" + Players.ToString() + "\"").ExecuteWithoutResultsAsync();
             return result;
         }
 

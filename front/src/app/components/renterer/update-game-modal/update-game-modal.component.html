@@ -1,0 +1,17 @@
+<div class='modalBackground'>
+    <div class='modal'>
+        <div class="modal-header">
+            <span (click)="cancelModal()" class="cancel">&times;</span>
+        </div>
+        <div class="log-modal-main">
+            <form>
+                <label class="label">Unesite podatke o novim igracima</label>
+                <div class="form-group">
+                    <label>Unesite broj igraca:</label>
+                    <input name="job-count" class="form-control" type="number" [(ngModel)]="updateGame.players" required>
+                </div>
+                <button class="btn btn-primary" type="button" (click)="handleClick()">Sačuvaj</button>
+            </form>
+        </div>
+    </div>
+</div> 
