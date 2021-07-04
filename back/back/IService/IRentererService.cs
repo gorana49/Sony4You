@@ -6,7 +6,7 @@ namespace back
 {
     public interface IRentererService
     {
-        public Task<bool> AddRenterer(Renterer renterer);
+        public Task<RentererDTO> AddRenterer(RentererDTO renterer);
         public Task<List<Renterer>> GetAllRenterers();
         public Task<Renterer> GetRenterer(string username);
         public Task DeleteRenterer(string Name);
