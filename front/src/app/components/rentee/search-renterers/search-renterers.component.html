@@ -26,8 +26,8 @@
                   </div>
                   <div *ngFor="let sony of rentererSonies" class="sony">
                       <label class="userLbl"><b>{{sony.type}}</b>, Serijski broj: <b> {{sony.serialNumber}}</b>, Cena: <b>{{sony.price}}</b></label>
-                      <button type="button" class="btn" (click)="btnShowSoniesClicked(r);">Igrice</button>
-                      <button type="button" class="btn" (click)="btnShowSoniesClicked(r);">Naruči</button>
+                      <button type="button" class="btn" (click)="btnShowGamesClicked(r, sony);">Igrice</button>
+                      <button type="button" class="btn" >Naruči</button>
                   </div>
                 </div>
               </div>

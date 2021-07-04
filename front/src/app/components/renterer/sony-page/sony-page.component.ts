@@ -59,7 +59,7 @@ export class SonyPageComponent implements OnInit {
   btnShowGamesClicked(sony:Sony) {
     this.sonySerial=sony.serialNumber;
 
-    this.rentererService.getAllGamesForSony(sony.serialNumber)
+    this.rentererService.getGamesOnSony(sony.serialNumber)
     .subscribe(value=>{
       this.allSonyGames=value;
       if(value.length === 0){

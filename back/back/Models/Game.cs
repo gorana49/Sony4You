@@ -8,7 +8,7 @@ namespace back.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int Players { get; set; }
-        public int YearOfProduction { get; set; }
+        public string YearOfProduction { get; set; }
         public string Description {get;set;}
         public string Type {get;set;}
 

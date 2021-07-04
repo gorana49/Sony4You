@@ -36,14 +36,14 @@ import { SonyCreate } from "../models/SonyCreate";
       return this.http.get<Renterer[]>(url);
     }
 
-    getAllGamesForSony(serial:string) : Observable<Game[]>{
-      let url=this.baseUrl+`Renterer/GetGamesOnSony?SerialNumber=${serial}`;
-      return this.http.get<Game[]>(url);
-    }
-
     addGameForSony(serialNum:string,newGame: Game){
       let url=this.baseUrl+`Renterer/AddGame?SerialNumber=${serialNum}`;
       return this.http.post(url,newGame);
+    }
+
+    getGamesOnSony(serialNumber: string): Observable<Game[]>{
+      let url=this.baseUrl+`Renterer/GetGamesOnSony?SerialNumber=${serialNumber}`;
+      return this.http.get<Game[]>(url);
     }
   
     // updateJob(idJob: number, job: Job):Observable<IJob>{

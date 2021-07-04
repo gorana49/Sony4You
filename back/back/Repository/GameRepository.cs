@@ -15,8 +15,9 @@ namespace back.Repository
         }
         public Task AddGame(string SerialNumber, Game game)
         {
-            var result = _client.Cypher.Create("(game:Game {game})").WithParams(new { game })
+            var result = _client.Cypher
                 .Match(@"(sony:Sony)").Where((Sony sony) => sony.SerialNumber == SerialNumber)
+                .Create("(game:Game {game})").WithParams(new { game })
                 .Create("(sony) -[r:HAS]-> (game)").ExecuteWithoutResultsAsync();
             return result;
         }
