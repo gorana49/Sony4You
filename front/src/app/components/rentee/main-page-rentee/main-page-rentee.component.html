@@ -15,25 +15,13 @@
                 <label class="userLbl"><b>{{rentee.name}}</b>, Username: <b> {{rentee.username}}</b>, Broj: <b>{{rentee.phoneNumber}}</b></label>
                 <button type="button" class="small-button btn" (click)="sendFriednRequest(rentee);">Pošalji zahtev za prijateljstvo</button>
             </div>
+        <div class="notification"> 
+            <div *ngIf='notifications.length' >  
+                <div *ngFor="let notif of notifications">
+                   {{notif.Message}}
+                </div>
+              </div>
         </div>
-        
-        <!-- <div *ngIf='signedEvents && signedEvents.length'>
-            <div *ngFor="let event of signedEvents">
-                <mat-card class="example-card" >
-                    <div class="oglas-content">
-                        <mat-card-actions class="oglas-details">
-                            <mat-card-title>{{event.name}}</mat-card-title>
-                            <mat-card-subtitle>{{event.description}}</mat-card-subtitle>
-                            <mat-card-subtitle>Potreban tip korisnika: {{event.userType}}</mat-card-subtitle>
-                            <mat-card-subtitle>Broj potrebnih korisnika: {{event.userCount}}</mat-card-subtitle>
-                            <div class="oglas-buttons">
-                                <button class="oglas-dugme" mat-button (click)="signOutOfEvent(event);">Otkaži</button>
-                            </div>
-                        </mat-card-actions>
-                        <div class="oglas-image" ></div>
-                    </div>
-                </mat-card>
-            </div>
-        </div> -->
+    
     </div>
 </div>

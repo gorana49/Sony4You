@@ -1,26 +1,25 @@
-﻿using Microsoft.AspNetCore.SignalR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using back.DtoModels;
+using Microsoft.AspNetCore.SignalR;
 
-namespace back.Models
+namespace back.HubConfiguration
 {
     public class MessageHub : Hub
     {
-        public void sendToAll(Message mess)
+        //Dictionary<string, string> onlineUsers = new Dictionary<string, string>();
+        public void NewMessage(MessageDTO mess)
         {
-            Clients.All.SendAsync("sendToAll", mess);
-        }
+            // Console.WriteLine(mess.receiverId, mess.clientuniqueid);
+            //   onlineUsers.Add(mess.senderUsername, mess.clientuniqueid);
+            //    Clients.Client(mess.receiverId).SendAsync("MessageReceived", mess);
+            Clients.All.SendAsync("MessageReceived", mess);
 
-        public async Task JoinRoom(string roomName)
-        {
-            await Groups.AddToGroupAsync(Context.ConnectionId, roomName);
         }
-
-        public async Task LeaveRoom(string roomName)
-        {
-            await Groups.RemoveFromGroupAsync(Context.ConnectionId, roomName);
-        }
+        //public string GetConnectionId(string Username)
+        //{
+        //    onlineUsers.Add(Username, Context.ConnectionId);
+        //    Console.WriteLine(onlineUsers.Keys);
+        //    return Context.ConnectionId;
+        //}
+        //  public string GetConnectionId(string Username) => Context.ConnectionId;
     }
 }

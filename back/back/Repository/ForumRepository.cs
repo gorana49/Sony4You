@@ -39,7 +39,7 @@ namespace back.Repository
 
         public async Task<IEnumerable<MessageDTO>> ReceiveMessage(int senderId, int receiverId, string from, int count)
         {
-            List<MessageDTO> retMessages = new List<MessageDTO>();
+            List<Message> retMessages = new List<Message>();
             //int fromId = senderId > receiverId ? senderId : receiverId;
             //int toId = senderId < receiverId ? senderId : receiverId;
             string channelName = $"forum:{receiverId}:chat";
@@ -51,9 +51,9 @@ namespace back.Repository
             //  var messages = await redisDb.StreamRangeAsync(channelName, minId: "-", maxId: "-", count: count, messageOrder: Order.Descending);
             foreach (var message in messages)
             {
-                MessageDTO mess = new MessageDTO
+                Message mess = new Message
                 {
-                    Id = message.Id,
+                    // Id = message.Id,
                     SenderUsername = message.Values.FirstOrDefault(value => value.Name == "sender").Value,
                     SenderId = int.Parse(message.Values.FirstOrDefault(value => value.Name == "senderId").Value),
                     ReceiverUsername = message.Values.FirstOrDefault(value => value.Name == "receiver").Value,
@@ -62,7 +62,7 @@ namespace back.Repository
                 };
                 retMessages.Add(mess);
             }
-            return retMessages;
+            return (IEnumerable<MessageDTO>)retMessages;
         }
 
         //public async Task StartConversation(ConversationDTO participants)

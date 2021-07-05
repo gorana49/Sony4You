@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ChatComponent } from './components/chat/chat.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { MainPageRenteeComponent } from './components/rentee/main-page-rentee/main-page-rentee.component';
 import { RenteePageComponent } from './components/rentee/rentee-page/rentee-page.component';
 import { SearchRenterersComponent } from './components/rentee/search-renterers/search-renterers.component';
-import { ChatPageComponent } from './components/renterer/chat-page/chat-page.component';
 import { ForumPageComponent } from './components/renterer/forum-page/forum-page.component';
 import { MainPageRentererComponent } from './components/renterer/main-page-renterer/main-page-renterer.component';
 import { RentererPageComponent } from './components/renterer/renterer-page/renterer-page.component';
@@ -23,8 +23,8 @@ const routes: Routes = [
       {path: 'profil', component: MainPageComponent},
       {path: 'sony', component: SonyPageComponent},
       {path: 'reservation', component: ReservationPageComponent},
-      {path: 'chat', component: ChatPageComponent},
-      {path: 'forum', component: ForumPageComponent}
+      {path: 'forum', component: ForumPageComponent},
+      {path: 'chat', component: ChatComponent}
     ],
     //data: { role: 'renterer'}
   },

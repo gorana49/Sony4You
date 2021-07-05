@@ -1,6 +1,5 @@
 ﻿using back.DtoModels;
 using back.IRepository;
-using back.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -18,16 +17,28 @@ namespace back.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> SendMessage([FromBody] Message message)
+        public async Task<ActionResult> SendMessage([FromBody] MessageDTO message)
         {
             await _repository.SendMessage(message);
             return Ok();
         }
+        [HttpPost]
+        public async Task<ActionResult> SendNotification([FromBody] NotificationDTO notification)
+        {
+            await _repository.SendNotification(notification);
+            return Ok();
+        }
 
         [HttpGet]
-        public async Task<ActionResult> ReceiveMessage([FromQuery] int senderId, [FromQuery] int receiverId, [FromQuery] string from, [FromQuery] int count)
+        public async Task<ActionResult> ReceiveMessage([FromQuery] string senderId, [FromQuery] string receiverId, [FromQuery] string from, [FromQuery] int count)
         {
             var messages = await _repository.ReceiveMessage(senderId, receiverId, from, count);
+            return Ok(messages);
+        }
+        [HttpGet]
+        public async Task<ActionResult> ReceiveNotification([FromQuery] string senderId, [FromQuery] string receiverId, [FromQuery] string from, [FromQuery] int count)
+        {
+            var messages = await _repository.ReceiveNotiffication(senderId, receiverId, from, count);
             return Ok(messages);
         }
 
@@ -37,13 +48,15 @@ namespace back.Controllers
             try
             {
                 await _repository.StartConversation(participants);
-                var message = new Message
+                var message = new MessageDTO
                 {
-                    SenderUsername = $"{participants.Sender.Username}",
-                    SenderId = participants.Sender.Id,
-                    ReceiverUsername = $"{participants.Receiver.Username}",
-                    ReceiverId = participants.Receiver.Id,
-                    Text = participants.Text
+                    senderUsername = $"{participants.Sender.Username}",
+                    clientuniqueid = participants.Sender.Id.ToString(),
+                    receiverUsername = $"{participants.Receiver.Username}",
+                    receiverId = participants.Receiver.Id.ToString(),
+                    message = participants.Text,
+                    type = "sent",
+                    date = DateTime.Now
                 };
 
                 await _repository.SendMessage(message);
