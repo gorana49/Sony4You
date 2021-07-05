@@ -9,6 +9,8 @@ import { RenteeService } from 'src/app/services/rentee.service';
 })
 export class MainPageRenteeComponent implements OnInit {
   rentee: Rentee;
+  allRentees: Rentee[]=[];
+  user:Rentee;
   constructor(
               private router:Router,
               private renteeService:RenteeService) { 
@@ -16,9 +18,9 @@ export class MainPageRenteeComponent implements OnInit {
               }
 
   ngOnInit(): void {
-    var user:Rentee = JSON.parse(localStorage.getItem("user"));
-    if(user!= null){
-      this.renteeService.getRenteeByUsername(user.username)
+    this.user = JSON.parse(localStorage.getItem("user"));
+    if(this.user!= null){
+      this.renteeService.getRenteeByUsername(this.user.username)
       .subscribe(value=>{
         if(value!=undefined){
           this.rentee = value;
@@ -28,6 +30,9 @@ export class MainPageRenteeComponent implements OnInit {
           this.rentee = new Rentee("","","","","","");
         }
       })
+      this.renteeService.getAllRentees()
+      .subscribe(value =>{ this.allRentees=value;
+      console.log(this.allRentees)})
     }
     else{
       this.rentee = new Rentee("","","","","","");
@@ -36,5 +41,13 @@ export class MainPageRenteeComponent implements OnInit {
 
   navigateTo(path) {
     this.router.navigate([`./renterer/${path}`]);
+  }
+
+  sendFriednRequest(rentee: Rentee){
+    this.renteeService.sendFriendRequest(this.user.username, rentee.username)
+    .subscribe(value=>{
+      console.log(value);
+      alert(`Uspesno poslat zahetev ${this.user.username} ka ${rentee.username}`)
+    })
   }
 }

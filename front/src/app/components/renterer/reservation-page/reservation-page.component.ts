@@ -40,12 +40,12 @@ export class ReservationPageComponent implements OnInit {
   }
 
   btnApproveReservation(res:Reservation) {
-    this.reservationService.approveReservationRequest(res).subscribe((val) => {})
-    location.reload();
+    this.reservationService.approveReservationRequest(res).subscribe((val) => {location.reload();})
+    
   };
   
   btnCancelReservation(res:Reservation) {
-    this.reservationService.cancelReservation(res).subscribe((val) => {})
-    location.reload();
+    this.reservationService.cancelReservation(res).subscribe((val) => {location.reload();})
+    
   }
 }

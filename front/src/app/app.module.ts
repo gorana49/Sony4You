@@ -21,6 +21,7 @@ import { MainPageRentererComponent } from './components/renterer/main-page-rente
 import { AddGameModalComponent } from './components/renterer/add-game-modal/add-game-modal.component';
 import { UpdateGameModalComponent } from './components/renterer/update-game-modal/update-game-modal.component';
 import { UpdateSonyModalComponent } from './components/renterer/update-sony-modal/update-sony-modal.component';
+import { AddReservationModalComponent } from './components/rentee/add-reservation-modal/add-reservation-modal.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { UpdateSonyModalComponent } from './components/renterer/update-sony-moda
     MainPageRentererComponent,
     AddGameModalComponent,
     UpdateGameModalComponent,
-    UpdateSonyModalComponent
+    UpdateSonyModalComponent,
+    AddReservationModalComponent
   ],
   imports: [
     BrowserModule,

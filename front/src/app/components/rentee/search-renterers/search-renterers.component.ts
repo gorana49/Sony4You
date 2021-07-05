@@ -24,9 +24,11 @@ export class SearchRenterersComponent implements OnInit {
   rentererSonies: Sony[]=[];
   gamesForSony: Game[]=[];
   commentsForRenterer: Comment[]=[];
+  sonyForReservation: Sony;
   rentererUsername: string;
   showModal: boolean=false;
   noGamesForSony: boolean=false;
+  displayAddReservationModal: boolean=false;
   rentee: Rentee = {
     id: undefined,
     name: '',
@@ -43,6 +45,7 @@ export class SearchRenterersComponent implements OnInit {
   
   ngOnInit(): void {
     this.showModal=false;
+    this.displayAddReservationModal=false;
     this.rentee = JSON.parse(localStorage.getItem("user"));
     this.allRenterersComments=[];
     this.rentererService.getAllRenterers()
@@ -121,6 +124,15 @@ export class SearchRenterersComponent implements OnInit {
       err=>{
         alert(`Dogodila se greška pri brisanju komentara.`)
       })
+  }
+
+  showAddReservationModal(sony: Sony){
+    this.sonyForReservation=sony;
+    this.displayAddReservationModal=true;
+  }
+  
+  hideAddReservationModal(){
+    this.displayAddReservationModal=false;
   }
   
 }

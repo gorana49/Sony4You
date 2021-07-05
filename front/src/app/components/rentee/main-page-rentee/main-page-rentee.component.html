@@ -1,7 +1,7 @@
 <div class="body">
     <div class="okvir">
         <div class="profile-div">
-            <div class="profile-image-div"> </div>
+            <div class="profile-image-div" > </div>
             <div class="profile-info-div">
                 <label class="lbl-ime">{{rentee.name}}</label>
                 <label class="lbl-mail">{{rentee.username}}</label>
@@ -9,9 +9,14 @@
                 <label class="lbl-mail">Broj telefona: {{rentee.phoneNumber}}</label>
             </div>
         </div>
-        <div class="reziser-main">
-            <router-outlet></router-outlet>
+        <div class="rentees" *ngIf="allRentees && allRentees.length">
+            <label class="labela">Ostali korisnici:</label>
+            <div *ngFor="let rentee of allRentees" class="rentee">
+                <label class="userLbl"><b>{{rentee.name}}</b>, Username: <b> {{rentee.username}}</b>, Broj: <b>{{rentee.phoneNumber}}</b></label>
+                <button type="button" class="small-button btn" (click)="sendFriednRequest(rentee);">Pošalji zahtev za prijateljstvo</button>
+            </div>
         </div>
+        
         <!-- <div *ngIf='signedEvents && signedEvents.length'>
             <div *ngFor="let event of signedEvents">
                 <mat-card class="example-card" >

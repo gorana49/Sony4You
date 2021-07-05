@@ -6,9 +6,9 @@
                 <div>
                   <div class="oglas-content">
                       <div class="oglas-details">
-                          <div>Izdavac: {{rentComm.renterer.name}}</div>
-                          <div>Email: {{rentComm.renterer.email}} </div>
-                          <div>Kontakt telefon: {{rentComm.renterer.phoneNumber}} </div>
+                          <div>IZDAVAČ: {{rentComm.renterer.name}}</div>
+                          <div>EMAIL: {{rentComm.renterer.email}} </div>
+                          <div>KONTAKT TELEFON: {{rentComm.renterer.phoneNumber}} </div>
                           <div class="oglas-buttons">
                               <button type="button" class="show-Sonies-dugme btn" (click)="btnShowSoniesClicked(rentComm.renterer);">Prikaži sonije</button>
                           </div>
@@ -23,7 +23,7 @@
                   <div *ngFor="let sony of rentererSonies" class="sony">
                       <label class="userLbl"><b>{{sony.type}}</b>, Serijski broj: <b> {{sony.serialNumber}}</b>, Cena: <b>{{sony.price}}</b></label>
                       <button type="button" class="show-Sonies-dugme btn" (click)="btnShowGamesClicked(rentComm.renterer, sony);">Igrice</button>
-                      <button type="button" class="show-Sonies-dugme btn" >Naruči</button>
+                      <button type="button" class="show-Sonies-dugme btn" (click)="showAddReservationModal(sony);">Naruči</button>
                   </div>
                 </div>
                 <!-- comments -->
@@ -63,6 +63,8 @@
         </div> 
     </div>
 </div>
+
+<app-add-reservation-modal (cancelClicked)='hideAddReservationModal()' [sonyForReservation]="sonyForReservation" *ngIf="displayAddReservationModal"></app-add-reservation-modal>
 
 <div *ngIf="showModal" class='modalBackground'>
   <div class='modal'>

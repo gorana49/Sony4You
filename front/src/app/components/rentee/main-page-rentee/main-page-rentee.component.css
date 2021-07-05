@@ -104,3 +104,42 @@
 .oglas-dugme:hover{
     background-color: rgb(146, 125, 122);
 }
+
+.rentee{
+    margin:5px;
+    padding:5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    text-align: left;
+    background-color: rgb(184, 157, 153);
+    color: black;
+}
+
+.sonies{
+    display: flex;
+    flex-direction: column;
+}
+
+.userLbl{
+    margin:10px;
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    width: 70%;
+}
+.labela{
+    margin:5px;
+    color: white;
+    font-size: 27px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.small-button{
+    padding: 3px;
+
+}
+.small-button:hover{
+    background-color: whitesmoke;
+    
+}

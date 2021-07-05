@@ -46,10 +46,11 @@ import {Comment } from "../models/Comment"
       let url=this.baseUrl+`Rentee/GetCommentsForRenterer?UsernameRenterer=${rentererUsername}`;
       return this.http.get<Comment[]>(url);
     }
+
+    sendFriendRequest(sender: string, reciever:string): Observable<any>{
+      let url=this.baseUrl+`Rentee/AddRequest?SenderRequestUsername=${sender}&ReceiverRequestUsername=${reciever}`;
+      return this.http.post<any>(url,null);
+    }
   
-  
-    // createSony(sony: Sony):Observable<Sony>{
-    //   let url=this.baseUrl+`/job`;
-    //   return this.http.post<Sony>(url,sony);
-    // }
+   
 }
