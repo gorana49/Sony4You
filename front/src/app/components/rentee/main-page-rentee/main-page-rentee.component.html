@@ -16,7 +16,7 @@
                 <button type="button" class="small-button btn" (click)="sendFriednRequest(rentee);">Pošalji zahtev za prijateljstvo</button>
             </div>
         <div class="notification"> 
-            <div *ngIf='notifications.length' >  
+            <div *ngIf='notifications && notifications.length' >  
                 <div *ngFor="let notif of notifications">
                    {{notif.Message}}
                 </div>
