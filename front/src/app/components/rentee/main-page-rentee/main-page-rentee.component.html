@@ -9,6 +9,13 @@
                 <label class="lbl-mail">Broj telefona: {{rentee.phoneNumber}}</label>
             </div>
         </div>
+        <div class="notification"> 
+            <div *ngIf='notifications.length' >  
+                <div *ngFor="let notif of notifications">
+                   {{notif.Message}}
+                </div>
+              </div>
+        </div>
         <div class="reziser-main">
             <router-outlet></router-outlet>
         </div>

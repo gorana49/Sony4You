@@ -22,11 +22,23 @@ namespace back.Controllers
             await _repository.SendMessage(message);
             return Ok();
         }
+        [HttpPost]
+        public async Task<ActionResult> SendNotification([FromBody] NotificationDTO notification)
+        {
+            await _repository.SendNotification(notification);
+            return Ok();
+        }
 
         [HttpGet]
         public async Task<ActionResult> ReceiveMessage([FromQuery] string senderId, [FromQuery] string receiverId, [FromQuery] string from, [FromQuery] int count)
         {
             var messages = await _repository.ReceiveMessage(senderId, receiverId, from, count);
+            return Ok(messages);
+        }
+        [HttpGet]
+        public async Task<ActionResult> ReceiveNotification([FromQuery] string senderId, [FromQuery] string receiverId, [FromQuery] string from, [FromQuery] int count)
+        {
+            var messages = await _repository.ReceiveNotiffication(senderId, receiverId, from, count);
             return Ok(messages);
         }
 

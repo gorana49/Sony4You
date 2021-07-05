@@ -54,4 +54,11 @@ izdavaciClicked(){
       this.router.navigate(['./renterer/reservation'])
     }
   }
+  chatClicked()
+  {
+    const loggedUserData: LoggedUser= JSON.parse(localStorage.getItem("user"));
+    if(loggedUserData.role==="renterer"){
+      this.router.navigate(['./renterer/chat'])
+    }
+  }
 }

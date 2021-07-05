@@ -11,7 +11,6 @@ namespace back.HubConfiguration
             // Console.WriteLine(mess.receiverId, mess.clientuniqueid);
             //   onlineUsers.Add(mess.senderUsername, mess.clientuniqueid);
             //    Clients.Client(mess.receiverId).SendAsync("MessageReceived", mess);
-
             Clients.All.SendAsync("MessageReceived", mess);
 
         }

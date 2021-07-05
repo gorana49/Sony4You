@@ -10,6 +10,8 @@ namespace back.IRepository
         Task SendMessage(MessageDTO message);
         Task<IEnumerable<MessageDTO>> ReceiveMessage(string senderUsername, string receiverUsername, string from, int count);
         Task StartConversation(ConversationDTO participants);
+        Task SendNotification(NotificationDTO notiffication);
+        Task<IEnumerable<NotificationDTO>> ReceiveNotiffication(string senderUsername, string receiverUsername, string from, int count);
         //Task SetTimeToLiveForStream(int senderId, int receiverId);
         //Task<int> GetTimeToLiveForStream(int senderId, int receiverId);
         Task<IEnumerable<Rentee>> GetRentererInChatWith(int rentererId);

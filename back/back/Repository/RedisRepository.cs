@@ -171,7 +171,7 @@ namespace back.Repository
         public async Task PushNotification(NotificationDTO notification)
         {
             var publisher = _connectionMultiplexer.GetSubscriber();
-            publisher.Publish($"notification:{notification.ReceiverId}", JsonSerializer.Serialize<NotificationDTO>(notification));
+            publisher.Publish($"notification:{notification.ReceiverUsername.Length}", JsonSerializer.Serialize<NotificationDTO>(notification));
         }
 
         public async Task UpdatePassword(LoggedUserDTO user)

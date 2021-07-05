@@ -98,6 +98,7 @@ namespace back
             {
                 endpoints.MapControllers();
                 endpoints.MapHub<MessageHub>("/messenger");
+                endpoints.MapHub<NotificationHub>("/notification");
             });
         }
     }

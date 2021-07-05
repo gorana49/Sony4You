@@ -45,6 +45,39 @@ namespace back.Repository
             }
             await redisDB.StreamAddAsync($"messages:{fromUsername}:{toUsername}:chat", values);
         }
+        public async Task SendNotification(NotificationDTO notiffication)
+        {
+            var values = new NameValueEntry[]
+            {
+                new NameValueEntry("sender_username", notiffication.SenderUsername),
+                new NameValueEntry("receiver_username", notiffication.ReceiverUsername),
+                new NameValueEntry("message", notiffication.Message),
+            };
+            IDatabase redisDB = _redisConnection.GetDatabase();
+            await redisDB.StreamAddAsync($"notification:{notiffication.SenderUsername}:{notiffication.ReceiverUsername}:reservation", values);
+        }
+        public async Task<IEnumerable<NotificationDTO>> ReceiveNotiffication(string senderUsername, string receiverUsername, string from, int count)
+        {
+            List<NotificationDTO> retMessages = new List<NotificationDTO>();
+
+            string channelName = $"notification:{senderUsername}:{receiverUsername}:reservation";
+
+            IDatabase redisDb = _redisConnection.GetDatabase();
+            var mess1 = redisDb.StreamRead(channelName, "0-0");
+            from = Uri.UnescapeDataString(from);
+            var messages = redisDb.StreamRead(channelName, "0-0", count: count);
+            foreach (var message in messages)
+            {
+                NotificationDTO mess = new NotificationDTO
+                {
+                    SenderUsername = message.Values.FirstOrDefault(value => value.Name == "sender_username").Value,
+                    ReceiverUsername = message.Values.FirstOrDefault(value => value.Name == "receiver_username").Value,
+                    Message = message.Values.FirstOrDefault(value => value.Name == "message").Value
+                };
+                retMessages.Add(mess);
+            }
+            return retMessages;
+        }
 
         public async Task<IEnumerable<MessageDTO>> ReceiveMessage(string senderUsername, string receiverUsername, string from, int count)
         {

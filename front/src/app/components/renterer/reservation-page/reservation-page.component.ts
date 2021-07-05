@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { NotificationDTO } from 'src/app/models/NotificationDTO';
 import { Renterer } from 'src/app/models/Renterer';
 import { Reservation } from 'src/app/models/Reservation';
 import { Sony } from 'src/app/models/Sony';
 import { SonyReservations } from 'src/app/models/SonyReservations';
 import { RentererService } from 'src/app/services/renterer.service';
 import { ReservationService } from 'src/app/services/reservation.service';
+import {NotificationService} from '../../../services/notification.service'
 
 @Component({
   selector: 'app-reservation-page',
@@ -15,7 +17,8 @@ export class ReservationPageComponent implements OnInit {
 
   sonyReservations:SonyReservations[];
   constructor(private rentererService:RentererService,
-              private reservationService: ReservationService) 
+              private reservationService: ReservationService,
+              private notificationService:NotificationService) 
   { 
     this.sonyReservations = [];
   }
@@ -41,6 +44,10 @@ export class ReservationPageComponent implements OnInit {
 
   btnApproveReservation(res:Reservation) {
     this.reservationService.approveReservationRequest(res).subscribe((val) => {})
+    var user = JSON.parse(localStorage.getItem("user")).username;
+    var notif:NotificationDTO = new NotificationDTO(user, res.usernameRentee, "Vasa rezervacija je uspesno prosla!");
+    this.notificationService.sendNotification(notif);
+    this.notificationService.sendNotificationToRedis(notif);
     location.reload();
   };
   

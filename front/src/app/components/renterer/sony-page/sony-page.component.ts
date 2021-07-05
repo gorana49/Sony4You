@@ -49,6 +49,7 @@ export class SonyPageComponent implements OnInit {
       this.rentererService.createSony(user.username,this.newSony)
       .subscribe(value=>{
       })}
+    //  setTimeout(this.createSony,2000);
     location.reload();
   }
 
